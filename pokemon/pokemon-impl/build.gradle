@@ -1,0 +1,20 @@
+import com.badront.pokedex.AppModules
+import com.badront.pokedex.Libraries
+apply plugin: Libraries.Android.libraryPlugin
+
+apply from: "$rootDir/config/config-android.gradle"
+apply from: "$rootDir/config/dependencies-groups.gradle"
+
+dependencies {
+    implementation project(AppModules.core)
+    implementation project(AppModules.Pokemon.api)
+    kotlinLib()
+    viewModel()
+    timber()
+    hilt()
+    networkCore()
+    room()
+    supportCore()
+    supportViews()
+    coil()
+}

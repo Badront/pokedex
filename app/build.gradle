@@ -1,0 +1,31 @@
+import com.badront.pokedex.AppModules
+import com.badront.pokedex.Libraries
+apply plugin: Libraries.Android.appPlugin
+apply plugin: Libraries.DI.Hilt.plugin
+
+apply from: "$rootDir/config/config-android.gradle"
+apply from: "$rootDir/config/dependencies-groups.gradle"
+
+android {
+    defaultConfig {
+        applicationId "com.badront.pokedex"
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+dependencies {
+    implementation project(AppModules.Pokemon.api)
+    implementation project(AppModules.Pokemon.impl)
+
+    kotlinLib()
+    hilt()
+    networkFull()
+    room()
+    timber()
+    leakCanary()
+    supportCore()
+    supportViews()
+    viewModel()
+    coil()
+}

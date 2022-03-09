@@ -1,0 +1,9 @@
+import com.badront.pokedex.Libraries
+apply plugin: Libraries.Android.libraryPlugin
+
+apply from: "$rootDir/config/config-android.gradle"
+apply from: "$rootDir/config/dependencies-groups.gradle"
+
+dependencies {
+    kotlinLib()
+}
