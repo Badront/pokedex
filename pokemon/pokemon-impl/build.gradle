@@ -11,7 +11,7 @@ dependencies {
     kotlinLib()
     viewModel()
     timber()
-    hilt()
+    hiltDI()
     networkCore()
     room()
     supportCore()

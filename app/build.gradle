@@ -15,11 +15,12 @@ android {
 }
 
 dependencies {
+    implementation project(AppModules.core)
     implementation project(AppModules.Pokemon.api)
     implementation project(AppModules.Pokemon.impl)
 
     kotlinLib()
-    hilt()
+    hiltDI()
     networkFull()
     room()
     timber()

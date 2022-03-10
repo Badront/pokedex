@@ -31,6 +31,7 @@ ext {
         implementation Libraries.Support.constraintLayout
         implementation Libraries.Support.cardView
         implementation Libraries.Support.design
+        implementation Libraries.Other.viewBindingDelegate
     }
 
     supportCustomTabs = Group {
@@ -71,7 +72,7 @@ ext {
         kapt Libraries.Database.Room.compiler
     }
 
-    hilt = Group {
+    hiltDI = Group {
         implementation Libraries.DI.Hilt.core
         kapt Libraries.DI.Hilt.compiler
     }

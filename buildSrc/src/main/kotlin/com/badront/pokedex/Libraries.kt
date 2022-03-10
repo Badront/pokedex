@@ -149,6 +149,7 @@ object Libraries {
     object Other {
         const val timber = "com.jakewharton.timber:timber:5.0.1"
         const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.7"
+        const val viewBindingDelegate = "com.github.kirich1409:viewbindingpropertydelegate:1.4.7"
     }
 
     object ImageLoading {
@@ -164,7 +165,6 @@ object Libraries {
             const val okhttp = "com.github.bumptech.glide:okhttp3-integration:$version"
             const val compiler = "com.github.bumptech.glide:compiler:$version"
             const val annotations = "com.github.bumptech.glide:annotations:$version"
-
         }
     }
 }

@@ -6,4 +6,5 @@ apply from: "$rootDir/config/dependencies-groups.gradle"
 
 dependencies {
     kotlinLib()
+    viewModel()
 }
