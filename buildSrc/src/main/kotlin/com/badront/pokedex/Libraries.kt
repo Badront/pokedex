@@ -40,6 +40,7 @@ object Libraries {
         private const val androidxCore = "1.6.0"
         private const val androidxAppCompat = "1.3.1"
         private const val androidxRecycler = "1.2.0"
+        private const val swipeRefreshVersion = "1.1.0"
         private const val material = "1.2.1"
         private const val androidxCardview = "1.0.0"
         private const val constraintLayoutVersion = "2.1.2"
@@ -50,6 +51,7 @@ object Libraries {
         const val customTabs = "androidx.browser:browser:$androidxBrowser"
         const val appCompat = "androidx.appcompat:appcompat:$androidxAppCompat"
         const val recyclerView = "androidx.recyclerview:recyclerview:$androidxRecycler"
+        const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshVersion"
         const val design = "com.google.android.material:material:$material"
         const val cardView = "androidx.cardview:cardview:$androidxCardview"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
@@ -89,6 +91,7 @@ object Libraries {
     }
 
     object DI {
+        const val inject = "javax.inject:javax.inject:1"
         object Dagger {
             private const val version = "2.41"
             const val core = "com.google.dagger:dagger:$version"
@@ -118,6 +121,16 @@ object Libraries {
     }
 
     object Navigation {
+        object Jetpack {
+            private const val version = "2.4.1"
+
+            const val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
+            const val core = "androidx.navigation:navigation-ui-ktx:$version"
+
+            const val classpath = "androidx.navigation:navigation-safe-args-gradle-plugin:$version"
+            const val safeArgPlugin = "androidx.navigation.safeargs.kotlin"
+        }
+
         object Cicerone {
             const val core = "com.github.terrakok:cicerone:5.1.1"
         }

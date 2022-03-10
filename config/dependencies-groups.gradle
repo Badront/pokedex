@@ -28,6 +28,7 @@ ext {
     supportViews = Group {
         implementation Libraries.Support.fragmentsKtx
         implementation Libraries.Support.recyclerView
+        implementation Libraries.Support.swipeRefreshLayout
         implementation Libraries.Support.constraintLayout
         implementation Libraries.Support.cardView
         implementation Libraries.Support.design
@@ -36,6 +37,11 @@ ext {
 
     supportCustomTabs = Group {
         implementation Libraries.Support.customTabs
+    }
+
+    navigationJetpack = Group {
+        implementation Libraries.Navigation.Jetpack.core
+        implementation Libraries.Navigation.Jetpack.fragment
     }
 
     navigationCicerone = Group {

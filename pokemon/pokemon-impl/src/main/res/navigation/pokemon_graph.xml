@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pokemon_graph"
+    app:startDestination="@id/pokemonList">
+
+    <fragment
+        android:id="@+id/pokemonList"
+        android:name="com.badront.pokedex.pokemon.list.presentation.PokemonListFragment"
+        android:label="@string/pokemon_list_title"
+        tools:layout="@layout/fr_pokemon_list">
+
+        <action
+            android:id="@+id/toDetails"
+            app:destination="@id/pokemonDetails" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/pokemonDetails"
+        android:name="com.badront.pokedex.pokemon.details.presentation.PokemonDetailsFragment"
+        android:label="@string/pokemon_details_title"
+        tools:layout="@layout/fr_pokemon_details">
+        <argument
+            android:name="parameters"
+            app:argType="com.badront.pokedex.pokemon.details.presentation.PokemonDetailsParameters" />
+    </fragment>
+</navigation>

@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 class PokemonDto(
     @SerializedName("id")
-    val id: Long,
+    val id: Int,
     @SerializedName("name")
     val name: String,
     @SerializedName("order")
-    val order: Long,
+    val order: Int,
     @SerializedName("types")
     val types: List<PokemonTypeDto>,
     @SerializedName("stats")

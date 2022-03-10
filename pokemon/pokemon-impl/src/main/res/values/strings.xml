@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pokemon_list_title">Pokemons List</string>
+    <string name="pokemon_details_title">Pokemon Details</string>
+    <string name="pokemon_next_page_loading_error">Error loading next page.\nPlease try again</string>
+</resources>

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 class ListPokemonResultDto<T>(
     @SerializedName("count")
-    val totalCount: Long,
+    val totalCount: Int,
     @SerializedName("next")
     val nextUrl: String? = null,
     @SerializedName("previous")

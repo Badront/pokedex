@@ -3,6 +3,7 @@ package com.badront.pokedex
 object AppModules {
     const val app = ":app"
     const val core = ":core"
+    const val coreAndroid = ":core-android"
 
     object Pokemon {
         private const val DIR = ":pokemon"

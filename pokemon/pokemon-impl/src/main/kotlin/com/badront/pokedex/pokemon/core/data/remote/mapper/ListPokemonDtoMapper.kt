@@ -7,10 +7,11 @@ import javax.inject.Inject
 class ListPokemonDtoMapper @Inject constructor() {
     fun map(dto: ListPokemonDto): ListPokemon {
         val currentUrl = dto.url.dropLastWhile { it.isDigit().not() }
-        val id = currentUrl.takeLastWhile { it.isDigit() }.toLong()
+        val id = currentUrl.takeLastWhile { it.isDigit() }.toInt()
         return ListPokemon(
             id = id,
             name = dto.name,
+            number = id,
             image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png"
         )
     }

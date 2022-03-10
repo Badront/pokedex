@@ -11,7 +11,16 @@ import javax.inject.Inject
 class LoadListPokemonsPage @Inject constructor(
     private val pokemonListRepository: PokemonListRepository
 ) {
-    suspend operator fun invoke(pageInfo: PageInfo): Result<Page<ListPokemon>, LoadingPokemonListException> {
-        return pokemonListRepository.loadPokemonList(pageInfo)
+    suspend operator fun invoke(offset: Int): Result<Page<ListPokemon>, LoadingPokemonListException> {
+        return pokemonListRepository.loadPokemonList(
+            PageInfo(
+                limit = PAGE_LIMIT,
+                offset = offset
+            )
+        )
+    }
+
+    private companion object {
+        private const val PAGE_LIMIT = 100
     }
 }
