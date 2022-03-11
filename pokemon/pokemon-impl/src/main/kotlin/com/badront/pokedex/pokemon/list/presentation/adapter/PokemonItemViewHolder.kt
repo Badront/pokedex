@@ -23,7 +23,10 @@ internal class PokemonItemViewHolder(
     override fun bind(item: PokemonListUiModel.Pokemon) {
         super.bind(item)
         viewBinding.pokemonName.text = item.name
-        viewBinding.pokemonImage.load(item.image)
+        viewBinding.pokemonImage.load(item.image) {
+            placeholder(R.drawable.egg)
+            crossfade(true)
+        }
         viewBinding.pokemonImage.contentDescription = item.name
     }
 }
