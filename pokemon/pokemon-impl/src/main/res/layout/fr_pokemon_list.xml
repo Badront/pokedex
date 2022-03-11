@@ -27,11 +27,45 @@
             tools:listitem="@layout/li_pokemon_item" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <LinearLayout
+        android:id="@+id/loadingError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_rounded"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/offset_16"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <TextView
+            style="@style/ErrorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/pokemon_first_page_loading_error"
+            android:textAlignment="center" />
+
+        <ImageView
+            android:id="@+id/loadingRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/offset_8"
+            app:srcCompat="@drawable/ic_retry"
+            app:tint="?attr/colorSecondary" />
+    </LinearLayout>
+
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/loadingProgress"
         android:layout_width="68dp"
         android:layout_height="68dp"
+        android:indeterminate="true"
         android:visibility="gone"
+        app:indicatorColor="?attr/colorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

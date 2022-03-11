@@ -3,6 +3,7 @@ package com.badront.pokedex.pokemon.list.presentation
 import androidx.lifecycle.viewModelScope
 import com.badront.pokedex.core.coroutines.AppDispatchers
 import com.badront.pokedex.core.ext.kotlinx.coroutines.isCompletedOrCanceled
+import com.badront.pokedex.core.model.LoadingState
 import com.badront.pokedex.core.model.doOnFailure
 import com.badront.pokedex.core.model.doOnSuccess
 import com.badront.pokedex.core.presentation.BaseViewModel
@@ -29,7 +30,7 @@ internal class PokemonListViewModel @Inject constructor(
 ) : BaseViewModel<PokemonListUiState, PokemonListViewModel.Action, PokemonListViewModel.Event>() {
     private var loadingJob: Job? = null
     private var totalCount: Int? = null
-    private var stateFlow = MutableStateFlow(State(isLoading = true))
+    private var stateFlow = MutableStateFlow(State(loadingState = LoadingState.LOADING))
     private var state: State
         get() = stateFlow.value
         set(value) {
@@ -59,11 +60,18 @@ internal class PokemonListViewModel @Inject constructor(
                 sendAction(Action.OpenPokemonDetails(PokemonDetailsParameters(event.pokemon.id)))
             }
             Event.ScrolledToNextPage -> {
-                scrollToNextPageIfNeeded()
+                if (state.nextPageLoadingState == LoadingState.DATA && state.loadingState == LoadingState.DATA) {
+                    scrollToNextPageIfNeeded()
+                }
             }
             Event.Refresh -> {
                 state = state.copy(isRefreshing = true)
                 totalCount = null
+                loadingJob?.cancel()
+                loadPage(0)
+            }
+            Event.OnRetryLoadingClick -> {
+                state = state.copy(loadingState = LoadingState.LOADING)
                 loadingJob?.cancel()
                 loadPage(0)
             }
@@ -90,9 +98,9 @@ internal class PokemonListViewModel @Inject constructor(
             }) {
                 state = state.copy(
                     nextPageLoadingState = if (isFirstPage) {
-                        NextPageLoadingState.NONE
+                        LoadingState.DATA
                     } else {
-                        NextPageLoadingState.LOADING
+                        LoadingState.LOADING
                     }
                 )
                 loadListPokemonsPage(offset = offset)
@@ -103,8 +111,8 @@ internal class PokemonListViewModel @Inject constructor(
                         totalCount = newItemsPage.total
                         state = state.copy(
                             isRefreshing = false,
-                            isLoading = false,
-                            nextPageLoadingState = NextPageLoadingState.NONE,
+                            loadingState = LoadingState.DATA,
+                            nextPageLoadingState = LoadingState.DATA,
                             items = if (isFirstPage) {
                                 newItemsPage.items
                             } else {
@@ -119,34 +127,37 @@ internal class PokemonListViewModel @Inject constructor(
     private fun onLoadingUnhandledError(throwable: Throwable, isFirstPage: Boolean) {
         state = state.copy(
             isRefreshing = false,
-            isLoading = false,
-            nextPageLoadingState = if (isFirstPage) {
-                NextPageLoadingState.NONE
+            loadingState = if (isFirstPage && state.isRefreshing.not()) {
+                LoadingState.ERROR
             } else {
-                NextPageLoadingState.ERROR
+                LoadingState.DATA
+            },
+            nextPageLoadingState = if (isFirstPage) {
+                LoadingState.DATA
+            } else {
+                LoadingState.ERROR
             }
         )
         sendAction(Action.ShowError(throwable.localizedMessage))
     }
 
+    fun isPageLoading(): Boolean {
+        return loadingJob.isCompletedOrCanceled().not()
+    }
+
     internal data class State(
         val isRefreshing: Boolean = false,
-        val isLoading: Boolean = true,
-        val nextPageLoadingState: NextPageLoadingState = NextPageLoadingState.NONE,
+        val loadingState: LoadingState = LoadingState.LOADING,
+        val nextPageLoadingState: LoadingState = LoadingState.DATA,
         val items: List<ListPokemon> = emptyList()
     )
 
-    internal enum class NextPageLoadingState {
-        NONE,
-        LOADING,
-        ERROR
-    }
-
     internal sealed class Event {
         class OnPokemonClick(val pokemon: PokemonListUiModel.Pokemon) : Event()
+        object Refresh : Event()
+        object OnRetryLoadingClick : Event()
         object ScrolledToNextPage : Event()
         object OnRetryNextPageLoadingClick : Event()
-        object Refresh : Event()
     }
 
     internal sealed class Action {

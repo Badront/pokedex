@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.badront.pokedex.core.ext.kotlinx.coroutines.flow.observe
 import com.badront.pokedex.core.presentation.BaseFragment
+import com.badront.pokedex.core.util.recycler.PageScrollListener
 import com.badront.pokedex.pokemon.impl.R
 import com.badront.pokedex.pokemon.impl.databinding.FrPokemonListBinding
 import com.badront.pokedex.pokemon.list.presentation.adapter.PokemonListAdapter
@@ -47,6 +48,15 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
     private val spaceItemDecoration by lazy {
         PokemonGridSpacingItemDecoration(requireContext())
     }
+    private val nextPageScrollListener: PageScrollListener = object : PageScrollListener() {
+        override val itemsBeforeLoad: Int = ITEMS_BEFORE_NEXT_PAGE_LOAD
+
+        override fun isPageLoading(): Boolean = viewModel.isPageLoading()
+
+        override fun loadNextPage() {
+            viewModel.onEvent(PokemonListViewModel.Event.ScrolledToNextPage)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,14 +64,19 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
             adapter = pokemonsAdapter
             layoutManager = pokemonsLayoutManager
             addItemDecoration(spaceItemDecoration)
+            addOnScrollListener(nextPageScrollListener)
         }
         viewBinding.refresh.setOnRefreshListener {
             viewModel.onEvent(PokemonListViewModel.Event.Refresh)
+        }
+        viewBinding.loadingError.setOnClickListener {
+            viewModel.onEvent(PokemonListViewModel.Event.OnRetryLoadingClick)
         }
     }
 
     override fun onDestroyView() {
         with(viewBinding.pokemons) {
+            removeOnScrollListener(nextPageScrollListener)
             removeItemDecoration(spaceItemDecoration)
             layoutManager = null
             adapter = null
@@ -93,14 +108,31 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
     }
 
     private fun bindState(state: PokemonListUiState) {
-        pokemonsAdapter.setItems(state.items)
         viewBinding.refresh.isRefreshing = state.isRefreshing
-        viewBinding.refresh.isVisible = state.isLoading.not()
-        viewBinding.loadingProgress.isVisible = state.isLoading
+        when (state.content) {
+            is PokemonListUiState.Content.Data -> {
+                viewBinding.refresh.isVisible = true
+                viewBinding.loadingProgress.isVisible = false
+                viewBinding.loadingError.isVisible = false
+                pokemonsAdapter.setItems(state.content.items)
+            }
+            PokemonListUiState.Content.Error -> {
+                viewBinding.refresh.isVisible = false
+                viewBinding.loadingProgress.isVisible = false
+                viewBinding.loadingError.isVisible = true
+            }
+            PokemonListUiState.Content.Loading -> {
+                viewBinding.refresh.isVisible = false
+                viewBinding.loadingProgress.isVisible = true
+                viewBinding.loadingError.isVisible = false
+            }
+        }
     }
 
     private companion object {
         private const val TOTAL_SPAN_COUNT = 3
         private const val DEFAULT_SPAN_SIZE = 1
+
+        private const val ITEMS_BEFORE_NEXT_PAGE_LOAD = 5
     }
 }

@@ -24,5 +24,6 @@ internal class PokemonItemViewHolder(
         super.bind(item)
         viewBinding.pokemonName.text = item.name
         viewBinding.pokemonImage.load(item.image)
+        viewBinding.pokemonImage.contentDescription = item.name
     }
 }
