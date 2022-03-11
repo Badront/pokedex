@@ -25,6 +25,7 @@ internal class PokemonItemViewHolder(
         viewBinding.pokemonName.text = item.name
         viewBinding.pokemonImage.load(item.image) {
             placeholder(R.drawable.egg)
+            error(R.drawable.empty)
             crossfade(true)
         }
         viewBinding.pokemonImage.contentDescription = item.name
