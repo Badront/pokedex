@@ -104,6 +104,9 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
             is PokemonListViewModel.Action.ShowError -> {
                 Toast.makeText(requireContext(), action.message, Toast.LENGTH_SHORT).show()
             }
+            PokemonListViewModel.Action.RefreshNextPageScroll -> {
+                nextPageScrollListener.refresh()
+            }
         }
     }
 

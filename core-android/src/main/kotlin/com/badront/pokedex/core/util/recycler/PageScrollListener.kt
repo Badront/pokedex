@@ -23,4 +23,8 @@ abstract class PageScrollListener : RecyclerView.OnScrollListener() {
             }
         }
     }
+
+    fun refresh() {
+        lastVisibleItemPosition = 0
+    }
 }

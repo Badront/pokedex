@@ -109,6 +109,9 @@ internal class PokemonListViewModel @Inject constructor(
                     }
                     .doOnSuccess { newItemsPage ->
                         totalCount = newItemsPage.total
+                        if (state.isRefreshing) {
+                            sendAction(Action.RefreshNextPageScroll)
+                        }
                         state = state.copy(
                             isRefreshing = false,
                             loadingState = LoadingState.DATA,
@@ -163,5 +166,6 @@ internal class PokemonListViewModel @Inject constructor(
     internal sealed class Action {
         class ShowError(val message: String?) : Action()
         class OpenPokemonDetails(val params: PokemonDetailsParameters) : Action()
+        object RefreshNextPageScroll : Action()
     }
 }
