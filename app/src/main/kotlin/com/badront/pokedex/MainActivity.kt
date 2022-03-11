@@ -12,4 +12,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportFragmentManager.registerFragmentLifecycleCallbacks(BaseFragmentLifecycleCallbacks(), true)
     }
+
+    override fun onBackPressed() {
+        if (onBackPressedDispatcher.hasEnabledCallbacks()) {
+            super.onBackPressed()
+        } else {
+            finishAfterTransition()
+        }
+    }
 }
