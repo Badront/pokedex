@@ -11,6 +11,11 @@ android {
         applicationId "com.badront.pokedex"
         versionCode 1
         versionName "1.0"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 }
 

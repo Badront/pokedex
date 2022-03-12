@@ -1,4 +1,4 @@
-package com.badront.pokedex.pokemon.di
+package com.badront.pokedex.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

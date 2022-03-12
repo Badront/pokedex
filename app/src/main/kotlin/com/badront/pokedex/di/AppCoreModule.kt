@@ -1,4 +1,4 @@
-package com.badront.pokedex.pokemon.di
+package com.badront.pokedex.di
 
 import com.badront.pokedex.core.coroutines.AppDispatchers
 import com.badront.pokedex.core.coroutines.JvmAppDispatchers
