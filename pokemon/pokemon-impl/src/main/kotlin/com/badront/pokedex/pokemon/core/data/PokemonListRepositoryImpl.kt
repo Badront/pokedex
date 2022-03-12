@@ -28,6 +28,13 @@ class PokemonListRepositoryImpl @Inject constructor(
             }
     }
 
+    override suspend fun getPokemonById(id: Int): ListPokemon? {
+        return listPokemonDao
+            .getById(id)?.let {
+                listPokemonEntityMapper.map(it)
+            }
+    }
+
     override suspend fun loadPokemonList(pageInfo: PageInfo): Result<Page<ListPokemon>, LoadingPokemonListException> {
         return runCatching {
             pokemonApi.getPokemonsPage(

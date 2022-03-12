@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface PokemonListRepository {
     fun getPokemonsAsFlow(): Flow<List<ListPokemon>>
+    suspend fun getPokemonById(id: Int): ListPokemon?
     suspend fun loadPokemonList(pageInfo: PageInfo): Result<Page<ListPokemon>, LoadingPokemonListException>
     suspend fun savePokemonList(pokemons: List<ListPokemon>)
     suspend fun replacePokemonList(pokemons: List<ListPokemon>)

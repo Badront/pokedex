@@ -162,7 +162,7 @@ object Libraries {
     object Other {
         const val timber = "com.jakewharton.timber:timber:5.0.1"
         const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.7"
-        const val viewBindingDelegate = "com.github.kirich1409:viewbindingpropertydelegate:1.4.7"
+        const val viewBindingDelegate = "com.github.kirich1409:viewbindingpropertydelegate:1.5.3"
     }
 
     object ImageLoading {

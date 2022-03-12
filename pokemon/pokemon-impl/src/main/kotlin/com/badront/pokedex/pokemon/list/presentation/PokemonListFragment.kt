@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
-    private val viewBinding: FrPokemonListBinding by viewBinding()
+    private val viewBinding by viewBinding(FrPokemonListBinding::bind)
     private val viewModel: PokemonListViewModel by viewModels()
     private val pokemonsAdapter by lazy {
         PokemonListAdapter(

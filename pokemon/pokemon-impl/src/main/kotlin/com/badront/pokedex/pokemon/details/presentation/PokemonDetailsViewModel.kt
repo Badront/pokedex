@@ -3,13 +3,30 @@ package com.badront.pokedex.pokemon.details.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.badront.pokedex.core.presentation.BaseViewModel
+import com.badront.pokedex.pokemon.core.domain.model.ListPokemon
+import com.badront.pokedex.pokemon.list.domain.GetPokemonById
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 
 class PokemonDetailsViewModel @AssistedInject constructor(
-    @Assisted private val parameters: PokemonDetailsParameters
-) : BaseViewModel<Unit, Unit, Unit>() {
+    @Assisted private val parameters: PokemonDetailsParameters,
+    private val getPokemonById: GetPokemonById
+) : BaseViewModel<PokemonDetailsViewModel.State, Unit, Unit>() {
+    init {
+        subscribeForPokemon()
+    }
+
+    private fun subscribeForPokemon() {
+        launch {
+            val listPokemon = getPokemonById(parameters.id)
+            viewState = State(listPokemon)
+        }
+    }
+
+    data class State(
+        val pokemon: ListPokemon?
+    )
 
     companion object {
         fun provideFactory(
