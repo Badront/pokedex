@@ -10,13 +10,15 @@ import com.badront.pokedex.pokemon.list.presentation.model.PokemonListUiModel
 
 internal class PokemonItemViewHolder(
     parent: ViewGroup,
-    onClick: (PokemonListUiModel.Pokemon) -> Unit
+    onClick: (position: Int, pokemon: PokemonListUiModel.Pokemon) -> Unit
 ) : BaseViewHolder<PokemonListUiModel.Pokemon>(parent, R.layout.li_pokemon_item) {
-    private val viewBinding: LiPokemonItemBinding by viewBinding()
+    val viewBinding: LiPokemonItemBinding by viewBinding()
 
     init {
         viewBinding.root.setOnClickListener {
-            item?.let(onClick)
+            item?.let {
+                onClick(bindingAdapterPosition, it)
+            }
         }
     }
 
@@ -28,6 +30,8 @@ internal class PokemonItemViewHolder(
             error(R.drawable.empty)
             crossfade(true)
         }
+        viewBinding.pokemonImage.transitionName = item.image
+        viewBinding.pokemonImage.tag = item.image
         viewBinding.pokemonImage.contentDescription = item.name
     }
 }

@@ -8,7 +8,7 @@ import com.badront.pokedex.pokemon.impl.R
 import com.badront.pokedex.pokemon.list.presentation.model.PokemonListUiModel
 
 internal class PokemonListAdapter(
-    private val onPokemonClick: (PokemonListUiModel.Pokemon) -> Unit,
+    private val onPokemonClick: (position: Int, pokemon: PokemonListUiModel.Pokemon) -> Unit,
     private val onNextPageLoadingRetryClick: () -> Unit
 ) : BaseAsyncAdapter<PokemonListUiModel, RecyclerView.ViewHolder>(Companion) {
     override fun getItemViewType(position: Int): Int {

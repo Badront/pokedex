@@ -1,7 +1,10 @@
 package com.badront.pokedex.pokemon.details.presentation
 
 import android.os.Bundle
+import android.transition.TransitionInflater
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
@@ -25,8 +28,18 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
 
     private val viewBinding by viewBinding(FrPokemonDetailsBinding::bind)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val transition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition = transition
+        sharedElementReturnTransition = transition
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if (savedInstanceState == null) {
+            postponeEnterTransition()
+        }
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onObserveData() {
@@ -37,10 +50,18 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
     }
 
     private fun bindViewState(state: PokemonDetailsViewModel.State) {
-        viewBinding.pokemonImage.load(state.pokemon?.image) {
-            placeholder(R.drawable.egg)
-            error(R.drawable.empty)
-            crossfade(true)
+        state.pokemon?.let { pokemon ->
+            viewBinding.pokemonImage.transitionName = pokemon.image
+            viewBinding.pokemonImage.load(pokemon.image) {
+                placeholder(R.drawable.egg)
+                error(R.drawable.empty)
+                crossfade(true)
+                listener(onError = { _, _ ->
+                    startPostponedEnterTransition()
+                }) { _, _ ->
+                    startPostponedEnterTransition()
+                }
+            }
         }
     }
 }

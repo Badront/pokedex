@@ -69,7 +69,7 @@ internal class PokemonListViewModel @Inject constructor(
     override fun onEvent(event: Event) {
         when (event) {
             is Event.OnPokemonClick -> {
-                sendAction(Action.OpenPokemonDetails(PokemonDetailsParameters(event.pokemon.id)))
+                sendAction(Action.OpenPokemonDetails(event.position, PokemonDetailsParameters(event.pokemon.id)))
             }
             Event.ScrolledToNextPage -> {
                 if (state.nextPageLoadingState == LoadingState.DATA && state.loadingState == LoadingState.DATA) {
@@ -163,7 +163,7 @@ internal class PokemonListViewModel @Inject constructor(
     )
 
     internal sealed class Event {
-        class OnPokemonClick(val pokemon: PokemonListUiModel.Pokemon) : Event()
+        class OnPokemonClick(val position: Int, val pokemon: PokemonListUiModel.Pokemon) : Event()
         object Refresh : Event()
         object OnRetryLoadingClick : Event()
         object ScrolledToNextPage : Event()
@@ -172,7 +172,7 @@ internal class PokemonListViewModel @Inject constructor(
 
     internal sealed class Action {
         class ShowError(val message: String?) : Action()
-        class OpenPokemonDetails(val params: PokemonDetailsParameters) : Action()
+        class OpenPokemonDetails(val position: Int, val params: PokemonDetailsParameters) : Action()
         object RefreshNextPageScroll : Action()
     }
 }

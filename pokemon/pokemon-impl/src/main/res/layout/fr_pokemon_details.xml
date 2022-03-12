@@ -10,6 +10,7 @@
         android:id="@+id/pokemonImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:scaleType="fitCenter"
         android:layout_marginTop="@dimen/offset_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

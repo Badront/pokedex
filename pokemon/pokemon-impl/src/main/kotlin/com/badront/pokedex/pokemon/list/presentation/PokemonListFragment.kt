@@ -3,16 +3,20 @@ package com.badront.pokedex.pokemon.list.presentation
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.app.SharedElementCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.badront.pokedex.core.ext.kotlinx.coroutines.flow.observe
 import com.badront.pokedex.core.presentation.BaseFragment
 import com.badront.pokedex.core.util.recycler.PageScrollListener
 import com.badront.pokedex.pokemon.impl.R
 import com.badront.pokedex.pokemon.impl.databinding.FrPokemonListBinding
+import com.badront.pokedex.pokemon.list.presentation.adapter.PokemonItemViewHolder
 import com.badront.pokedex.pokemon.list.presentation.adapter.PokemonListAdapter
 import com.badront.pokedex.pokemon.list.presentation.model.PokemonListUiModel
 import com.badront.pokedex.pokemon.list.presentation.model.PokemonListUiState
@@ -24,8 +28,8 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
     private val viewModel: PokemonListViewModel by viewModels()
     private val pokemonsAdapter by lazy {
         PokemonListAdapter(
-            onPokemonClick = {
-                viewModel.onEvent(PokemonListViewModel.Event.OnPokemonClick(it))
+            onPokemonClick = { position, pokemon ->
+                viewModel.onEvent(PokemonListViewModel.Event.OnPokemonClick(position, pokemon))
             },
             onNextPageLoadingRetryClick = {
                 viewModel.onEvent(PokemonListViewModel.Event.OnRetryNextPageLoadingClick)
@@ -33,7 +37,12 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
         )
     }
     private val pokemonsLayoutManager by lazy {
-        GridLayoutManager(requireContext(), TOTAL_SPAN_COUNT).apply {
+        object : GridLayoutManager(requireContext(), TOTAL_SPAN_COUNT) {
+            override fun onLayoutCompleted(state: RecyclerView.State) {
+                super.onLayoutCompleted(state)
+                startPostponedEnterTransition()
+            }
+        }.apply {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     return when {
@@ -60,6 +69,7 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        prepareTransitions()
         with(viewBinding.pokemons) {
             adapter = pokemonsAdapter
             layoutManager = pokemonsLayoutManager
@@ -99,7 +109,16 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
     private fun bindAction(action: PokemonListViewModel.Action) {
         when (action) {
             is PokemonListViewModel.Action.OpenPokemonDetails -> {
-                findNavController().navigate(PokemonListFragmentDirections.toDetails(action.params))
+                val viewHolder =
+                    viewBinding.pokemons.findViewHolderForAdapterPosition(action.position) as PokemonItemViewHolder
+                with(viewHolder.viewBinding) {
+                    findNavController().navigate(
+                        directions = PokemonListFragmentDirections.toDetails(action.params),
+                        navigatorExtras = FragmentNavigatorExtras(
+                            pokemonImage to pokemonImage.transitionName
+                        )
+                    )
+                }
             }
             is PokemonListViewModel.Action.ShowError -> {
                 Toast.makeText(requireContext(), action.message, Toast.LENGTH_SHORT).show()
@@ -130,6 +149,20 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
                 viewBinding.loadingError.isVisible = false
             }
         }
+    }
+
+    private fun prepareTransitions() {
+        postponeEnterTransition()
+        setExitSharedElementCallback(object : SharedElementCallback() {
+            override fun onMapSharedElements(names: MutableList<String>, sharedElements: MutableMap<String, View>) {
+                super.onMapSharedElements(names, sharedElements)
+                if (sharedElements.isEmpty()) {
+                    names.forEach { sharedName ->
+                        sharedElements[sharedName] = viewBinding.pokemons.findViewWithTag(sharedName)
+                    }
+                }
+            }
+        })
     }
 
     private companion object {
