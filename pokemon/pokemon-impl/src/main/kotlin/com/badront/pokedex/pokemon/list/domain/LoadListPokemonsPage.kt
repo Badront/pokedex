@@ -1,4 +1,4 @@
-package com.badront.pokedex.pokemon.core.domain.usecase
+package com.badront.pokedex.pokemon.list.domain
 
 import com.badront.pokedex.core.model.Page
 import com.badront.pokedex.core.model.PageInfo

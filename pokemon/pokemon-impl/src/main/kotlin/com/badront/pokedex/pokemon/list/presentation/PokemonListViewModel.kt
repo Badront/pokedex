@@ -8,8 +8,9 @@ import com.badront.pokedex.core.model.doOnFailure
 import com.badront.pokedex.core.model.doOnSuccess
 import com.badront.pokedex.core.presentation.BaseViewModel
 import com.badront.pokedex.pokemon.core.domain.model.ListPokemon
-import com.badront.pokedex.pokemon.core.domain.usecase.LoadListPokemonsPage
 import com.badront.pokedex.pokemon.details.presentation.PokemonDetailsParameters
+import com.badront.pokedex.pokemon.list.domain.GetListPokemonsAsFlow
+import com.badront.pokedex.pokemon.list.domain.LoadAndSaveListPokemonsPage
 import com.badront.pokedex.pokemon.list.presentation.mapper.PokemonListUiModelMapper
 import com.badront.pokedex.pokemon.list.presentation.model.PokemonListUiModel
 import com.badront.pokedex.pokemon.list.presentation.model.PokemonListUiState
@@ -25,7 +26,8 @@ import javax.inject.Inject
 @HiltViewModel
 internal class PokemonListViewModel @Inject constructor(
     private val appDispatchers: AppDispatchers,
-    private val loadListPokemonsPage: LoadListPokemonsPage,
+    private val getListPokemonsAsFlow: GetListPokemonsAsFlow,
+    private val loadAndSaveListPokemonsPage: LoadAndSaveListPokemonsPage,
     private val uiModelMapper: PokemonListUiModelMapper
 ) : BaseViewModel<PokemonListUiState, PokemonListViewModel.Action, PokemonListViewModel.Event>() {
     private var loadingJob: Job? = null
@@ -38,8 +40,18 @@ internal class PokemonListViewModel @Inject constructor(
         }
 
     init {
+        subscribeForCached()
         subscribeForState()
         loadPage(0)
+    }
+
+    private fun subscribeForCached() {
+        getListPokemonsAsFlow()
+            .flowOn(appDispatchers.io)
+            .onEach { pokemons ->
+                state = state.copy(items = pokemons)
+            }
+            .launchIn(viewModelScope)
     }
 
     private fun subscribeForState() {
@@ -47,10 +59,10 @@ internal class PokemonListViewModel @Inject constructor(
             .map { state ->
                 uiModelMapper.map(state)
             }
+            .flowOn(appDispatchers.computing)
             .onEach { uiState ->
                 viewState = uiState
             }
-            .flowOn(appDispatchers.computing)
             .launchIn(viewModelScope)
     }
 
@@ -103,7 +115,7 @@ internal class PokemonListViewModel @Inject constructor(
                         LoadingState.LOADING
                     }
                 )
-                loadListPokemonsPage(offset = offset)
+                loadAndSaveListPokemonsPage(offset = offset)
                     .doOnFailure {
                         onLoadingUnhandledError(it, isFirstPage)
                     }
@@ -115,12 +127,7 @@ internal class PokemonListViewModel @Inject constructor(
                         state = state.copy(
                             isRefreshing = false,
                             loadingState = LoadingState.DATA,
-                            nextPageLoadingState = LoadingState.DATA,
-                            items = if (isFirstPage) {
-                                newItemsPage.items
-                            } else {
-                                state.items.toMutableList().apply { addAll(newItemsPage.items) }
-                            }
+                            nextPageLoadingState = LoadingState.DATA
                         )
                     }
             }
