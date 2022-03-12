@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <ImageView
+        android:id="@+id/pokemonImage"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginHorizontal="@dimen/offset_16"
+        android:layout_marginTop="@dimen/offset_8"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@id/pokemonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/pokemonNumber"
+        style="@style/Text.Regular.8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/offset_4"
+        android:layout_marginEnd="@dimen/offset_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="#999" />
+
+    <TextView
+        android:id="@+id/pokemonName"
+        style="@style/PokemonListItemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/offset_8"
+        android:layout_marginTop="@dimen/offset_4"
+        android:layout_marginBottom="@dimen/offset_4"
+        android:backgroundTint="?attr/colorSecondaryVariant"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pokemonImage"
+        tools:text="@tools:sample/first_names" />
+
+</merge>

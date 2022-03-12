@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="ListItemTitle">
-        <item name="android:textSize">12sp</item>
+    <style name="PokemonListItemTitle" parent="Text.Regular.12">
         <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
-    <style name="ErrorText">
-        <item name="android:textSize">16sp</item>
+    <style name="PokemonListErrorText" parent="Text.Regular.16">
         <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 </resources>

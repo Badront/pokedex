@@ -9,6 +9,7 @@ apply plugin: Libraries.DI.Hilt.plugin
 
 dependencies {
     implementation project(AppModules.core)
+    implementation project(AppModules.coreDesign)
     implementation project(AppModules.coreAndroid)
     implementation project(AppModules.Pokemon.api)
     kotlinLib()
@@ -21,4 +22,5 @@ dependencies {
     supportCore()
     supportViews()
     coil()
+    palette()
 }

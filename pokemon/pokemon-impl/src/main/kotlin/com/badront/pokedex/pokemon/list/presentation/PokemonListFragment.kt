@@ -31,6 +31,9 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
             onPokemonClick = { position, pokemon ->
                 viewModel.onEvent(PokemonListViewModel.Event.OnPokemonClick(position, pokemon))
             },
+            onPokemonPaletteLoaded = { pokemon, palette ->
+                viewModel.onEvent(PokemonListViewModel.Event.PokemonColorPaletteReceived(pokemon, palette))
+            },
             onNextPageLoadingRetryClick = {
                 viewModel.onEvent(PokemonListViewModel.Event.OnRetryNextPageLoadingClick)
             }
@@ -111,14 +114,12 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
             is PokemonListViewModel.Action.OpenPokemonDetails -> {
                 val viewHolder =
                     viewBinding.pokemons.findViewHolderForAdapterPosition(action.position) as PokemonItemViewHolder
-                with(viewHolder.viewBinding) {
-                    findNavController().navigate(
-                        directions = PokemonListFragmentDirections.toDetails(action.params),
-                        navigatorExtras = FragmentNavigatorExtras(
-                            pokemonImage to pokemonImage.transitionName
-                        )
+                findNavController().navigate(
+                    directions = PokemonListFragmentDirections.toDetails(action.params),
+                    navigatorExtras = FragmentNavigatorExtras(
+                        viewHolder.pokemonImage to viewHolder.pokemonImage.transitionName
                     )
-                }
+                )
             }
             is PokemonListViewModel.Action.ShowError -> {
                 Toast.makeText(requireContext(), action.message, Toast.LENGTH_SHORT).show()

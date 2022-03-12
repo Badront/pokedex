@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
@@ -24,7 +25,7 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="3"
             tools:itemCount="10"
-            tools:listitem="@layout/li_pokemon_item" />
+            tools:listitem="@layout/list_pokemon_view" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
@@ -43,7 +44,7 @@
         tools:visibility="visible">
 
         <TextView
-            style="@style/ErrorText"
+            style="@style/PokemonListErrorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

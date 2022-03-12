@@ -1,43 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<com.badront.pokedex.pokemon.list.presentation.ListPokemonView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:id="@+id/listPokemon"
     android:layout_height="wrap_content"
-    android:background="@drawable/li_pokemon_item_bg">
-
-    <ImageView
-        android:id="@+id/pokemonImage"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginHorizontal="@dimen/offset_16"
-        android:layout_marginTop="@dimen/offset_8"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@id/pokemonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/pokemonName"
-        style="@style/ListItemTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/offset_8"
-        android:layout_marginTop="@dimen/offset_4"
-        android:layout_marginBottom="@dimen/offset_8"
-        android:background="@drawable/li_pokemon_item_title_bg"
-        android:backgroundTint="?attr/colorSecondaryVariant"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:paddingHorizontal="@dimen/offset_8"
-        android:paddingVertical="@dimen/offset_4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pokemonImage"
-        tools:text="@tools:sample/first_names" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_width="match_parent"
+    android:background="@drawable/li_pokemon_item_bg" />

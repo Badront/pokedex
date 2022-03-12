@@ -108,4 +108,8 @@ ext {
     timber = Group {
         implementation Libraries.Other.timber
     }
+
+    palette = Group {
+        implementation Libraries.Other.palette
+    }
 }

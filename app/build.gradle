@@ -21,6 +21,7 @@ android {
 
 dependencies {
     implementation project(AppModules.core)
+    implementation project(AppModules.coreDesign)
     implementation project(AppModules.coreAndroid)
     implementation project(AppModules.Pokemon.api)
     implementation project(AppModules.Pokemon.impl)
