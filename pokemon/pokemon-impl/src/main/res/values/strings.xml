@@ -4,4 +4,5 @@
     <string name="pokemon_details_title">Pokemon Details</string>
     <string name="pokemon_first_page_loading_error">Error loading data.\nPlease try again</string>
     <string name="pokemon_next_page_loading_error">Error loading next page.\nPlease try again</string>
+    <string name="pokedex" translatable="false">Pokédex</string>
 </resources>

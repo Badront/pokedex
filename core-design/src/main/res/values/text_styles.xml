@@ -30,6 +30,10 @@
         <item name="android:textSize">@dimen/text_16</item>
     </style>
 
+    <style name="Text.Regular.16.OnPrimary">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
     <style name="Text.Regular.24">
         <item name="android:textSize">@dimen/text_24</item>
     </style>

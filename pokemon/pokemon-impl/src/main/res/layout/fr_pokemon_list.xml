@@ -7,6 +7,31 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
+    <ImageView
+        android:id="@+id/toolbarIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="@dimen/offset_16"
+        android:layout_marginBottom="@dimen/offset_4"
+        app:layout_constraintBottom_toBottomOf="@id/toolbarTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/toolbarTitle"
+        app:srcCompat="@drawable/ic_pokeball"
+        app:tint="@color/dark_gray" />
+
+    <TextView
+        android:id="@+id/toolbarTitle"
+        style="@style/Text.Bold.24"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/offset_8"
+        android:layout_marginTop="@dimen/offset_16"
+        android:layout_marginEnd="@dimen/offset_16"
+        android:text="@string/pokedex"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/toolbarIcon"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="0px"
@@ -15,7 +40,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarTitle"
         tools:visibility="visible">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -32,6 +57,7 @@
         android:id="@+id/loadingError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/offset_16"
         android:background="@drawable/ripple_rounded"
         android:gravity="center"
         android:orientation="vertical"
@@ -40,11 +66,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarTitle"
         tools:visibility="visible">
 
         <TextView
-            style="@style/PokemonListErrorText"
+            style="@style/Text.Regular.16.OnPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

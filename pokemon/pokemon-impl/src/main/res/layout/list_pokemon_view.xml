@@ -33,7 +33,7 @@
 
     <TextView
         android:id="@+id/pokemonName"
-        style="@style/PokemonListItemTitle"
+        style="@style/Text.Regular.12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/offset_8"
