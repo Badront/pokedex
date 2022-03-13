@@ -3,7 +3,7 @@ package com.badront.pokedex.pokemon.details.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.badront.pokedex.core.presentation.BaseViewModel
-import com.badront.pokedex.pokemon.core.domain.model.ListPokemon
+import com.badront.pokedex.pokemon.core.domain.model.Pokemon
 import com.badront.pokedex.pokemon.list.domain.GetPokemonById
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -25,7 +25,7 @@ class PokemonDetailsViewModel @AssistedInject constructor(
     }
 
     data class State(
-        val pokemon: ListPokemon?
+        val pokemon: Pokemon?
     )
 
     companion object {

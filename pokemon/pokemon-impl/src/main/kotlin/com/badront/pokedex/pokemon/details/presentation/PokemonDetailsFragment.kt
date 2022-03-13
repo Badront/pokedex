@@ -51,6 +51,8 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
 
     private fun bindViewState(state: PokemonDetailsViewModel.State) {
         state.pokemon?.let { pokemon ->
+            viewBinding.pokemonName.text = pokemon.name
+            viewBinding.pokemonNumber.text = "#${pokemon.number}"
             viewBinding.pokemonImage.transitionName = pokemon.image
             viewBinding.pokemonImage.load(pokemon.image) {
                 placeholder(R.drawable.egg)

@@ -9,18 +9,19 @@ import com.badront.pokedex.pokemon.core.data.remote.PokemonApi
 import com.badront.pokedex.pokemon.core.data.remote.mapper.ListPokemonDtoMapper
 import com.badront.pokedex.pokemon.core.domain.PokemonListRepository
 import com.badront.pokedex.pokemon.core.domain.exception.LoadingPokemonListException
-import com.badront.pokedex.pokemon.core.domain.model.ListPokemon
+import com.badront.pokedex.pokemon.core.domain.model.Pokemon
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.util.concurrent.CancellationException
 import javax.inject.Inject
 
-class PokemonListRepositoryImpl @Inject constructor(
+internal class PokemonListRepositoryImpl @Inject constructor(
     private val pokemonApi: PokemonApi,
     private val listPokemonDao: ListPokemonDao,
     private val listPokemonDtoMapper: ListPokemonDtoMapper,
     private val listPokemonEntityMapper: ListPokemonEntityMapper
 ) : PokemonListRepository {
-    override fun getPokemonsAsFlow(): Flow<List<ListPokemon>> {
+    override fun getPokemonsAsFlow(): Flow<List<Pokemon>> {
         return listPokemonDao
             .getAllAsFlow()
             .map { entities ->
@@ -28,14 +29,14 @@ class PokemonListRepositoryImpl @Inject constructor(
             }
     }
 
-    override suspend fun getPokemonById(id: Int): ListPokemon? {
+    override suspend fun getPokemonById(id: Int): Pokemon? {
         return listPokemonDao
             .getById(id)?.let {
                 listPokemonEntityMapper.map(it)
             }
     }
 
-    override suspend fun loadPokemonList(pageInfo: PageInfo): Result<Page<ListPokemon>, LoadingPokemonListException> {
+    override suspend fun loadPokemonList(pageInfo: PageInfo): Result<Page<Pokemon>, LoadingPokemonListException> {
         return runCatching {
             pokemonApi.getPokemonsPage(
                 offset = pageInfo.offset,
@@ -50,16 +51,20 @@ class PokemonListRepositoryImpl @Inject constructor(
                 )
             },
             onFailure = { throwable ->
-                Result.failure(LoadingPokemonListException(throwable))
+                if (throwable is CancellationException) {
+                    throw throwable
+                } else {
+                    Result.failure(LoadingPokemonListException(throwable))
+                }
             }
         )
     }
 
-    override suspend fun savePokemonList(pokemons: List<ListPokemon>) {
+    override suspend fun savePokemonList(pokemons: List<Pokemon>) {
         listPokemonDao.insert(pokemons.map { listPokemonEntityMapper.map(it) })
     }
 
-    override suspend fun replacePokemonList(pokemons: List<ListPokemon>) {
+    override suspend fun replacePokemonList(pokemons: List<Pokemon>) {
         listPokemonDao.replaceAll(pokemons.map { listPokemonEntityMapper.map(it) })
     }
 

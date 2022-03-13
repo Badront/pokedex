@@ -1,6 +1,6 @@
 package com.badront.pokedex.pokemon.core.domain.model
 
-class ListPokemon(
+class Pokemon(
     val id: Int,
     val name: String,
     val number: Int,

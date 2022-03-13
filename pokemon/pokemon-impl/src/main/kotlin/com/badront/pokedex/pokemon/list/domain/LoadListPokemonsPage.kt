@@ -5,13 +5,13 @@ import com.badront.pokedex.core.model.PageInfo
 import com.badront.pokedex.core.model.Result
 import com.badront.pokedex.pokemon.core.domain.PokemonListRepository
 import com.badront.pokedex.pokemon.core.domain.exception.LoadingPokemonListException
-import com.badront.pokedex.pokemon.core.domain.model.ListPokemon
+import com.badront.pokedex.pokemon.core.domain.model.Pokemon
 import javax.inject.Inject
 
 class LoadListPokemonsPage @Inject constructor(
     private val pokemonListRepository: PokemonListRepository
 ) {
-    suspend operator fun invoke(offset: Int): Result<Page<ListPokemon>, LoadingPokemonListException> {
+    suspend operator fun invoke(offset: Int): Result<Page<Pokemon>, LoadingPokemonListException> {
         return pokemonListRepository.loadPokemonList(
             PageInfo(
                 limit = PAGE_LIMIT,

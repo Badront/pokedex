@@ -8,7 +8,7 @@ import com.badront.pokedex.core.model.LoadingState
 import com.badront.pokedex.core.model.doOnFailure
 import com.badront.pokedex.core.model.doOnSuccess
 import com.badront.pokedex.core.presentation.BaseViewModel
-import com.badront.pokedex.pokemon.core.domain.model.ListPokemon
+import com.badront.pokedex.pokemon.core.domain.model.Pokemon
 import com.badront.pokedex.pokemon.details.presentation.PokemonDetailsParameters
 import com.badront.pokedex.pokemon.list.domain.GetListPokemonsAsFlow
 import com.badront.pokedex.pokemon.list.domain.LoadAndSaveListPokemonsPage
@@ -165,7 +165,7 @@ internal class PokemonListViewModel @Inject constructor(
         val isRefreshing: Boolean = false,
         val loadingState: LoadingState = LoadingState.LOADING,
         val nextPageLoadingState: LoadingState = LoadingState.DATA,
-        val pokemons: List<ListPokemon> = emptyList()
+        val pokemons: List<Pokemon> = emptyList()
     )
 
     internal sealed class Event {

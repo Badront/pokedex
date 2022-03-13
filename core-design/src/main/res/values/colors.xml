@@ -7,6 +7,7 @@
     <color name="grey">#323233</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="white_10">#1AFFFFFF</color>
     <color name="black">#000000</color>
     <color name="background">#F7F7F7</color>
     <color name="light_gray">#E0E0E0</color>
