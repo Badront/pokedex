@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/weightGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="weight,weightImage,weightTitle" />
+
+    <ImageView
+        android:id="@+id/weightImage"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/weight"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_weight" />
+
+    <TextView
+        android:id="@+id/weight"
+        style="@style/Text.Regular.10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/offset_8"
+        app:layout_constraintBottom_toBottomOf="@id/weightImage"
+        app:layout_constraintEnd_toStartOf="@id/heightImage"
+        app:layout_constraintStart_toEndOf="@id/weightImage"
+        app:layout_constraintTop_toTopOf="@id/weightImage"
+        tools:text="8.5 kg" />
+
+    <TextView
+        android:id="@+id/weightTitle"
+        style="@style/Text.Regular.8.MediumGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/offset_8"
+        android:text="@string/pokemon_weight"
+        app:layout_constraintEnd_toEndOf="@id/weight"
+        app:layout_constraintStart_toStartOf="@id/weightImage"
+        app:layout_constraintTop_toBottomOf="@id/weightImage" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/heightGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="height,heightImage,heightTitle" />
+
+    <ImageView
+        android:id="@+id/heightImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/offset_16"
+        app:layout_constraintEnd_toStartOf="@id/height"
+        app:layout_constraintStart_toEndOf="@id/weight"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_height" />
+
+    <TextView
+        android:id="@+id/height"
+        style="@style/Text.Regular.10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/offset_8"
+        app:layout_constraintBottom_toBottomOf="@id/heightImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/heightImage"
+        app:layout_constraintTop_toTopOf="@id/heightImage"
+        tools:text="8.5 cm" />
+
+    <TextView
+        android:id="@+id/heightTitle"
+        style="@style/Text.Regular.8.MediumGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/offset_8"
+        android:text="@string/pokemon_height"
+        app:layout_constraintEnd_toEndOf="@id/height"
+        app:layout_constraintStart_toStartOf="@id/heightImage"
+        app:layout_constraintTop_toBottomOf="@id/heightImage" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

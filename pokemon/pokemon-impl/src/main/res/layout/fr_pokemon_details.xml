@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/type_ghost"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <ImageView
         android:layout_width="200dp"
@@ -53,6 +53,24 @@
         app:layout_constraintStart_toEndOf="@id/back"
         app:layout_constraintTop_toTopOf="@id/back"
         tools:text="Gastly" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pokemonDetails"
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:layout_marginStart="@dimen/offset_4"
+        android:layout_marginTop="@dimen/offset_minus_40"
+        android:layout_marginEnd="@dimen/offset_4"
+        android:layout_marginBottom="@dimen/offset_4"
+        android:background="@drawable/fr_pokemon_details_list_bg"
+        android:paddingTop="@dimen/offset_40"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pokemonImage"
+        tools:itemCount="3"
+        tools:listitem="@layout/li_pokemon_details_measurements" />
 
     <ImageView
         android:id="@+id/pokemonImage"

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="offset_2">2dp</dimen>
     <dimen name="offset_4">4dp</dimen>
     <dimen name="offset_8">8dp</dimen>
     <dimen name="offset_12">12dp</dimen>
     <dimen name="offset_16">16dp</dimen>
     <dimen name="offset_24">24dp</dimen>
+    <dimen name="offset_40">40dp</dimen>
+    <dimen name="offset_minus_40">-40dp</dimen>
 </resources>

@@ -112,4 +112,8 @@ ext {
     palette = Group {
         implementation Libraries.Other.palette
     }
+
+    flexbox = Group {
+        implementation Libraries.Other.flexbox
+    }
 }
