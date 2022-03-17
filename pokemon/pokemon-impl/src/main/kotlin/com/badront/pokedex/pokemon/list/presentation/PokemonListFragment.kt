@@ -99,14 +99,8 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
 
     override fun onObserveData() {
         super.onObserveData()
-        viewModel.viewStates.observe(viewLifecycleOwner) {
-            if (it != null) {
-                bindState(it)
-            }
-        }
-        viewModel.viewActions.observe(viewLifecycleOwner) {
-            bindAction(it)
-        }
+        viewModel.viewStates.observe(viewLifecycleOwner, ::bindState)
+        viewModel.viewActions.observe(viewLifecycleOwner, ::bindAction)
     }
 
     private fun bindAction(action: PokemonListViewModel.Action) {

@@ -2,6 +2,7 @@ package com.badront.pokedex.core.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.badront.pokedex.core.ext.kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
@@ -18,7 +19,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 
 abstract class BaseViewModel<STATE, ACTION, EVENT> : ViewModel() {
     private val _viewStates = MutableStateFlow<STATE?>(null)
-    val viewStates: Flow<STATE?> = _viewStates
+    val viewStates: Flow<STATE> = _viewStates.filterNotNull()
 
     private val _viewActions = MutableSharedFlow<ACTION>(replay = 0)
     val viewActions: Flow<ACTION> = _viewActions

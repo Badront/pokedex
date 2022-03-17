@@ -14,7 +14,7 @@ internal class PokemonItemViewHolder(
     onClick: (position: Int, pokemon: PokemonListUiModel.Pokemon) -> Unit,
     onPokemonPaletteLoaded: (pokemon: PokemonListUiModel.Pokemon, palette: ColorPalette) -> Unit
 ) : BaseViewHolder<PokemonListUiModel.Pokemon>(parent, R.layout.li_pokemon_item) {
-    val viewBinding: LiPokemonItemBinding by viewBinding()
+    private val viewBinding: LiPokemonItemBinding by viewBinding()
     val pokemonImage: ImageView
         get() = viewBinding.listPokemon.imageView
 

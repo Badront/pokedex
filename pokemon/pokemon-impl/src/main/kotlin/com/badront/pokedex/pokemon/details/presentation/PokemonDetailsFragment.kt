@@ -32,11 +32,15 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
 
     private val viewBinding by viewBinding(FrPokemonDetailsBinding::bind)
 
-    private val detailsAdapter = PokemonDetailsAdapter()
-    private val spacingItemDecoration = LinearSpacingItemDecoration(
-        orientation = RecyclerView.VERTICAL,
-        betweenItems = requireContext().getDimensionPixelOffsetKtx(com.badront.pokedex.design.R.dimen.offset_16)
-    )
+    private val detailsAdapter by lazy {
+        PokemonDetailsAdapter()
+    }
+    private val spacingItemDecoration by lazy {
+        LinearSpacingItemDecoration(
+            orientation = RecyclerView.VERTICAL,
+            betweenItems = requireContext().getDimensionPixelOffsetKtx(com.badront.pokedex.design.R.dimen.offset_16)
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,9 +73,7 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
 
     override fun onObserveData() {
         super.onObserveData()
-        viewModel.viewStates.observe(viewLifecycleOwner) { state ->
-            state?.let { bindViewState(it) }
-        }
+        viewModel.viewStates.observe(viewLifecycleOwner, ::bindViewState)
     }
 
     private fun bindViewState(state: PokemonDetailsViewModel.State) {
