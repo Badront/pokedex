@@ -1,11 +1,11 @@
 package com.badront.pokedex.pokemon.core.data.local.mapper
 
-import com.badront.pokedex.pokemon.core.data.local.model.ListPokemonEntity
+import com.badront.pokedex.pokemon.core.data.local.model.PokemonEntity
 import com.badront.pokedex.pokemon.core.domain.model.Pokemon
 import javax.inject.Inject
 
 class ListPokemonEntityMapper @Inject constructor() {
-    fun map(entity: ListPokemonEntity): Pokemon {
+    fun map(entity: PokemonEntity): Pokemon {
         return Pokemon(
             id = entity.id,
             name = entity.name,
@@ -14,8 +14,8 @@ class ListPokemonEntityMapper @Inject constructor() {
         )
     }
 
-    fun map(model: Pokemon): ListPokemonEntity {
-        return ListPokemonEntity(
+    fun map(model: Pokemon): PokemonEntity {
+        return PokemonEntity(
             id = model.id,
             name = model.name,
             image = model.image,

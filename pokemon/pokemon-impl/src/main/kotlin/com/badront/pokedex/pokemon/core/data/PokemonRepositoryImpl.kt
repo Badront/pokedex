@@ -6,6 +6,7 @@ import com.badront.pokedex.pokemon.core.data.remote.mapper.DetailedPokemonDtoMap
 import com.badront.pokedex.pokemon.core.domain.PokemonRepository
 import com.badront.pokedex.pokemon.core.domain.exception.LoadingPokemonException
 import com.badront.pokedex.pokemon.core.domain.model.DetailedPokemon
+import com.badront.pokedex.pokemon.core.domain.model.PokeId
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -13,7 +14,7 @@ internal class PokemonRepositoryImpl @Inject constructor(
     private val pokemonApi: PokemonApi,
     private val dtoMapper: DetailedPokemonDtoMapper
 ) : PokemonRepository {
-    override suspend fun loadPokemonById(id: Int): Result<DetailedPokemon, LoadingPokemonException> {
+    override suspend fun loadPokemonById(id: PokeId): Result<DetailedPokemon, LoadingPokemonException> {
         return runCatching {
             pokemonApi.getPokemonById(id)
         }.fold(
@@ -26,11 +27,11 @@ internal class PokemonRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun getPokemonById(id: Int): DetailedPokemon? {
+    override suspend fun getPokemonById(id: PokeId): DetailedPokemon? {
         TODO("Not yet implemented")
     }
 
-    override fun getPokemonByIdAsFlow(id: Int): Flow<DetailedPokemon?> {
+    override fun getPokemonByIdAsFlow(id: PokeId): Flow<DetailedPokemon?> {
         TODO("Not yet implemented")
     }
 
@@ -38,7 +39,7 @@ internal class PokemonRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun deletePokemonById(id: Int) {
+    override suspend fun deletePokemonById(id: PokeId) {
         TODO("Not yet implemented")
     }
 }

@@ -9,6 +9,7 @@ import com.badront.pokedex.pokemon.core.data.remote.PokemonApi
 import com.badront.pokedex.pokemon.core.data.remote.mapper.ListPokemonDtoMapper
 import com.badront.pokedex.pokemon.core.domain.PokemonListRepository
 import com.badront.pokedex.pokemon.core.domain.exception.LoadingPokemonListException
+import com.badront.pokedex.pokemon.core.domain.model.PokeId
 import com.badront.pokedex.pokemon.core.domain.model.Pokemon
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -29,7 +30,7 @@ internal class PokemonListRepositoryImpl @Inject constructor(
             }
     }
 
-    override suspend fun getPokemonById(id: Int): Pokemon? {
+    override suspend fun getPokemonById(id: PokeId): Pokemon? {
         return listPokemonDao
             .getById(id)?.let {
                 listPokemonEntityMapper.map(it)

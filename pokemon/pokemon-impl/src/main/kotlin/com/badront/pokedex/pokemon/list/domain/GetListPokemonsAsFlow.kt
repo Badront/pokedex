@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetListPokemonsAsFlow @Inject constructor(
-    private val listPokemonListRepository: PokemonListRepository
+    private val pokemonListRepository: PokemonListRepository
 ) {
     operator fun invoke(): Flow<List<Pokemon>> {
-        return listPokemonListRepository.getPokemonsAsFlow()
+        return pokemonListRepository.getPokemonsAsFlow()
     }
 }

@@ -22,7 +22,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
     @Inject
-    lateinit var pokemonDetailsViewModelFactory: PokemonDetailsViewModelFactory
+    internal lateinit var pokemonDetailsViewModelFactory: PokemonDetailsViewModelFactory
     private val parameters: PokemonDetailsParameters by lazy {
         PokemonDetailsFragmentArgs.fromBundle(requireArguments()).parameters
     }
@@ -77,7 +77,7 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
     }
 
     private fun bindViewState(state: PokemonDetailsViewModel.State) {
-        state.pokemon?.let { pokemon ->
+        state.pokemon?.pokemon?.let { pokemon ->
             viewBinding.pokemonName.text = pokemon.name
             viewBinding.pokemonNumber.text = "#${pokemon.number}"
             viewBinding.pokemonImage.transitionName = pokemon.image

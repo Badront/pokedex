@@ -2,7 +2,7 @@ package com.badront.pokedex.pokemon.core.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-class PokemonDto(
+class PokemonDetailsDto(
     @SerializedName("id")
     val id: Int,
     @SerializedName("name")

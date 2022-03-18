@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.badront.pokedex.data.PokedexDatabase
 import com.badront.pokedex.pokemon.core.data.local.PokemonDatabase
+import com.badront.pokedex.pokemon.core.data.local.migration.PokemonDetailsMigration
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -25,6 +26,7 @@ abstract class AppLocalModule {
         fun providePokedexDatabase(@ApplicationContext context: Context): PokedexDatabase {
             return Room
                 .databaseBuilder(context, PokedexDatabase::class.java, "pokedex-db")
+                .addMigrations(PokemonDetailsMigration(1, 2))
                 .build()
         }
     }

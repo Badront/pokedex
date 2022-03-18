@@ -2,30 +2,45 @@ package com.badront.pokedex.pokemon.details.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.badront.pokedex.core.model.LoadingState
 import com.badront.pokedex.core.presentation.BaseViewModel
-import com.badront.pokedex.pokemon.core.domain.model.Pokemon
+import com.badront.pokedex.pokemon.core.domain.model.DetailedPokemon
 import com.badront.pokedex.pokemon.list.domain.GetPokemonById
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 
-class PokemonDetailsViewModel @AssistedInject constructor(
+internal class PokemonDetailsViewModel @AssistedInject constructor(
     @Assisted private val parameters: PokemonDetailsParameters,
     private val getPokemonById: GetPokemonById
 ) : BaseViewModel<PokemonDetailsViewModel.State, Unit, Unit>() {
     init {
+        viewState = State(loadingState = LoadingState.LOADING)
         subscribeForPokemon()
+        loadPokemonDetails()
+    }
+
+    private fun loadPokemonDetails() {
+        launch(
+            onError = {
+                viewState = viewState.copy(loadingState = LoadingState.ERROR)
+            }
+        ) {
+
+        }
     }
 
     private fun subscribeForPokemon() {
         launch {
-            val listPokemon = getPokemonById(parameters.id)
-            viewState = State(listPokemon)
+            getPokemonById(parameters.id)?.let { listPokemon ->
+                viewState = viewState.copy(pokemon = DetailedPokemon(pokemon = listPokemon))
+            }
         }
     }
 
-    data class State(
-        val pokemon: Pokemon?
+    internal data class State(
+        val loadingState: LoadingState = LoadingState.LOADING,
+        val pokemon: DetailedPokemon? = null
     )
 
     companion object {
@@ -42,6 +57,6 @@ class PokemonDetailsViewModel @AssistedInject constructor(
 }
 
 @AssistedFactory
-interface PokemonDetailsViewModelFactory {
+internal interface PokemonDetailsViewModelFactory {
     fun create(parameters: PokemonDetailsParameters): PokemonDetailsViewModel
 }
