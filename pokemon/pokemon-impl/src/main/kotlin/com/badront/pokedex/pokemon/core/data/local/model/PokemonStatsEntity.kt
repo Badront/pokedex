@@ -8,10 +8,10 @@ import androidx.room.Index
 @Entity(
     tableName = PokemonStatsEntity.TABLE_NAME,
     indices = [
-        Index(PokemonStatsEntity.COLUMN_ID)
+        Index(PokemonStatsEntity.COLUMN_POKEMON_ID)
     ],
     primaryKeys = [
-        PokemonStatsEntity.COLUMN_ID,
+        PokemonStatsEntity.COLUMN_POKEMON_ID,
         PokemonStatsEntity.COLUMN_NAME
     ],
     foreignKeys = [
@@ -21,7 +21,7 @@ import androidx.room.Index
                 PokemonEntity.COLUMN_ID
             ],
             childColumns = [
-                PokemonStatsEntity.COLUMN_ID
+                PokemonStatsEntity.COLUMN_POKEMON_ID
             ],
             onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE
@@ -29,7 +29,7 @@ import androidx.room.Index
     ]
 )
 class PokemonStatsEntity(
-    @ColumnInfo(name = COLUMN_ID)
+    @ColumnInfo(name = COLUMN_POKEMON_ID)
     val pokemonId: Int,
     @ColumnInfo(name = COLUMN_NAME)
     val name: String,
@@ -38,7 +38,7 @@ class PokemonStatsEntity(
 ) {
     companion object {
         internal const val TABLE_NAME = "pokemon_stats"
-        internal const val COLUMN_ID = "pokemon_id"
+        internal const val COLUMN_POKEMON_ID = "pokemon_id"
         internal const val COLUMN_NAME = "name"
         internal const val COLUMN_BASE_VALUE = "base_value"
     }

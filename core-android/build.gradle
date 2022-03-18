@@ -7,6 +7,7 @@ apply from: "$rootDir/config/config-android.gradle"
 apply from: "$rootDir/config/dependencies-groups.gradle"
 
 dependencies {
+    implementation project(AppModules.core)
     implementation project(AppModules.coreDesign)
     kotlinLib()
     viewModel()
@@ -15,4 +16,5 @@ dependencies {
     navigationJetpack()
     coil()
     palette()
+    room()
 }
