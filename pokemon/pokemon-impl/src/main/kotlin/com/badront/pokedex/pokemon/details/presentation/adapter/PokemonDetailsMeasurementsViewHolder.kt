@@ -3,7 +3,7 @@ package com.badront.pokedex.pokemon.details.presentation.adapter
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.badront.pokedex.core.model.setText
+import com.badront.pokedex.core.ext.model.setText
 import com.badront.pokedex.core.util.recycler.BaseViewHolder
 import com.badront.pokedex.pokemon.details.presentation.model.PokemonDetailsUiModel
 import com.badront.pokedex.pokemon.impl.R

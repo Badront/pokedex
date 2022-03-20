@@ -4,7 +4,7 @@ import android.content.res.ColorStateList
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.badront.pokedex.core.model.setText
+import com.badront.pokedex.core.ext.model.setText
 import com.badront.pokedex.core.util.recycler.BaseAsyncAdapter
 import com.badront.pokedex.core.util.recycler.BaseViewHolder
 import com.badront.pokedex.pokemon.details.presentation.model.PokemonDetailsUiModel

@@ -15,6 +15,7 @@ import com.badront.pokedex.core.ext.kotlinx.coroutines.flow.observe
 import com.badront.pokedex.core.presentation.BaseFragment
 import com.badront.pokedex.core.util.recycler.LinearSpacingItemDecoration
 import com.badront.pokedex.pokemon.details.presentation.adapter.PokemonDetailsAdapter
+import com.badront.pokedex.pokemon.details.presentation.model.DetailedPokemonUiModel
 import com.badront.pokedex.pokemon.impl.R
 import com.badront.pokedex.pokemon.impl.databinding.FrPokemonDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -86,12 +87,12 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
         }
     }
 
-    private fun bindViewState(state: PokemonDetailsViewModel.State) {
-        state.pokemon?.pokemon?.let { pokemon ->
-            viewBinding.pokemonName.text = pokemon.name
-            viewBinding.pokemonNumber.text = "#${pokemon.number}"
-            viewBinding.pokemonImage.transitionName = pokemon.image
-            viewBinding.pokemonImage.load(pokemon.image) {
+    private fun bindViewState(state: DetailedPokemonUiModel) {
+        state.header?.let { header ->
+            viewBinding.pokemonName.text = header.name
+            viewBinding.pokemonNumber.text = header.number
+            viewBinding.pokemonImage.transitionName = header.image
+            viewBinding.pokemonImage.load(header.image) {
                 placeholder(R.drawable.egg)
                 error(R.drawable.empty)
                 crossfade(true)
@@ -102,5 +103,6 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
                 }
             }
         }
+        detailsAdapter.setItems(state.detailedList)
     }
 }

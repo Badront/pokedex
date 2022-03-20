@@ -31,9 +31,6 @@ internal class PokemonDetailsUiModelMapperImpl @Inject constructor(
                     }
                 ))
             }
-            if (model.description != null) {
-                add(PokemonDetailsUiModel.Description(model.description.toDesc()))
-            }
         }
     }
 }

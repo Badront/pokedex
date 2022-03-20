@@ -17,6 +17,12 @@ import dagger.hilt.migration.DisableInstallInCheck
 @Module
 @DisableInstallInCheck
 internal abstract class PokemonDetailsModule {
+
+    @Binds
+    abstract fun bindDetailedPokemonUiModelMapper(
+        mapper: DetailedPokemonUiModelMapperImpl
+    ): DetailedPokemonUiModelMapper
+
     @Binds
     abstract fun bindDetailedPokemonHeaderUiModelMapper(
         mapper: DetailedPokemonHeaderUiModelMapperImpl
@@ -26,11 +32,6 @@ internal abstract class PokemonDetailsModule {
     abstract fun bindPokemonDetailsUiModelMapper(
         mapper: PokemonDetailsUiModelMapperImpl
     ): PokemonDetailsUiModelMapper
-
-    @Binds
-    abstract fun bindDetailedPokemonUiModelMapper(
-        mapper: DetailedPokemonUiModelMapperImpl
-    ): DetailedPokemonUiModelMapper
 
     @Binds
     abstract fun bindPokemonDetailsTypeUiMapper(

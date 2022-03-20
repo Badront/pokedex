@@ -1,8 +1,9 @@
-package com.badront.pokedex.core.model
+package com.badront.pokedex.core.ext.model
 
 import android.content.Context
 import android.widget.TextView
 import com.badront.pokedex.core.ext.android.content.getQuantityStringKtx
+import com.badront.pokedex.core.model.StringDesc
 
 fun StringDesc.toCharSequence(context: Context): CharSequence? {
     return when (this) {
