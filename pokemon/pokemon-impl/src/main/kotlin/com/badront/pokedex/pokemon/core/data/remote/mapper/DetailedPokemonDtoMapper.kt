@@ -19,6 +19,7 @@ internal class DetailedPokemonDtoMapper @Inject constructor(
                 image = listPokemonDtoMapper.pokemonImageById(dto.id)
             ),
             details = PokemonDetails(
+                id = dto.id,
                 height = dto.height,
                 weight = dto.weight,
                 types = dto.types.mapNotNull { typeDtoMapper.map(it) }

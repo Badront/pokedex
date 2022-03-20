@@ -1,6 +1,7 @@
 package com.badront.pokedex.pokemon.details.presentation.model
 
 import androidx.annotation.ColorInt
+import com.badront.pokedex.core.model.StringDesc
 import com.badront.pokedex.pokemon.core.domain.model.PokemonType
 
 sealed class PokemonDetailsUiModel {
@@ -9,22 +10,22 @@ sealed class PokemonDetailsUiModel {
     ) : PokemonDetailsUiModel() {
         data class Type(
             val type: PokemonType.Type,
-            val name: String,
+            val name: StringDesc,
             @ColorInt val color: Int
         )
     }
 
     data class Header(
-        val text: String,
+        val text: StringDesc,
         @ColorInt val color: Int
     ) : PokemonDetailsUiModel()
 
     data class Measurements(
-        val height: String?,
-        val weight: String?
+        val height: StringDesc?,
+        val weight: StringDesc?
     ) : PokemonDetailsUiModel()
 
     data class Description(
-        val text: String
+        val text: StringDesc
     ) : PokemonDetailsUiModel()
 }

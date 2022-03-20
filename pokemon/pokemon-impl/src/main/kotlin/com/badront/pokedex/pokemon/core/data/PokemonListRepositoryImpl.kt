@@ -30,6 +30,14 @@ internal class PokemonListRepositoryImpl @Inject constructor(
             }
     }
 
+    override fun getPokemonByIdAsFlow(id: PokeId): Flow<Pokemon?> {
+        return listPokemonDao
+            .getByIdAsFlow(id)
+            .map { pokemonEntity ->
+                pokemonEntity?.let { listPokemonEntityMapper.map(it) }
+            }
+    }
+
     override suspend fun getPokemonById(id: PokeId): Pokemon? {
         return listPokemonDao
             .getById(id)?.let {
@@ -67,6 +75,10 @@ internal class PokemonListRepositoryImpl @Inject constructor(
 
     override suspend fun replacePokemonList(pokemons: List<Pokemon>) {
         listPokemonDao.replaceAll(pokemons.map { listPokemonEntityMapper.map(it) })
+    }
+
+    override suspend fun saveListPokemon(pokemon: Pokemon) {
+        listPokemonDao.insert(listPokemonEntityMapper.map(pokemon))
     }
 
     override suspend fun clearPokemonList() {

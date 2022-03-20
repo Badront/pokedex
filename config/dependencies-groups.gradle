@@ -109,6 +109,10 @@ ext {
         implementation Libraries.Other.timber
     }
 
+    time = Group {
+        implementation Libraries.Other.time
+    }
+
     palette = Group {
         implementation Libraries.Other.palette
     }

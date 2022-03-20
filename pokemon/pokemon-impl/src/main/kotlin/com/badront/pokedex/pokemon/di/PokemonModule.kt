@@ -4,6 +4,9 @@ import com.badront.pokedex.pokemon.core.data.PokemonListRepositoryImpl
 import com.badront.pokedex.pokemon.core.data.PokemonRepositoryImpl
 import com.badront.pokedex.pokemon.core.data.local.PokemonDatabase
 import com.badront.pokedex.pokemon.core.data.local.dao.ListPokemonDao
+import com.badront.pokedex.pokemon.core.data.local.dao.PokemonDetailsDao
+import com.badront.pokedex.pokemon.core.data.local.dao.PokemonStatsDao
+import com.badront.pokedex.pokemon.core.data.local.dao.PokemonTypeDao
 import com.badront.pokedex.pokemon.core.data.remote.PokemonApi
 import com.badront.pokedex.pokemon.core.domain.PokemonListRepository
 import com.badront.pokedex.pokemon.core.domain.PokemonRepository
@@ -35,6 +38,21 @@ internal abstract class PokemonModule {
         @Provides
         fun provideListPokemonDao(pokemonDatabase: PokemonDatabase): ListPokemonDao {
             return pokemonDatabase.listPokemonDao()
+        }
+
+        @Provides
+        fun providePokemonDetailsDao(pokemonDatabase: PokemonDatabase): PokemonDetailsDao {
+            return pokemonDatabase.pokemonDetailsDao()
+        }
+
+        @Provides
+        fun providePokemonTypeDao(pokemonDatabase: PokemonDatabase): PokemonTypeDao {
+            return pokemonDatabase.pokemonTypeDao()
+        }
+
+        @Provides
+        fun providePokemonStatsDao(pokemonDatabase: PokemonDatabase): PokemonStatsDao {
+            return pokemonDatabase.pokemonStatsDao()
         }
     }
 }

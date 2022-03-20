@@ -2,6 +2,8 @@ package com.badront.pokedex.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.withTransaction
+import com.badront.pokedex.core.utils.db.DbTransactionRunner
 import com.badront.pokedex.data.PokedexDatabase
 import com.badront.pokedex.pokemon.core.data.local.PokemonDatabase
 import com.badront.pokedex.pokemon.core.data.local.migration.PokemonDetailsMigration
@@ -28,6 +30,16 @@ abstract class AppLocalModule {
                 .databaseBuilder(context, PokedexDatabase::class.java, "pokedex-db")
                 .addMigrations(PokemonDetailsMigration(1, 2))
                 .build()
+        }
+
+        @Provides
+        @Singleton
+        fun provideDbTransactionRunner(database: PokedexDatabase): DbTransactionRunner {
+            return object : DbTransactionRunner {
+                override suspend fun <T> withTransaction(block: suspend () -> T): T {
+                    return database.withTransaction(block)
+                }
+            }
         }
     }
 }

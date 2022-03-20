@@ -15,11 +15,17 @@ abstract class ListPokemonDao {
     @Query("SELECT * FROM ${PokemonEntity.TABLE_NAME}")
     abstract fun getAllAsFlow(): Flow<List<PokemonEntity>>
 
-    @Query("SELECT * FROM ${PokemonEntity.TABLE_NAME} WHERE ${PokemonEntity.COLUMN_ID}=:id")
+    @Query(QUERY_BY_ID)
     abstract suspend fun getById(id: Int): PokemonEntity?
+
+    @Query(QUERY_BY_ID)
+    abstract fun getByIdAsFlow(id: Int): Flow<PokemonEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insert(entities: List<PokemonEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun insert(vararg entities: PokemonEntity)
 
     @Update
     abstract suspend fun update(entities: List<PokemonEntity>)
@@ -37,5 +43,13 @@ abstract class ListPokemonDao {
     open suspend fun replaceAll(entities: List<PokemonEntity>) {
         deleteAll()
         insert(entities)
+    }
+
+    private companion object {
+        private const val QUERY_BY_ID = """
+                SELECT * 
+                FROM ${PokemonEntity.TABLE_NAME} 
+                WHERE ${PokemonEntity.COLUMN_ID}=:id
+            """
     }
 }

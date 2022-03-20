@@ -2,6 +2,7 @@ package com.badront.pokedex.pokemon.details.presentation.adapter
 
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.badront.pokedex.core.model.setText
 import com.badront.pokedex.core.util.recycler.BaseViewHolder
 import com.badront.pokedex.pokemon.details.presentation.model.PokemonDetailsUiModel
 import com.badront.pokedex.pokemon.impl.R
@@ -13,7 +14,7 @@ class PokemonDetailsHeaderViewHolder(parent: ViewGroup) :
     override fun bind(item: PokemonDetailsUiModel.Header) {
         super.bind(item)
         with(viewBinding.headerText) {
-            text = item.text
+            setText(item.text)
             setTextColor(item.color)
         }
     }

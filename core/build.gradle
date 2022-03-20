@@ -1,6 +1,7 @@
 import com.badront.pokedex.Libraries
 
 apply plugin: Libraries.Android.libraryPlugin
+apply plugin: Libraries.Kotlin.parcelizePlugin
 
 apply from: "$rootDir/config/config-android.gradle"
 apply from: "$rootDir/config/dependencies-groups.gradle"

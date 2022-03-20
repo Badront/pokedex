@@ -75,7 +75,12 @@ internal class PokemonListViewModel @Inject constructor(
                 pokemonColorPalettes[event.pokemon.id] = event.palette
             }
             is Event.OnPokemonClick -> {
-                sendAction(Action.OpenPokemonDetails(event.position, PokemonDetailsParameters(event.pokemon.id)))
+                sendAction(
+                    Action.OpenPokemonDetails(
+                        event.position,
+                        PokemonDetailsParameters(event.pokemon.id, event.pokemon.palette)
+                    )
+                )
             }
             Event.ScrolledToNextPage -> {
                 if (state.nextPageLoadingState == LoadingState.DATA && state.loadingState == LoadingState.DATA) {

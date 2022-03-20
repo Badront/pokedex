@@ -165,6 +165,7 @@ object Libraries {
         const val viewBindingDelegate = "com.github.kirich1409:viewbindingpropertydelegate:1.5.3"
         const val palette = "androidx.palette:palette-ktx:1.0.0"
         const val flexbox = "com.google.android.flexbox:flexbox:3.0.0"
+        const val time = "org.threeten:threetenbp:1.3.1"
     }
 
     object ImageLoading {
