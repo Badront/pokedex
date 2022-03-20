@@ -25,6 +25,9 @@ internal class PokemonListUiModelMapperImpl @Inject constructor(
                     when (state.nextPageLoadingState) {
                         LoadingState.LOADING -> items.add(PokemonListUiModel.NextPageLoading)
                         LoadingState.ERROR -> items.add(PokemonListUiModel.NextPageLoadingError)
+                        else -> {
+                            // ignore
+                        }
                     }
                     PokemonListUiState.Content.Data(items)
                 }

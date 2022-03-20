@@ -2,11 +2,9 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingVertical="@dimen/offset_16">
+    android:layout_height="match_parent">
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
-        style="@style/ProgressDefaultStyle.Mini"
+        style="@style/ProgressDefaultStyle"
         android:layout_gravity="center" />
-
 </FrameLayout>

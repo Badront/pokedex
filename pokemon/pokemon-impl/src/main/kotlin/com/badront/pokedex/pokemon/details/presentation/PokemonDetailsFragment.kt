@@ -39,12 +39,23 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
     private val viewBinding by viewBinding(FrPokemonDetailsBinding::bind)
 
     private val detailsAdapter by lazy {
-        PokemonDetailsAdapter()
+        PokemonDetailsAdapter(
+            onRetryClick = {
+                viewModel.onEvent(PokemonDetailsViewModel.Event.ReloadPokemon)
+            }
+        )
     }
     private val spacingItemDecoration by lazy {
         LinearSpacingItemDecoration(
             orientation = RecyclerView.VERTICAL,
             betweenItems = requireContext().getDimensionPixelOffsetKtx(com.badront.pokedex.design.R.dimen.offset_16)
+        )
+    }
+
+    private val defaultPalette by lazy {
+        ColorPalette(
+            primaryColor = requireContext().getColor(com.badront.pokedex.design.R.color.wireframe),
+            onPrimaryColor = requireContext().getColor(com.badront.pokedex.design.R.color.white)
         )
     }
 
@@ -92,13 +103,6 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
                 Toast.makeText(requireContext(), action.message, Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private val defaultPalette by lazy {
-        ColorPalette(
-            primaryColor = requireContext().getColor(com.badront.pokedex.design.R.color.wireframe),
-            onPrimaryColor = requireContext().getColor(com.badront.pokedex.design.R.color.white)
-        )
     }
 
     private fun bindViewState(state: DetailedPokemonUiModel) {

@@ -5,6 +5,8 @@ import com.badront.pokedex.core.model.StringDesc
 import com.badront.pokedex.pokemon.core.domain.model.PokemonType
 
 sealed class PokemonDetailsUiModel {
+    object Loading : PokemonDetailsUiModel()
+    object LoadingError : PokemonDetailsUiModel()
     class Types(
         val items: List<Type>
     ) : PokemonDetailsUiModel() {

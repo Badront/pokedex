@@ -68,12 +68,9 @@
         tools:visibility="visible" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
+        style="@style/ProgressDefaultStyle"
         android:id="@+id/loadingProgress"
-        android:layout_width="68dp"
-        android:layout_height="68dp"
-        android:indeterminate="true"
         android:visibility="gone"
-        app:indicatorColor="?attr/colorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ProgressDefaultStyle">
+        <item name="android:layout_width">68dp</item>
+        <item name="android:layout_height">68dp</item>
+        <item name="android:indeterminate">true</item>
+        <item name="indicatorColor">?attr/colorSecondary</item>
+    </style>
+
+    <style name="ProgressDefaultStyle.Mini">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+    </style>
+</resources>
