@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ErrorRetryView">
+        <attr name="erv_textColor" format="color" />
+        <attr name="erv_textSize" format="dimension" />
+        <attr name="erv_retryTint" format="color" />
+        <attr name="erv_text" format="string" />
+    </declare-styleable>
+</resources>

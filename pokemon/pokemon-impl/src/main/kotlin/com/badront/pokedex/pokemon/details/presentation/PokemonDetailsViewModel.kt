@@ -44,6 +44,10 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
     override fun onEvent(event: Event) {
         when (event) {
             is Event.PokemonColorPaletteReceived -> state = state.copy(palette = event.palette)
+            Event.ReloadPokemon -> {
+                state = state.copy(loadingState = LoadingState.LOADING)
+                loadPokemonDetails()
+            }
         }
     }
 
@@ -100,6 +104,7 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
 
     internal sealed class Event {
         class PokemonColorPaletteReceived(val palette: ColorPalette) : Event()
+        object ReloadPokemon : Event()
     }
 
     companion object {

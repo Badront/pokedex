@@ -41,7 +41,7 @@ object Libraries {
         private const val androidxAppCompat = "1.3.1"
         private const val androidxRecycler = "1.2.0"
         private const val swipeRefreshVersion = "1.1.0"
-        private const val material = "1.2.1"
+        private const val material = "1.4.0-beta01"
         private const val androidxCardview = "1.0.0"
         private const val constraintLayoutVersion = "2.1.2"
         private const val workManagerVersion = "2.5.0"

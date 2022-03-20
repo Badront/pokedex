@@ -53,38 +53,19 @@
             tools:listitem="@layout/list_pokemon_view" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <LinearLayout
+    <com.badront.pokedex.design.widget.ErrorRetryView
         android:id="@+id/loadingError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/offset_16"
         android:background="@drawable/ripple_rounded"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/offset_16"
         android:visibility="gone"
+        app:erv_text="@string/pokemon_first_page_loading_error"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbarTitle"
-        tools:visibility="visible">
-
-        <TextView
-            style="@style/Text.Regular.16.OnPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/pokemon_first_page_loading_error"
-            android:textAlignment="center" />
-
-        <ImageView
-            android:id="@+id/loadingRetry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/offset_8"
-            app:srcCompat="@drawable/ic_retry"
-            app:tint="?attr/colorSecondary" />
-    </LinearLayout>
+        tools:visibility="visible" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/loadingProgress"

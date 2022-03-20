@@ -82,7 +82,7 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
         viewBinding.refresh.setOnRefreshListener {
             viewModel.onEvent(PokemonListViewModel.Event.Refresh)
         }
-        viewBinding.loadingError.setOnClickListener {
+        viewBinding.loadingError.onRetryClickListener = {
             viewModel.onEvent(PokemonListViewModel.Event.OnRetryLoadingClick)
         }
     }

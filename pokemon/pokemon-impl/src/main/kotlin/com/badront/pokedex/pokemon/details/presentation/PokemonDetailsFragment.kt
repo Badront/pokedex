@@ -15,6 +15,7 @@ import com.badront.pokedex.core.ext.android.view.setTint
 import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
 import com.badront.pokedex.core.ext.androidx.palette.graphics.getPalette
 import com.badront.pokedex.core.ext.kotlinx.coroutines.flow.observe
+import com.badront.pokedex.core.model.LoadingState
 import com.badront.pokedex.core.presentation.BaseFragment
 import com.badront.pokedex.core.util.recycler.LinearSpacingItemDecoration
 import com.badront.pokedex.pokemon.details.presentation.adapter.PokemonDetailsAdapter
@@ -67,6 +68,9 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
             adapter = detailsAdapter
             addItemDecoration(spacingItemDecoration)
         }
+        viewBinding.loadingError.onRetryClickListener = {
+            viewModel.onEvent(PokemonDetailsViewModel.Event.ReloadPokemon)
+        }
     }
 
     override fun onDestroyView() {
@@ -98,32 +102,51 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
     }
 
     private fun bindViewState(state: DetailedPokemonUiModel) {
-        state.header?.let { header ->
-            applyPalette(header)
-            viewBinding.pokemonName.text = header.name
-            viewBinding.pokemonNumber.text = header.number
-            viewBinding.pokemonImage.transitionName = header.image
-            viewBinding.pokemonImage.load(header.image) {
-                placeholder(R.drawable.egg)
-                error(R.drawable.empty)
-                crossfade(true)
-                listener(onError = { _, _ ->
-                    startPostponedEnterTransition()
-                }) { _, _ ->
-                    startPostponedEnterTransition()
-                }
-                if (header.colorPalette == null) {
-                    getPalette { colorPalette ->
-                        colorPalette?.let {
-                            viewModel.onEvent(
-                                PokemonDetailsViewModel.Event.PokemonColorPaletteReceived(it)
-                            )
-                        }
+        when {
+            state.header != null -> {
+                viewBinding.pokemonContent.visibility = View.VISIBLE
+                viewBinding.loadingProgress.visibility = View.GONE
+                viewBinding.loadingError.visibility = View.GONE
+                bindHeader(state.header)
+            }
+            state.loadingState == LoadingState.ERROR -> {
+                viewBinding.pokemonContent.visibility = View.GONE
+                viewBinding.loadingProgress.visibility = View.GONE
+                viewBinding.loadingError.visibility = View.VISIBLE
+            }
+            state.loadingState == LoadingState.LOADING -> {
+                viewBinding.pokemonContent.visibility = View.GONE
+                viewBinding.loadingProgress.visibility = View.VISIBLE
+                viewBinding.loadingError.visibility = View.GONE
+            }
+        }
+        detailsAdapter.setItems(state.detailedList)
+    }
+
+    private fun bindHeader(header: DetailedPokemonUiModel.Header) {
+        applyPalette(header)
+        viewBinding.pokemonName.text = header.name
+        viewBinding.pokemonNumber.text = header.number
+        viewBinding.pokemonImage.transitionName = header.image
+        viewBinding.pokemonImage.load(header.image) {
+            placeholder(R.drawable.egg)
+            error(R.drawable.empty)
+            crossfade(true)
+            listener(onError = { _, _ ->
+                startPostponedEnterTransition()
+            }) { _, _ ->
+                startPostponedEnterTransition()
+            }
+            if (header.colorPalette == null) {
+                getPalette { colorPalette ->
+                    colorPalette?.let {
+                        viewModel.onEvent(
+                            PokemonDetailsViewModel.Event.PokemonColorPaletteReceived(it)
+                        )
                     }
                 }
             }
         }
-        detailsAdapter.setItems(state.detailedList)
     }
 
     private fun applyPalette(header: DetailedPokemonUiModel.Header) {
