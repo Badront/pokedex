@@ -12,12 +12,22 @@ import timber.log.Timber
 
 abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId) {
     open val shouldAddSystemTopPadding: Boolean = true
+    open val shouldAddSystemBottomPadding: Boolean = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (shouldAddSystemTopPadding) {
+        if (shouldAddSystemTopPadding || shouldAddSystemBottomPadding) {
             view.doOnApplyWindowInsets { _, insets, _, _ ->
-                view.updatePadding(top = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top)
+                if (shouldAddSystemTopPadding) {
+                    view.updatePadding(
+                        top = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top
+                    )
+                }
+                if (shouldAddSystemBottomPadding) {
+                    view.updatePadding(
+                        bottom = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+                    )
+                }
             }
         }
     }

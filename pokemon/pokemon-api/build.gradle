@@ -1,3 +1,4 @@
+import com.badront.pokedex.AppModules
 import com.badront.pokedex.Libraries
 apply plugin: Libraries.Android.libraryPlugin
 
@@ -6,4 +7,6 @@ apply from: "$rootDir/config/dependencies-groups.gradle"
 
 dependencies {
     kotlinLib()
+    navigationJetpack()
+    implementation project(AppModules.coreAndroid)
 }

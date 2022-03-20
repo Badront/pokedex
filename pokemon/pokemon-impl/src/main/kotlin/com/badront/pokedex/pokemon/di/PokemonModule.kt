@@ -1,5 +1,7 @@
 package com.badront.pokedex.pokemon.di
 
+import com.badront.pokedex.pokemon.PokemonDestinationsProvider
+import com.badront.pokedex.pokemon.PokemonDestinationsProviderImpl
 import com.badront.pokedex.pokemon.core.data.PokemonListRepositoryImpl
 import com.badront.pokedex.pokemon.core.data.PokemonRepositoryImpl
 import com.badront.pokedex.pokemon.core.data.local.PokemonDatabase
@@ -28,6 +30,9 @@ internal abstract class PokemonModule {
 
     @Binds
     abstract fun bindPokemonRepository(repository: PokemonRepositoryImpl): PokemonRepository
+
+    @Binds
+    abstract fun bindPokemonDestinationProvider(provider: PokemonDestinationsProviderImpl): PokemonDestinationsProvider
 
     companion object {
         @Provides

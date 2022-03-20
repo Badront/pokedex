@@ -16,8 +16,9 @@ internal class PokemonListUiModelMapperImpl @Inject constructor(
     ): PokemonListUiState {
         return PokemonListUiState(
             isRefreshing = state.isRefreshing,
-            content = when (state.loadingState) {
-                LoadingState.DATA -> {
+            content = when {
+                state.loadingState == LoadingState.DATA ||
+                    (state.loadingState == LoadingState.ERROR && state.pokemons.isNotEmpty()) -> {
                     val items = mutableListOf<PokemonListUiModel>()
                     items.addAll(state.pokemons.map { listPokemon ->
                         pokemonMapper.map(listPokemon, pokemonColorPalettes[listPokemon.id])
@@ -31,8 +32,9 @@ internal class PokemonListUiModelMapperImpl @Inject constructor(
                     }
                     PokemonListUiState.Content.Data(items)
                 }
-                LoadingState.LOADING -> PokemonListUiState.Content.Loading
-                LoadingState.ERROR -> PokemonListUiState.Content.Error
+                state.loadingState == LoadingState.LOADING -> PokemonListUiState.Content.Loading
+                state.loadingState == LoadingState.ERROR -> PokemonListUiState.Content.Error
+                else -> PokemonListUiState.Content.Data(emptyList())
             }
         )
     }

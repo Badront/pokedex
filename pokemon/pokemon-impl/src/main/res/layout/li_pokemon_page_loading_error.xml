@@ -4,5 +4,5 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
+    android:background="@drawable/ripple"
     app:erv_text="@string/pokemon_next_page_loading_error" />
