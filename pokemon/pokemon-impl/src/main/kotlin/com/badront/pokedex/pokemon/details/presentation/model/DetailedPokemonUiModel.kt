@@ -12,6 +12,6 @@ internal class DetailedPokemonUiModel(
         val name: String,
         val number: String,
         val image: String,
-        val colorPalette: ColorPalette
+        val colorPalette: ColorPalette?
     )
 }

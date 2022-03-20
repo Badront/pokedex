@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import com.badront.pokedex.core.ext.android.content.getDimensionPixelOffsetKtx
+import com.badront.pokedex.core.ext.android.view.setTint
+import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
+import com.badront.pokedex.core.ext.androidx.palette.graphics.getPalette
 import com.badront.pokedex.core.ext.kotlinx.coroutines.flow.observe
 import com.badront.pokedex.core.presentation.BaseFragment
 import com.badront.pokedex.core.util.recycler.LinearSpacingItemDecoration
@@ -87,8 +90,16 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
         }
     }
 
+    private val defaultPalette by lazy {
+        ColorPalette(
+            primaryColor = requireContext().getColor(com.badront.pokedex.design.R.color.wireframe),
+            onPrimaryColor = requireContext().getColor(com.badront.pokedex.design.R.color.white)
+        )
+    }
+
     private fun bindViewState(state: DetailedPokemonUiModel) {
         state.header?.let { header ->
+            applyPalette(header)
             viewBinding.pokemonName.text = header.name
             viewBinding.pokemonNumber.text = header.number
             viewBinding.pokemonImage.transitionName = header.image
@@ -101,8 +112,27 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
                 }) { _, _ ->
                     startPostponedEnterTransition()
                 }
+                if (header.colorPalette == null) {
+                    getPalette { colorPalette ->
+                        colorPalette?.let {
+                            viewModel.onEvent(
+                                PokemonDetailsViewModel.Event.PokemonColorPaletteReceived(it)
+                            )
+                        }
+                    }
+                }
             }
         }
         detailsAdapter.setItems(state.detailedList)
+    }
+
+    private fun applyPalette(header: DetailedPokemonUiModel.Header) {
+        val palette = header.colorPalette ?: defaultPalette
+        with(palette) {
+            viewBinding.pokemonImageHolder.setBackgroundColor(primaryColor)
+            viewBinding.pokemonName.setTextColor(onPrimaryColor)
+            viewBinding.pokemonNumber.setTextColor(onPrimaryColor)
+            viewBinding.back.setTint(onPrimaryColor)
+        }
     }
 }
