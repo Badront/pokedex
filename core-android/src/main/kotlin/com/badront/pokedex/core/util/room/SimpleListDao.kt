@@ -1,4 +1,4 @@
-package com.badront.pokedex.core.data.local.dao
+package com.badront.pokedex.core.util.room
 
 import androidx.room.Delete
 import androidx.room.Insert

@@ -16,7 +16,5 @@ class PokemonDetailsDto(
     @SerializedName("weight")
     val weight: Int? = null,
     @SerializedName("height")
-    val height: Int? = null,
-    @SerializedName("sprites")
-    val sprites: Map<String, String?>
+    val height: Int? = null
 )

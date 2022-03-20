@@ -3,7 +3,7 @@ package com.badront.pokedex.pokemon.core.data.local.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
-import com.badront.pokedex.core.data.local.dao.SimpleListDao
+import com.badront.pokedex.core.util.room.SimpleListDao
 import com.badront.pokedex.pokemon.core.data.local.model.PokemonDetailsEntity
 import com.badront.pokedex.pokemon.core.data.local.model.PokemonDetailsWithRelations
 import kotlinx.coroutines.flow.Flow

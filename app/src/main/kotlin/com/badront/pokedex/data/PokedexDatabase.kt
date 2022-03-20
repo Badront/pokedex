@@ -20,6 +20,6 @@ import com.badront.pokedex.pokemon.core.data.local.model.PokemonTypeEntity
 abstract class PokedexDatabase : RoomDatabase(), PokemonDatabase {
 
     companion object {
-        const val VERSION = 2
+        const val VERSION = 3
     }
 }

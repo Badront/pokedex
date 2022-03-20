@@ -7,6 +7,6 @@
     <string name="pokedex" translatable="false">Pokédex</string>
     <string name="pokemon_weight">Weight</string>
     <string name="pokemon_height">Height</string>
-    <string name="pokemon_weight_uom">%d kg</string>
-    <string name="pokemon_height_uom">%d cm</string>
+    <string name="pokemon_weight_in_kg">%.2f kg</string>
+    <string name="pokemon_height_in_cm">%.2f cm</string>
 </resources>

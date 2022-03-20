@@ -50,6 +50,7 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
     private fun loadPokemonDetails() {
         launch(
             onError = {
+                onLoadingError(it)
                 state = state.copy(loadingState = LoadingState.ERROR)
             }
         ) {
@@ -57,9 +58,14 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
             if (result.isSuccess) {
                 state = state.copy(loadingState = LoadingState.DATA)
             } else {
+                result.exceptionOrNull()?.let { onLoadingError(it) }
                 state = state.copy(loadingState = LoadingState.ERROR)
             }
         }
+    }
+
+    private fun onLoadingError(throwable: Throwable) {
+        sendAction(Action.ShowError(throwable.localizedMessage))
     }
 
     private fun subscribeForPokemon() {

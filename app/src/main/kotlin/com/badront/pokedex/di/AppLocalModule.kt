@@ -7,6 +7,7 @@ import com.badront.pokedex.core.utils.db.DbTransactionRunner
 import com.badront.pokedex.data.PokedexDatabase
 import com.badront.pokedex.pokemon.core.data.local.PokemonDatabase
 import com.badront.pokedex.pokemon.core.data.local.migration.PokemonDetailsMigration
+import com.badront.pokedex.pokemon.core.data.local.migration.PokemonDetailsUOMMigration
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -29,6 +30,7 @@ abstract class AppLocalModule {
             return Room
                 .databaseBuilder(context, PokedexDatabase::class.java, "pokedex-db")
                 .addMigrations(PokemonDetailsMigration(1, 2))
+                .addMigrations(PokemonDetailsUOMMigration(2, 3))
                 .build()
         }
 

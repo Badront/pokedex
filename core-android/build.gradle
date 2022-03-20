@@ -17,4 +17,5 @@ dependencies {
     coil()
     palette()
     room()
+    networkFull()
 }

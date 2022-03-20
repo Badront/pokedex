@@ -1,5 +1,9 @@
 package com.badront.pokedex.pokemon.core.data.remote.mapper
 
+import com.badront.pokedex.core.model.measurements.Height
+import com.badront.pokedex.core.model.measurements.HeightUOM
+import com.badront.pokedex.core.model.measurements.Weight
+import com.badront.pokedex.core.model.measurements.WeightUOM
 import com.badront.pokedex.pokemon.core.data.remote.model.PokemonDetailsDto
 import com.badront.pokedex.pokemon.core.domain.model.DetailedPokemon
 import com.badront.pokedex.pokemon.core.domain.model.Pokemon
@@ -20,8 +24,18 @@ internal class DetailedPokemonDtoMapper @Inject constructor(
             ),
             details = PokemonDetails(
                 id = dto.id,
-                height = dto.height,
-                weight = dto.weight,
+                height = dto.height?.let {
+                    Height(
+                        value = it.toDouble(),
+                        uom = HeightUOM.DM
+                    )
+                },
+                weight = dto.weight?.let {
+                    Weight(
+                        value = it.toDouble(),
+                        uom = WeightUOM.HG
+                    )
+                },
                 types = dto.types.mapNotNull { typeDtoMapper.map(it) }
             )
         )

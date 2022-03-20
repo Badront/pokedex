@@ -7,7 +7,7 @@
 
     <!--regular-->
     <style name="Text.Regular">
-        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/pokedex_regular</item>
     </style>
 
     <style name="Text.Regular.8">
@@ -20,6 +20,10 @@
 
     <style name="Text.Regular.10">
         <item name="android:textSize">@dimen/text_10</item>
+    </style>
+
+    <style name="Text.Regular.10.MediumGray">
+        <item name="android:textColor">@color/medium_gray</item>
     </style>
 
     <style name="Text.Regular.12">
@@ -44,7 +48,7 @@
 
     <!--bold-->
     <style name="Text.Bold">
-        <item name="android:fontFamily">@font/popping_bold</item>
+        <item name="android:fontFamily">@font/pokedex_bold</item>
     </style>
 
     <style name="Text.Bold.8">
