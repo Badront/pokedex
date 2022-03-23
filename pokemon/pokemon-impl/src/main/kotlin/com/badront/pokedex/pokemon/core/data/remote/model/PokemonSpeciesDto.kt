@@ -1,6 +1,5 @@
 package com.badront.pokedex.pokemon.core.data.remote.model
 
-import com.badront.pokedex.core.data.remote.model.NamedApiResourceDto
 import com.google.gson.annotations.SerializedName
 
 class PokemonSpeciesDto(
@@ -21,9 +20,9 @@ class PokemonSpeciesDto(
     @SerializedName("forms_switchable")
     val formSwitchable: Boolean,
     @SerializedName("evolves_from_species")
-    val evolvesFromSpecies: NamedApiResourceDto,
+    val evolvesFromSpecies: PokemonDto? = null,
     @SerializedName("evolution_chain")
-    val evolutionChain: EvolutionChainUrlDto
+    val evolutionChain: EvolutionChainUrlDto? = null
 ) {
     class EvolutionChainUrlDto(
         @SerializedName("url")

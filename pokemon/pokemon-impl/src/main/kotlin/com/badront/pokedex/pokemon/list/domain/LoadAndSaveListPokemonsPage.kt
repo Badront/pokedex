@@ -1,8 +1,8 @@
 package com.badront.pokedex.pokemon.list.domain
 
 import com.badront.pokedex.core.coroutines.AppDispatchers
+import com.badront.pokedex.core.model.Either
 import com.badront.pokedex.core.model.Page
-import com.badront.pokedex.core.model.Result
 import com.badront.pokedex.core.model.fold
 import com.badront.pokedex.pokemon.core.domain.PokemonListRepository
 import com.badront.pokedex.pokemon.core.domain.exception.LoadingPokemonListException
@@ -17,7 +17,7 @@ class LoadAndSaveListPokemonsPage @Inject constructor(
 ) {
     suspend operator fun invoke(
         offset: Int
-    ): Result<Page<Pokemon>, LoadingPokemonListException> = withContext(appDispatchers.io) {
+    ): Either<Page<Pokemon>, LoadingPokemonListException> = withContext(appDispatchers.io) {
         val result = loadListPokemonsPage(offset)
         result.fold(
             onSuccess = { page ->
@@ -26,10 +26,10 @@ class LoadAndSaveListPokemonsPage @Inject constructor(
                 } else {
                     pokemonListRepository.savePokemonList(page.items)
                 }
-                Result.success(page)
+                Either.success(page)
             },
             onFailure = {
-                Result.failure(it)
+                Either.failure(it)
             }
         )
     }

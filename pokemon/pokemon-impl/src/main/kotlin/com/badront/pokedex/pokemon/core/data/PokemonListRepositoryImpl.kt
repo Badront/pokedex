@@ -1,12 +1,12 @@
 package com.badront.pokedex.pokemon.core.data
 
+import com.badront.pokedex.core.model.Either
 import com.badront.pokedex.core.model.Page
 import com.badront.pokedex.core.model.PageInfo
-import com.badront.pokedex.core.model.Result
 import com.badront.pokedex.pokemon.core.data.local.dao.ListPokemonDao
 import com.badront.pokedex.pokemon.core.data.local.mapper.ListPokemonEntityMapper
 import com.badront.pokedex.pokemon.core.data.remote.PokemonApi
-import com.badront.pokedex.pokemon.core.data.remote.mapper.ListPokemonDtoMapper
+import com.badront.pokedex.pokemon.core.data.remote.mapper.PokemonDtoMapper
 import com.badront.pokedex.pokemon.core.domain.PokemonListRepository
 import com.badront.pokedex.pokemon.core.domain.exception.LoadingPokemonListException
 import com.badront.pokedex.pokemon.core.domain.model.PokeId
@@ -19,7 +19,7 @@ import javax.inject.Inject
 internal class PokemonListRepositoryImpl @Inject constructor(
     private val pokemonApi: PokemonApi,
     private val listPokemonDao: ListPokemonDao,
-    private val listPokemonDtoMapper: ListPokemonDtoMapper,
+    private val pokemonDtoMapper: PokemonDtoMapper,
     private val listPokemonEntityMapper: ListPokemonEntityMapper
 ) : PokemonListRepository {
     override fun getPokemonsAsFlow(): Flow<List<Pokemon>> {
@@ -45,7 +45,7 @@ internal class PokemonListRepositoryImpl @Inject constructor(
             }
     }
 
-    override suspend fun loadPokemonList(pageInfo: PageInfo): Result<Page<Pokemon>, LoadingPokemonListException> {
+    override suspend fun loadPokemonList(pageInfo: PageInfo): Either<Page<Pokemon>, LoadingPokemonListException> {
         return runCatching {
             pokemonApi.getPokemonsPage(
                 offset = pageInfo.offset,
@@ -53,17 +53,17 @@ internal class PokemonListRepositoryImpl @Inject constructor(
             )
         }.fold(
             onSuccess = { result ->
-                Result.success(
+                Either.success(
                     Page(
                         total = result.totalCount,
-                        items = result.items.map { listPokemonDtoMapper.map(it) })
+                        items = result.items.map { pokemonDtoMapper.map(it) })
                 )
             },
             onFailure = { throwable ->
                 if (throwable is CancellationException) {
                     throw throwable
                 } else {
-                    Result.failure(LoadingPokemonListException(throwable))
+                    Either.failure(LoadingPokemonListException(throwable))
                 }
             }
         )

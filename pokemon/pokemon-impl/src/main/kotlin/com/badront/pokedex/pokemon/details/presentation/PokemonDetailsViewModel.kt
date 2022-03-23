@@ -12,6 +12,7 @@ import com.badront.pokedex.pokemon.details.domain.GetPokemonDetailsByIdAsFlow
 import com.badront.pokedex.pokemon.details.domain.LoadAndSaveDetailedPokemon
 import com.badront.pokedex.pokemon.details.presentation.mapper.DetailedPokemonUiModelMapper
 import com.badront.pokedex.pokemon.details.presentation.model.DetailedPokemonUiModel
+import com.badront.pokedex.pokemon.evolution.domain.LoadPokemonEvolutionChain
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -25,6 +26,7 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
     @Assisted private val parameters: PokemonDetailsParameters,
     private val getPokemonDetailsByIdAsFlow: GetPokemonDetailsByIdAsFlow,
     private val loadAndSaveDetailedPokemon: LoadAndSaveDetailedPokemon,
+    private val loadPokemonEvolutionChain: LoadPokemonEvolutionChain,
     private val detailedPokemonMapper: DetailedPokemonUiModelMapper,
     private val appDispatchers: AppDispatchers
 ) : BaseViewModel<DetailedPokemonUiModel, PokemonDetailsViewModel.Action, PokemonDetailsViewModel.Event>() {
@@ -58,12 +60,18 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
                 state = state.copy(loadingState = LoadingState.ERROR)
             }
         ) {
-            val result = loadAndSaveDetailedPokemon(parameters.id)
-            if (result.isSuccess) {
+            val pokemonDeferred = throwAsync { loadAndSaveDetailedPokemon(parameters.id) }
+            val evolutionChainDeferred = throwAsync { loadPokemonEvolutionChain(parameters.id) }
+            val pokemon = pokemonDeferred.await()
+            if (pokemon.isSuccess) {
                 state = state.copy(loadingState = LoadingState.DATA)
             } else {
-                result.exceptionOrNull()?.let { onLoadingError(it) }
+                pokemon.exceptionOrNull()?.let { onLoadingError(it) }
                 state = state.copy(loadingState = LoadingState.ERROR)
+            }
+            val evolutionChain = evolutionChainDeferred.await()
+            if (evolutionChain.isSuccess) {
+                // TODO do nothing?
             }
         }
     }

@@ -1,9 +1,9 @@
 package com.badront.pokedex.pokemon.list.domain
 
 import com.badront.pokedex.core.coroutines.AppDispatchers
+import com.badront.pokedex.core.model.Either
 import com.badront.pokedex.core.model.Page
 import com.badront.pokedex.core.model.PageInfo
-import com.badront.pokedex.core.model.Result
 import com.badront.pokedex.pokemon.core.domain.PokemonListRepository
 import com.badront.pokedex.pokemon.core.domain.exception.LoadingPokemonListException
 import com.badront.pokedex.pokemon.core.domain.model.Pokemon
@@ -16,7 +16,7 @@ class LoadListPokemonsPage @Inject constructor(
 ) {
     suspend operator fun invoke(
         offset: Int
-    ): Result<Page<Pokemon>, LoadingPokemonListException> = withContext(appDispatchers.io) {
+    ): Either<Page<Pokemon>, LoadingPokemonListException> = withContext(appDispatchers.io) {
         pokemonListRepository.loadPokemonList(
             PageInfo(
                 limit = PAGE_LIMIT,

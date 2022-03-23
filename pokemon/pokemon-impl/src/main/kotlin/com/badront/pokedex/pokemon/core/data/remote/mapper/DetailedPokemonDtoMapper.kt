@@ -11,7 +11,7 @@ import com.badront.pokedex.pokemon.core.domain.model.PokemonDetails
 import javax.inject.Inject
 
 internal class DetailedPokemonDtoMapper @Inject constructor(
-    private val listPokemonDtoMapper: ListPokemonDtoMapper,
+    private val pokemonDtoMapper: PokemonDtoMapper,
     private val typeDtoMapper: PokemonTypeDtoMapper
 ) {
     fun map(dto: PokemonDetailsDto): DetailedPokemon {
@@ -20,7 +20,7 @@ internal class DetailedPokemonDtoMapper @Inject constructor(
                 id = dto.id,
                 name = dto.name,
                 number = dto.id,
-                image = listPokemonDtoMapper.pokemonImageById(dto.id)
+                image = pokemonDtoMapper.pokemonImageById(dto.id)
             ),
             details = PokemonDetails(
                 id = dto.id,

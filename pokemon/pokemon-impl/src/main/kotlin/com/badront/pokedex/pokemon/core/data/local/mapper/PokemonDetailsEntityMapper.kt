@@ -1,4 +1,4 @@
-package com.badront.pokedex.pokemon.core.data
+package com.badront.pokedex.pokemon.core.data.local.mapper
 
 import com.badront.pokedex.core.model.measurements.Height
 import com.badront.pokedex.core.model.measurements.Weight

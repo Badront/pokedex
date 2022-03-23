@@ -1,10 +1,11 @@
 package com.badront.pokedex.pokemon.core.data
 
-import com.badront.pokedex.core.model.Result
+import com.badront.pokedex.core.model.Either
 import com.badront.pokedex.core.utils.db.DbTransactionRunner
 import com.badront.pokedex.pokemon.core.data.local.dao.PokemonDetailsDao
 import com.badront.pokedex.pokemon.core.data.local.dao.PokemonStatsDao
 import com.badront.pokedex.pokemon.core.data.local.dao.PokemonTypeDao
+import com.badront.pokedex.pokemon.core.data.local.mapper.DetailedPokemonEntityMapper
 import com.badront.pokedex.pokemon.core.data.remote.PokemonApi
 import com.badront.pokedex.pokemon.core.data.remote.mapper.DetailedPokemonDtoMapper
 import com.badront.pokedex.pokemon.core.domain.PokemonRepository
@@ -25,15 +26,15 @@ internal class PokemonRepositoryImpl @Inject constructor(
     private val pokemonStatsDao: PokemonStatsDao,
     private val transactionRunner: DbTransactionRunner
 ) : PokemonRepository {
-    override suspend fun loadPokemonById(id: PokeId): Result<DetailedPokemon, LoadingPokemonException> {
+    override suspend fun loadPokemonById(id: PokeId): Either<DetailedPokemon, LoadingPokemonException> {
         return runCatching {
             pokemonApi.getPokemonById(id)
         }.fold(
             onSuccess = { result ->
-                Result.success(dtoMapper.map(result))
+                Either.success(dtoMapper.map(result))
             },
             onFailure = { throwable ->
-                Result.failure(LoadingPokemonException(throwable))
+                Either.failure(LoadingPokemonException(throwable))
             }
         )
     }

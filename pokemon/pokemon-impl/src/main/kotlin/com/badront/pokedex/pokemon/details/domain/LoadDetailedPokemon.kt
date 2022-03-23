@@ -1,7 +1,7 @@
 package com.badront.pokedex.pokemon.details.domain
 
 import com.badront.pokedex.core.coroutines.AppDispatchers
-import com.badront.pokedex.core.model.Result
+import com.badront.pokedex.core.model.Either
 import com.badront.pokedex.pokemon.core.domain.PokemonRepository
 import com.badront.pokedex.pokemon.core.domain.exception.LoadingPokemonException
 import com.badront.pokedex.pokemon.core.domain.model.DetailedPokemon
@@ -15,7 +15,7 @@ class LoadDetailedPokemon @Inject constructor(
 ) {
     suspend operator fun invoke(
         id: PokeId
-    ): Result<DetailedPokemon, LoadingPokemonException> = withContext(appDispatchers.io) {
+    ): Either<DetailedPokemon, LoadingPokemonException> = withContext(appDispatchers.io) {
         pokemonRepository.loadPokemonById(id)
     }
 }

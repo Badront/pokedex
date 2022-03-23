@@ -3,7 +3,7 @@ package com.badront.pokedex.evolution.core.data.remote.model
 import com.badront.pokedex.core.data.remote.model.NamedApiResourceDto
 import com.google.gson.annotations.SerializedName
 
-class EvolutionDetailsDto(
+internal class EvolutionDetailsDto(
     // The item required to cause evolution this into Pokémon species
     @SerializedName("item")
     val item: NamedApiResourceDto? = null,

@@ -1,7 +1,7 @@
 package com.badront.pokedex.pokemon.details.domain
 
 import com.badront.pokedex.core.coroutines.AppDispatchers
-import com.badront.pokedex.core.model.Result
+import com.badront.pokedex.core.model.Either
 import com.badront.pokedex.core.model.fold
 import com.badront.pokedex.pokemon.core.domain.PokemonListRepository
 import com.badront.pokedex.pokemon.core.domain.PokemonRepository
@@ -19,7 +19,7 @@ class LoadAndSaveDetailedPokemon @Inject constructor(
 ) {
     suspend operator fun invoke(
         id: PokeId
-    ): Result<DetailedPokemon?, LoadingPokemonException> = withContext(appDispatchers.io) {
+    ): Either<DetailedPokemon?, LoadingPokemonException> = withContext(appDispatchers.io) {
         val result = loadDetailedPokemon(id)
         result.fold(
             onSuccess = { detailedPokemon ->
@@ -29,10 +29,10 @@ class LoadAndSaveDetailedPokemon @Inject constructor(
                 } else {
                     pokemonRepository.deletePokemonDetailsById(id)
                 }
-                Result.success(detailedPokemon)
+                Either.success(detailedPokemon)
             },
             onFailure = {
-                Result.failure(it)
+                Either.failure(it)
             }
         )
     }

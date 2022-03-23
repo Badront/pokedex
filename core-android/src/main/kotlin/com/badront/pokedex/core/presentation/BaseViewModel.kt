@@ -52,17 +52,41 @@ abstract class BaseViewModel<STATE, ACTION, EVENT> : ViewModel() {
         }
     }
 
+    protected fun <T> throwAsync(
+        context: CoroutineContext = EmptyCoroutineContext,
+        onError: ((Throwable) -> Unit)? = null,
+        start: CoroutineStart = CoroutineStart.DEFAULT,
+        block: suspend CoroutineScope.() -> T
+    ): Deferred<T> {
+        return viewModelScope.async(
+            context = context,
+            start = start
+        ) {
+            try {
+                block(this)
+            } catch (e: Exception) {
+                onError?.invoke(e)
+                throw e
+            }
+        }
+    }
+
     protected fun <T> async(
         context: CoroutineContext = EmptyCoroutineContext,
         start: CoroutineStart = CoroutineStart.DEFAULT,
-        onError: ((Throwable) -> Unit)? = null,
+        onError: ((Throwable) -> T)? = null,
         block: suspend CoroutineScope.() -> T
     ): Deferred<T?> {
         return viewModelScope.async(
-            context = context + createExceptionHandler(onError),
+            context = context,
             start = start
         ) {
-            block(this)
+            try {
+                block(this)
+            } catch (e: Exception) {
+                handleException(e)
+                onError?.invoke(e)
+            }
         }
     }
 
