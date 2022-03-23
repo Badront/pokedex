@@ -11,4 +11,10 @@ object AppModules {
         const val api = "$DIR:pokemon-api"
         const val impl = "$DIR:pokemon-impl"
     }
+
+    object Evolution {
+        private const val DIR = ":evolution"
+        const val api = "$DIR:evolution-api"
+        const val impl = "$DIR:evolution-impl"
+    }
 }

@@ -1,5 +1,6 @@
 package com.badront.pokedex.pokemon.core.data.remote.mapper
 
+import com.badront.pokedex.core.data.remote.model.NamedApiResourceDto
 import com.badront.pokedex.pokemon.core.data.remote.model.PokemonTypeDto
 import com.badront.pokedex.pokemon.core.domain.model.PokemonType
 import javax.inject.Inject
@@ -17,8 +18,8 @@ class PokemonTypeDtoMapper @Inject constructor() {
         }
     }
 
-    fun map(dto: PokemonTypeDto.TypeDto): PokemonType.Type? {
-        return when (dto.name) {
+    fun map(typeDto: NamedApiResourceDto): PokemonType.Type? {
+        return when (typeDto.name) {
             "normal" -> PokemonType.Type.NORMAL
             "rock" -> PokemonType.Type.ROCK
             "ghost" -> PokemonType.Type.GHOST

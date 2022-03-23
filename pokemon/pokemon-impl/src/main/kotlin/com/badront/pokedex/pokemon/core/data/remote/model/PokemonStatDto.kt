@@ -1,5 +1,6 @@
 package com.badront.pokedex.pokemon.core.data.remote.model
 
+import com.badront.pokedex.core.data.remote.model.NamedApiResourceDto
 import com.google.gson.annotations.SerializedName
 
 class PokemonStatDto(
@@ -8,12 +9,5 @@ class PokemonStatDto(
     @SerializedName("effort")
     val effort: Int,
     @SerializedName("stat")
-    val stat: StatDto
-) {
-    class StatDto(
-        @SerializedName("name")
-        val name: String,
-        @SerializedName("url")
-        val url: String
-    )
-}
+    val stat: NamedApiResourceDto
+)
