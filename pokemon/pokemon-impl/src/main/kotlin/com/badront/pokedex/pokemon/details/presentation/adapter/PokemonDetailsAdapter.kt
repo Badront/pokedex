@@ -21,6 +21,7 @@ class PokemonDetailsAdapter(
             is PokemonDetailsUiModel.Types -> R.layout.li_pokemon_details_types
             PokemonDetailsUiModel.Loading -> R.layout.li_pokemon_details_loading
             is PokemonDetailsUiModel.LoadingError -> R.layout.li_pokemon_details_loading_error
+            is PokemonDetailsUiModel.Evolution -> R.layout.li_pokemon_details_evolution
         }
     }
 
@@ -30,6 +31,7 @@ class PokemonDetailsAdapter(
             R.layout.li_pokemon_details_header -> PokemonDetailsHeaderViewHolder(parent)
             R.layout.li_pokemon_details_description -> PokemonDetailsDescriptionViewHolder(parent)
             R.layout.li_pokemon_details_measurements -> PokemonDetailsMeasurementsViewHolder(parent)
+            R.layout.li_pokemon_details_evolution -> PokemonDetailsEvolutionViewHolder(parent)
             R.layout.li_pokemon_details_loading -> PokemonDetailsLoadingViewHolder(parent)
             R.layout.li_pokemon_details_loading_error -> PokemonDetailsLoadingErrorViewHolder(parent, onRetryClick)
             else -> throw IllegalArgumentException("not ready for this viewType $viewType")
@@ -42,6 +44,7 @@ class PokemonDetailsAdapter(
             is PokemonDetailsUiModel.Header -> (holder as PokemonDetailsHeaderViewHolder).bind(item)
             is PokemonDetailsUiModel.Measurements -> (holder as PokemonDetailsMeasurementsViewHolder).bind(item)
             is PokemonDetailsUiModel.Types -> (holder as PokemonTypesViewHolder).bind(item)
+            is PokemonDetailsUiModel.Evolution -> (holder as PokemonDetailsEvolutionViewHolder).bind(item)
             else -> {
                 // ignore
             }

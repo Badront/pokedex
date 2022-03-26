@@ -4,6 +4,7 @@ import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
 import com.badront.pokedex.core.model.StringDesc
 import com.badront.pokedex.core.model.measurements.HeightUOM
 import com.badront.pokedex.core.model.measurements.WeightUOM
+import com.badront.pokedex.evolution.core.domain.model.EvolutionChain
 import com.badront.pokedex.pokemon.core.domain.model.PokemonDetails
 import com.badront.pokedex.pokemon.details.presentation.model.PokemonDetailsUiModel
 import com.badront.pokedex.pokemon.impl.R
@@ -12,7 +13,11 @@ import javax.inject.Inject
 internal class PokemonDetailsUiModelMapperImpl @Inject constructor(
     private val typeUiMapper: PokemonDetailsTypeUiMapper
 ) : PokemonDetailsUiModelMapper {
-    override fun map(model: PokemonDetails, palette: ColorPalette?): List<PokemonDetailsUiModel> {
+    override fun map(
+        model: PokemonDetails,
+        palette: ColorPalette?,
+        evolutionChain: EvolutionChain?
+    ): List<PokemonDetailsUiModel> {
         return buildList {
             if (model.types.isNotEmpty()) {
                 add(PokemonDetailsUiModel.Types(model.types.map { typeUiMapper.map(it) }))
@@ -32,6 +37,9 @@ internal class PokemonDetailsUiModelMapperImpl @Inject constructor(
                         )
                     }
                 ))
+            }
+            if (evolutionChain != null) {
+                add(PokemonDetailsUiModel.Evolution(evolutionChain))
             }
         }
     }

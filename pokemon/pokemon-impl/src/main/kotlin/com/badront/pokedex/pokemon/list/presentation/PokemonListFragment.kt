@@ -1,5 +1,6 @@
 package com.badront.pokedex.pokemon.list.presentation
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.badront.pokedex.core.ext.android.content.orientation
 import com.badront.pokedex.core.ext.kotlinx.coroutines.flow.observe
 import com.badront.pokedex.core.presentation.BaseFragment
 import com.badront.pokedex.core.util.recycler.PageScrollListener
@@ -40,7 +42,13 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
         )
     }
     private val pokemonsLayoutManager by lazy {
-        object : GridLayoutManager(requireContext(), TOTAL_SPAN_COUNT) {
+        val orientation = requireContext().orientation
+        val totalSpanCount = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            TOTAL_SPAN_COUNT_LANDSCAPE
+        } else {
+            TOTAL_SPAN_COUNT_PORTRAIT
+        }
+        object : GridLayoutManager(requireContext(), totalSpanCount) {
             override fun onLayoutCompleted(state: RecyclerView.State) {
                 super.onLayoutCompleted(state)
                 startPostponedEnterTransition()
@@ -51,7 +59,7 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
                     return when {
                         position >= pokemonsAdapter.itemCount -> DEFAULT_SPAN_SIZE
                         pokemonsAdapter.getItem(position) is PokemonListUiModel.Pokemon -> DEFAULT_SPAN_SIZE
-                        else -> TOTAL_SPAN_COUNT
+                        else -> totalSpanCount
                     }
                 }
             }
@@ -161,7 +169,8 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
     }
 
     private companion object {
-        private const val TOTAL_SPAN_COUNT = 3
+        private const val TOTAL_SPAN_COUNT_PORTRAIT = 3
+        private const val TOTAL_SPAN_COUNT_LANDSCAPE = 5
         private const val DEFAULT_SPAN_SIZE = 1
 
         private const val ITEMS_BEFORE_NEXT_PAGE_LOAD = 5

@@ -7,6 +7,7 @@ import com.badront.pokedex.core.coroutines.AppDispatchers
 import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
 import com.badront.pokedex.core.model.LoadingState
 import com.badront.pokedex.core.presentation.BaseViewModel
+import com.badront.pokedex.evolution.core.domain.model.EvolutionChain
 import com.badront.pokedex.pokemon.core.domain.model.DetailedPokemon
 import com.badront.pokedex.pokemon.core.domain.usecase.GetPokemonDetailsByIdAsFlow
 import com.badront.pokedex.pokemon.details.domain.LoadAndSaveDetailedPokemon
@@ -60,18 +61,21 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
                 state = state.copy(loadingState = LoadingState.ERROR)
             }
         ) {
+            /**
+             * if pokemon loading finished with exception we need to stop all other scope coroutines
+             */
             val pokemonDeferred = throwAsync { loadAndSaveDetailedPokemon(parameters.id) }
-            val evolutionChainDeferred = throwAsync { loadPokemonEvolutionChain(parameters.id) }
+            val evolutionChainDeferred = async { loadPokemonEvolutionChain(parameters.id) }
             val pokemon = pokemonDeferred.await()
-            if (pokemon.isSuccess) {
-                state = state.copy(loadingState = LoadingState.DATA)
+            state = if (pokemon.isSuccess) {
+                state.copy(loadingState = LoadingState.DATA)
             } else {
                 pokemon.exceptionOrNull()?.let { onLoadingError(it) }
-                state = state.copy(loadingState = LoadingState.ERROR)
+                state.copy(loadingState = LoadingState.ERROR)
             }
             val evolutionChain = evolutionChainDeferred.await()
-            if (evolutionChain.isSuccess) {
-                // TODO do nothing?
+            evolutionChain?.getOrNull()?.let { chain ->
+                state = state.copy(evolutionChain = chain)
             }
         }
     }
@@ -103,7 +107,8 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
     internal data class State(
         val loadingState: LoadingState = LoadingState.LOADING,
         val pokemon: DetailedPokemon? = null,
-        val palette: ColorPalette? = null
+        val palette: ColorPalette? = null,
+        val evolutionChain: EvolutionChain? = null
     )
 
     internal sealed class Action {

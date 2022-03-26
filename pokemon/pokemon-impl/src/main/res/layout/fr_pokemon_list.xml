@@ -49,7 +49,7 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="3"
             tools:itemCount="10"
-            tools:listitem="@layout/list_pokemon_view" />
+            tools:listitem="@layout/li_pokemon_item" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.badront.pokedex.design.widget.ErrorRetryView

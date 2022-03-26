@@ -11,12 +11,12 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import coil.load
 import coil.request.Disposable
 import com.badront.pokedex.core.ext.android.content.getColorKtx
 import com.badront.pokedex.core.ext.android.content.getDimensionPixelSizeKtx
 import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
 import com.badront.pokedex.core.ext.androidx.palette.graphics.getPalette
+import com.badront.pokedex.pokemon.core.widget.loadPokemon
 import com.badront.pokedex.pokemon.impl.R
 import com.badront.pokedex.pokemon.impl.databinding.ListPokemonViewBinding
 import com.badront.pokedex.pokemon.list.presentation.model.PokemonListUiModel
@@ -67,10 +67,7 @@ internal class ListPokemonView @JvmOverloads constructor(
         with(viewBinding) {
             pokemonName.text = pokemon.name
             pokemonNumber.text = pokemon.number
-            imageLoadingDisposable = pokemonImage.load(pokemon.image) {
-                placeholder(R.drawable.pokemon_egg)
-                error(R.drawable.pokemon_empty)
-                crossfade(true)
+            imageLoadingDisposable = pokemonImage.loadPokemon(pokemon.image) {
                 if (pokemon.palette == null) {
                     setColorPalette(pokemon, defaultColorPalette)
                     getPalette { colorPalette ->

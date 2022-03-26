@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="EvolutionViewStyle">
+        <item name="ev_arrowColor">@color/dark_gray</item>
+        <item name="ev_arrowPadding">@dimen/offset_8</item>
+        <item name="ev_arrowWidth">2dp</item>
+        <item name="ev_pokemonSize">48dp</item>
+    </style>
+</resources>

@@ -41,3 +41,6 @@ fun Context.getDimensionPixelSizeKtx(@DimenRes id: Int): Int {
 fun Context.getDimensionPixelOffsetKtx(@DimenRes id: Int): Int {
     return resources.getDimensionPixelOffset(id)
 }
+
+val Context.orientation: Int
+    get() = resources.configuration.orientation

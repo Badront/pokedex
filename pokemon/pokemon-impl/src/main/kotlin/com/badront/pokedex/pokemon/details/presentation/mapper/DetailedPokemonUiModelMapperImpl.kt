@@ -23,7 +23,7 @@ internal class DetailedPokemonUiModelMapperImpl @Inject constructor(
                 }
                 else -> {
                     state.pokemon?.details?.let { detailedPokemon ->
-                        pokemonDetailsUiMapper.map(detailedPokemon, state.palette)
+                        pokemonDetailsUiMapper.map(detailedPokemon, state.palette, state.evolutionChain)
                     } ?: emptyList()
                 }
             }

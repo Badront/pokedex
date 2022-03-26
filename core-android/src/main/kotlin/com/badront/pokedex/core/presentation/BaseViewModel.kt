@@ -52,6 +52,9 @@ abstract class BaseViewModel<STATE, ACTION, EVENT> : ViewModel() {
         }
     }
 
+    /**
+     * Throws [Exception] to parent [CoroutineScope] error handler if coroutine finished with [Exception]
+     */
     protected fun <T> throwAsync(
         context: CoroutineContext = EmptyCoroutineContext,
         onError: ((Throwable) -> Unit)? = null,
@@ -71,6 +74,9 @@ abstract class BaseViewModel<STATE, ACTION, EVENT> : ViewModel() {
         }
     }
 
+    /**
+     * If coroutine finished with [Exception], returns null and handles [Exception] in [onError]
+     */
     protected fun <T> async(
         context: CoroutineContext = EmptyCoroutineContext,
         start: CoroutineStart = CoroutineStart.DEFAULT,

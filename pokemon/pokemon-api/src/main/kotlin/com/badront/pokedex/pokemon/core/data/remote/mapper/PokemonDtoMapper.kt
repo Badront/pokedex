@@ -1,12 +1,12 @@
 package com.badront.pokedex.pokemon.core.data.remote.mapper
 
 import android.net.Uri
-import com.badront.pokedex.pokemon.core.data.remote.model.PokemonDto
+import com.badront.pokedex.core.data.remote.model.NamedApiResourceDto
 import com.badront.pokedex.pokemon.core.domain.model.Pokemon
 import javax.inject.Inject
 
 class PokemonDtoMapper @Inject constructor() {
-    fun map(dto: PokemonDto): Pokemon {
+    fun map(dto: NamedApiResourceDto): Pokemon {
         val idStr = Uri.parse(dto.url).lastPathSegment!!
         val id = idStr.toInt()
         return Pokemon(
