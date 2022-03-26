@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
-import coil.load
 import com.badront.pokedex.core.ext.android.content.getDimensionPixelOffsetKtx
 import com.badront.pokedex.core.ext.android.view.setTint
 import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
@@ -18,6 +17,7 @@ import com.badront.pokedex.core.ext.kotlinx.coroutines.flow.observe
 import com.badront.pokedex.core.model.LoadingState
 import com.badront.pokedex.core.presentation.BaseFragment
 import com.badront.pokedex.core.util.recycler.LinearSpacingItemDecoration
+import com.badront.pokedex.pokemon.core.widget.loadPokemon
 import com.badront.pokedex.pokemon.details.presentation.adapter.PokemonDetailsAdapter
 import com.badront.pokedex.pokemon.details.presentation.model.DetailedPokemonUiModel
 import com.badront.pokedex.pokemon.impl.R
@@ -132,10 +132,7 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
         viewBinding.pokemonName.text = header.name
         viewBinding.pokemonNumber.text = header.number
         viewBinding.pokemonImage.transitionName = header.image
-        viewBinding.pokemonImage.load(header.image) {
-            placeholder(R.drawable.pokemon_egg)
-            error(R.drawable.pokemon_empty)
-            crossfade(true)
+        viewBinding.pokemonImage.loadPokemon(header.image) {
             listener(onError = { _, _ ->
                 startPostponedEnterTransition()
             }) { _, _ ->

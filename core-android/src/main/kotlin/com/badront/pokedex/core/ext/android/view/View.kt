@@ -57,3 +57,18 @@ fun View.createMarginStateForView(): ViewOffsetState {
         marginBottom
     )
 }
+
+fun View.measureDimension(size: Int, spec: Int): Int {
+    val specMode = View.MeasureSpec.getMode(spec)
+    val specSize = View.MeasureSpec.getSize(spec)
+
+    return if (specMode == View.MeasureSpec.EXACTLY) {
+        specSize
+    } else {
+        if (specMode == View.MeasureSpec.AT_MOST) {
+            size.coerceAtMost(specSize)
+        } else {
+            size
+        }
+    }
+}

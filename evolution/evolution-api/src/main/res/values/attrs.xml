@@ -4,6 +4,7 @@
         <attr name="ev_arrowColor" format="color" />
         <attr name="ev_arrowWidth" format="dimension" />
         <attr name="ev_arrowPadding" format="dimension" />
+        <attr name="ev_pokemonVerticalPadding" format="dimension" />
         <attr name="ev_pokemonSize" format="dimension" />
     </declare-styleable>
 </resources>
