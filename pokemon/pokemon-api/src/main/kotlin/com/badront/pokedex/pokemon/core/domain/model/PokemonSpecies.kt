@@ -1,9 +1,8 @@
 package com.badront.pokedex.pokemon.core.domain.model
 
-class Pokemon(
+class PokemonSpecies(
     val id: PokeId,
     val name: String,
-    val number: Int,
-    val image: String
+    val evolvesFrom: Pokemon?,
+    val evolutionChainId: Int?
 )
-typealias PokeId = Int

@@ -10,8 +10,8 @@ import com.badront.pokedex.pokemon.core.data.local.dao.PokemonDetailsDao
 import com.badront.pokedex.pokemon.core.data.local.dao.PokemonStatsDao
 import com.badront.pokedex.pokemon.core.data.local.dao.PokemonTypeDao
 import com.badront.pokedex.pokemon.core.data.remote.PokemonApi
-import com.badront.pokedex.pokemon.core.domain.PokemonListRepository
-import com.badront.pokedex.pokemon.core.domain.PokemonRepository
+import com.badront.pokedex.pokemon.core.domain.repository.PokemonListRepository
+import com.badront.pokedex.pokemon.core.domain.repository.PokemonRepository
 import com.badront.pokedex.pokemon.details.di.PokemonDetailsModule
 import com.badront.pokedex.pokemon.list.di.PokemonListModule
 import dagger.Binds

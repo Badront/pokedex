@@ -9,8 +9,8 @@ import com.badront.pokedex.core.model.doOnFailure
 import com.badront.pokedex.core.model.doOnSuccess
 import com.badront.pokedex.core.presentation.BaseViewModel
 import com.badront.pokedex.pokemon.core.domain.model.Pokemon
+import com.badront.pokedex.pokemon.core.domain.usecase.GetListPokemonsAsFlow
 import com.badront.pokedex.pokemon.details.presentation.PokemonDetailsParameters
-import com.badront.pokedex.pokemon.list.domain.GetListPokemonsAsFlow
 import com.badront.pokedex.pokemon.list.domain.LoadAndSaveListPokemonsPage
 import com.badront.pokedex.pokemon.list.presentation.mapper.PokemonListUiModelMapper
 import com.badront.pokedex.pokemon.list.presentation.model.PokemonListUiModel

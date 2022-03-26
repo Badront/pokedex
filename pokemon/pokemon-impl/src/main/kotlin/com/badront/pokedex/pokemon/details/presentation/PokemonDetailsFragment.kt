@@ -133,8 +133,8 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
         viewBinding.pokemonNumber.text = header.number
         viewBinding.pokemonImage.transitionName = header.image
         viewBinding.pokemonImage.load(header.image) {
-            placeholder(R.drawable.egg)
-            error(R.drawable.empty)
+            placeholder(R.drawable.pokemon_egg)
+            error(R.drawable.pokemon_empty)
             crossfade(true)
             listener(onError = { _, _ ->
                 startPostponedEnterTransition()

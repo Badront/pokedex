@@ -9,7 +9,7 @@ internal class EvolutionDetailsDto(
     val item: NamedApiResourceDto? = null,
     // The type of event that triggers evolution into this Pokémon species
     @SerializedName("trigger")
-    val trigger: NamedApiResourceDto? = null,
+    val trigger: NamedApiResourceDto,
     // The id of the gender of the evolving Pokémon species must be in order to evolve into this Pokémon species
     @SerializedName("gender")
     val gender: Int? = null,
@@ -39,7 +39,7 @@ internal class EvolutionDetailsDto(
     val minAffection: Int? = null,
     // Whether or not it must be raining in the overworld to cause evolution this Pokémon species
     @SerializedName("needs_overworld_rain")
-    val needOverworldRain: Boolean = false,
+    val needOverworldRain: Boolean? = false,
     // The Pokémon species that must be in the players party in order for the evolving Pokémon species to evolve into this Pokémon species
     @SerializedName("party_species")
     val partySpecies: NamedApiResourceDto? = null,
@@ -57,5 +57,5 @@ internal class EvolutionDetailsDto(
     val tradeSpecies: NamedApiResourceDto? = null,
     // Whether or not the 3DS needs to be turned upside-down as this Pokémon levels up
     @SerializedName("turn_upside_down")
-    val turnUpsideDown: Boolean = false
+    val turnUpsideDown: Boolean? = false
 )

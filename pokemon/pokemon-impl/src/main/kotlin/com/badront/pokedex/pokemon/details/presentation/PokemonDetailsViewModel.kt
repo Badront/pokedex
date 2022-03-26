@@ -8,7 +8,7 @@ import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
 import com.badront.pokedex.core.model.LoadingState
 import com.badront.pokedex.core.presentation.BaseViewModel
 import com.badront.pokedex.pokemon.core.domain.model.DetailedPokemon
-import com.badront.pokedex.pokemon.details.domain.GetPokemonDetailsByIdAsFlow
+import com.badront.pokedex.pokemon.core.domain.usecase.GetPokemonDetailsByIdAsFlow
 import com.badront.pokedex.pokemon.details.domain.LoadAndSaveDetailedPokemon
 import com.badront.pokedex.pokemon.details.presentation.mapper.DetailedPokemonUiModelMapper
 import com.badront.pokedex.pokemon.details.presentation.model.DetailedPokemonUiModel

@@ -15,5 +15,5 @@ internal class EvolutionChainLinkDto(
     val details: List<EvolutionDetailsDto>? = null,
     // A List of chain objects
     @SerializedName("evolves_to")
-    val evolvesTo: List<EvolutionChainLinkDto>
+    val evolvesTo: List<EvolutionChainLinkDto>? = null
 )

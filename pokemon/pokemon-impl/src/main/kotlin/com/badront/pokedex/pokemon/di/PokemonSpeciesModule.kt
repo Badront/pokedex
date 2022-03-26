@@ -2,7 +2,7 @@ package com.badront.pokedex.pokemon.di
 
 import com.badront.pokedex.pokemon.core.data.PokemonSpeciesRepositoryImpl
 import com.badront.pokedex.pokemon.core.data.remote.PokemonSpeciesApi
-import com.badront.pokedex.pokemon.core.domain.PokemonSpeciesRepository
+import com.badront.pokedex.pokemon.core.domain.repository.PokemonSpeciesRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

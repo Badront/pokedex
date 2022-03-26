@@ -30,6 +30,8 @@ dependencies {
     implementation project(AppModules.coreAndroid)
     implementation project(AppModules.Pokemon.api)
     implementation project(AppModules.Pokemon.impl)
+    implementation project(AppModules.Item.api)
+    implementation project(AppModules.Item.impl)
     implementation project(AppModules.Evolution.api)
     implementation project(AppModules.Evolution.impl)
 

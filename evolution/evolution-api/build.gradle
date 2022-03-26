@@ -8,6 +8,8 @@ apply from: "$rootDir/config/dependencies-groups.gradle"
 dependencies {
     implementation project(AppModules.core)
     implementation project(AppModules.coreAndroid)
+    implementation project(AppModules.Item.api)
+    implementation project(AppModules.Pokemon.api)
     kotlinLib()
     navigationJetpack()
     hiltDI()

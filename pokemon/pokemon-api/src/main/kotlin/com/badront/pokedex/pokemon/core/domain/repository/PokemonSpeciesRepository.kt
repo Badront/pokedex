@@ -1,4 +1,4 @@
-package com.badront.pokedex.pokemon.core.domain
+package com.badront.pokedex.pokemon.core.domain.repository
 
 import com.badront.pokedex.core.model.Either
 import com.badront.pokedex.pokemon.core.domain.exception.LoadingPokemonSpeciesException

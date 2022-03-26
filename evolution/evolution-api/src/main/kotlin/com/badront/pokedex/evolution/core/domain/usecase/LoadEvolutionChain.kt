@@ -10,7 +10,6 @@ import javax.inject.Inject
 class LoadEvolutionChain @Inject constructor(
     private val evolutionChainRepository: EvolutionChainRepository
 ) {
-
     suspend operator fun invoke(id: EvolutionChainId): Either<EvolutionChain, EvolutionChainLoadingException> {
         return evolutionChainRepository.loadChain(id)
     }

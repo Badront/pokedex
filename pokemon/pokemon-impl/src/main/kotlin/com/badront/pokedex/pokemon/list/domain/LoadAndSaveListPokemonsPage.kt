@@ -4,9 +4,9 @@ import com.badront.pokedex.core.coroutines.AppDispatchers
 import com.badront.pokedex.core.model.Either
 import com.badront.pokedex.core.model.Page
 import com.badront.pokedex.core.model.fold
-import com.badront.pokedex.pokemon.core.domain.PokemonListRepository
 import com.badront.pokedex.pokemon.core.domain.exception.LoadingPokemonListException
 import com.badront.pokedex.pokemon.core.domain.model.Pokemon
+import com.badront.pokedex.pokemon.core.domain.repository.PokemonListRepository
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 

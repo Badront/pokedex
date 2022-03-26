@@ -8,11 +8,11 @@ import com.badront.pokedex.pokemon.core.data.local.dao.PokemonTypeDao
 import com.badront.pokedex.pokemon.core.data.local.mapper.DetailedPokemonEntityMapper
 import com.badront.pokedex.pokemon.core.data.remote.PokemonApi
 import com.badront.pokedex.pokemon.core.data.remote.mapper.DetailedPokemonDtoMapper
-import com.badront.pokedex.pokemon.core.domain.PokemonRepository
 import com.badront.pokedex.pokemon.core.domain.exception.LoadingPokemonException
 import com.badront.pokedex.pokemon.core.domain.model.DetailedPokemon
 import com.badront.pokedex.pokemon.core.domain.model.PokeId
 import com.badront.pokedex.pokemon.core.domain.model.PokemonDetails
+import com.badront.pokedex.pokemon.core.domain.repository.PokemonRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

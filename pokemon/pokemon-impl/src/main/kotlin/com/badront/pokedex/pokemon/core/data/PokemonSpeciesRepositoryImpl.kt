@@ -3,10 +3,10 @@ package com.badront.pokedex.pokemon.core.data
 import com.badront.pokedex.core.model.Either
 import com.badront.pokedex.pokemon.core.data.remote.PokemonSpeciesApi
 import com.badront.pokedex.pokemon.core.data.remote.mapper.PokemonSpeciesDtoMapper
-import com.badront.pokedex.pokemon.core.domain.PokemonSpeciesRepository
 import com.badront.pokedex.pokemon.core.domain.exception.LoadingPokemonSpeciesException
 import com.badront.pokedex.pokemon.core.domain.model.PokeId
 import com.badront.pokedex.pokemon.core.domain.model.PokemonSpecies
+import com.badront.pokedex.pokemon.core.domain.repository.PokemonSpeciesRepository
 import javax.inject.Inject
 
 internal class PokemonSpeciesRepositoryImpl @Inject constructor(

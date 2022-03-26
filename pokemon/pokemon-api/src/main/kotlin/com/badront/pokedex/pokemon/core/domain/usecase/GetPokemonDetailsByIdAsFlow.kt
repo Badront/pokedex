@@ -1,10 +1,10 @@
-package com.badront.pokedex.pokemon.details.domain
+package com.badront.pokedex.pokemon.core.domain.usecase
 
 import com.badront.pokedex.core.coroutines.AppDispatchers
-import com.badront.pokedex.pokemon.core.domain.PokemonListRepository
-import com.badront.pokedex.pokemon.core.domain.PokemonRepository
 import com.badront.pokedex.pokemon.core.domain.model.DetailedPokemon
 import com.badront.pokedex.pokemon.core.domain.model.PokeId
+import com.badront.pokedex.pokemon.core.domain.repository.PokemonListRepository
+import com.badront.pokedex.pokemon.core.domain.repository.PokemonRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn

@@ -68,8 +68,8 @@ internal class ListPokemonView @JvmOverloads constructor(
             pokemonName.text = pokemon.name
             pokemonNumber.text = pokemon.number
             imageLoadingDisposable = pokemonImage.load(pokemon.image) {
-                placeholder(R.drawable.egg)
-                error(R.drawable.empty)
+                placeholder(R.drawable.pokemon_egg)
+                error(R.drawable.pokemon_empty)
                 crossfade(true)
                 if (pokemon.palette == null) {
                     setColorPalette(pokemon, defaultColorPalette)
