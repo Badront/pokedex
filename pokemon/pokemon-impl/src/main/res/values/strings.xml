@@ -9,4 +9,5 @@
     <string name="pokemon_height">Height</string>
     <string name="pokemon_weight_in_kg">%.2f kg</string>
     <string name="pokemon_height_in_cm">%.2f cm</string>
+    <string name="pokemon_evolution">Evolution</string>
 </resources>

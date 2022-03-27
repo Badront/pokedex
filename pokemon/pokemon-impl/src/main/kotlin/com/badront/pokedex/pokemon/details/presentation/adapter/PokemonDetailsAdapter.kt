@@ -5,10 +5,12 @@ import androidx.recyclerview.widget.DiffUtil
 import com.badront.pokedex.core.ext.kotlin.collections.areContentsTheSame
 import com.badront.pokedex.core.util.recycler.BaseAsyncAdapter
 import com.badront.pokedex.core.util.recycler.BaseViewHolder
+import com.badront.pokedex.pokemon.core.domain.model.Pokemon
 import com.badront.pokedex.pokemon.details.presentation.model.PokemonDetailsUiModel
 import com.badront.pokedex.pokemon.impl.R
 
 class PokemonDetailsAdapter(
+    private val onPokemonClick: (Pokemon) -> Unit,
     private val onRetryClick: () -> Unit
 ) :
     BaseAsyncAdapter<PokemonDetailsUiModel, BaseViewHolder<out PokemonDetailsUiModel>>(Companion) {
@@ -31,7 +33,7 @@ class PokemonDetailsAdapter(
             R.layout.li_pokemon_details_header -> PokemonDetailsHeaderViewHolder(parent)
             R.layout.li_pokemon_details_description -> PokemonDetailsDescriptionViewHolder(parent)
             R.layout.li_pokemon_details_measurements -> PokemonDetailsMeasurementsViewHolder(parent)
-            R.layout.li_pokemon_details_evolution -> PokemonDetailsEvolutionViewHolder(parent)
+            R.layout.li_pokemon_details_evolution -> PokemonDetailsEvolutionViewHolder(parent, onPokemonClick)
             R.layout.li_pokemon_details_loading -> PokemonDetailsLoadingViewHolder(parent)
             R.layout.li_pokemon_details_loading_error -> PokemonDetailsLoadingErrorViewHolder(parent, onRetryClick)
             else -> throw IllegalArgumentException("not ready for this viewType $viewType")

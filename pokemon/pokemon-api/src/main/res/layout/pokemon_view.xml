@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:parentTag="com.badront.pokedex.pokemon.core.widget.PokemonView">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/default_pokemon_size"
+        android:layout_height="@dimen/default_pokemon_size"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/pokemon_egg" />
+
+    <TextView
+        android:id="@+id/name"
+        style="@style/Text.Regular.10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        tools:text="Charizard" />
+
+</merge>

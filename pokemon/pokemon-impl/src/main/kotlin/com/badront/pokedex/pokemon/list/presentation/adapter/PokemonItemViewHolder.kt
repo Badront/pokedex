@@ -35,7 +35,6 @@ internal class PokemonItemViewHolder(
         super.bind(item)
         with(viewBinding.listPokemon) {
             setPokemon(item)
-            imageView.transitionName = item.image
             imageView.tag = item.image
             imageView.contentDescription = item.name
         }

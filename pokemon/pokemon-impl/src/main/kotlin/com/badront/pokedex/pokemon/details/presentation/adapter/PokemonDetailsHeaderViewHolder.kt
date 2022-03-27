@@ -15,7 +15,6 @@ class PokemonDetailsHeaderViewHolder(parent: ViewGroup) :
         super.bind(item)
         with(viewBinding.headerText) {
             setText(item.text)
-            setTextColor(item.color)
         }
     }
 }

@@ -9,6 +9,7 @@ import com.badront.pokedex.core.model.LoadingState
 import com.badront.pokedex.core.presentation.BaseViewModel
 import com.badront.pokedex.evolution.core.domain.model.EvolutionChain
 import com.badront.pokedex.pokemon.core.domain.model.DetailedPokemon
+import com.badront.pokedex.pokemon.core.domain.model.Pokemon
 import com.badront.pokedex.pokemon.core.domain.usecase.GetPokemonDetailsByIdAsFlow
 import com.badront.pokedex.pokemon.details.domain.LoadAndSaveDetailedPokemon
 import com.badront.pokedex.pokemon.details.presentation.mapper.DetailedPokemonUiModelMapper
@@ -50,6 +51,11 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
             Event.ReloadPokemon -> {
                 state = state.copy(loadingState = LoadingState.LOADING)
                 loadPokemonDetails()
+            }
+            is Event.EvolutionPokemonClick -> {
+                if (event.pokemon.id != state.pokemon?.pokemon?.id) {
+                    sendAction(Action.OpenPokemon(PokemonDetailsParameters(id = event.pokemon.id)))
+                }
             }
         }
     }
@@ -113,10 +119,12 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
 
     internal sealed class Action {
         class ShowError(val message: String?) : Action()
+        class OpenPokemon(val parameters: PokemonDetailsParameters) : Action()
     }
 
     internal sealed class Event {
         class PokemonColorPaletteReceived(val palette: ColorPalette) : Event()
+        class EvolutionPokemonClick(val pokemon: Pokemon) : Event()
         object ReloadPokemon : Event()
     }
 

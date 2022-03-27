@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/offset_16"
-        android:background="@drawable/ripple_rounded"
+        android:background="@drawable/ripple_rounded_16"
         android:visibility="gone"
         app:erv_text="@string/pokemon_first_page_loading_error"
         app:layout_constraintBottom_toBottomOf="parent"

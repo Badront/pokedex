@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/offset_16"
         android:layout_marginTop="@dimen/offset_16"
-        android:background="@drawable/ripple_rounded"
+        android:background="@drawable/ripple_rounded_16"
         android:padding="@dimen/offset_8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -24,5 +24,8 @@
         <argument
             android:name="parameters"
             app:argType="com.badront.pokedex.pokemon.details.presentation.PokemonDetailsParameters" />
+        <action
+            android:id="@+id/action_pokemonDetails_self"
+            app:destination="@id/pokemonDetails" />
     </fragment>
 </navigation>

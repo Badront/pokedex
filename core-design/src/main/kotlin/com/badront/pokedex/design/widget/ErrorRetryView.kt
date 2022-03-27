@@ -29,7 +29,7 @@ class ErrorRetryView @JvmOverloads constructor(
         }
 
     init {
-        setBackgroundResource(R.drawable.ripple_rounded)
+        setBackgroundResource(R.drawable.ripple_rounded_16)
         orientation = VERTICAL
         gravity = Gravity.CENTER
         setPadding(context.resources.getDimensionPixelSize(R.dimen.offset_16))

@@ -11,6 +11,7 @@ inline fun ImageView.loadPokemon(image: String, builder: ImageRequest.Builder.()
         placeholder(R.drawable.pokemon_egg)
         error(R.drawable.pokemon_empty)
         crossfade(true)
+        transitionName = image
         builder(this)
     }
 }

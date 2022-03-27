@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.badront.pokedex.core.ext.android.content.getDimensionPixelOffsetKtx
@@ -40,6 +41,9 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
 
     private val detailsAdapter by lazy {
         PokemonDetailsAdapter(
+            onPokemonClick = {
+                viewModel.onEvent(PokemonDetailsViewModel.Event.EvolutionPokemonClick(it))
+            },
             onRetryClick = {
                 viewModel.onEvent(PokemonDetailsViewModel.Event.ReloadPokemon)
             }
@@ -101,6 +105,11 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
         when (action) {
             is PokemonDetailsViewModel.Action.ShowError -> {
                 Toast.makeText(requireContext(), action.message, Toast.LENGTH_SHORT).show()
+            }
+            is PokemonDetailsViewModel.Action.OpenPokemon -> {
+                findNavController().navigate(
+                    directions = PokemonDetailsFragmentDirections.actionPokemonDetailsSelf(action.parameters)
+                )
             }
         }
     }

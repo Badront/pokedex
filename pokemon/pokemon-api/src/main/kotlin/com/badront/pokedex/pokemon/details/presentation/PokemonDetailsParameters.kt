@@ -8,5 +8,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class PokemonDetailsParameters(
     val id: PokeId,
-    val palette: ColorPalette?
+    val palette: ColorPalette? = null
 ) : Parcelable
