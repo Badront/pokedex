@@ -18,7 +18,7 @@ internal class PokemonTypeColorMapperImpl @Inject constructor(
                 PokemonType.Type.GHOST -> R.color.type_ghost
                 PokemonType.Type.STEEL -> R.color.type_steel
                 PokemonType.Type.WATER -> R.color.type_water
-                PokemonType.Type.GRASS -> R.color.type_ghost
+                PokemonType.Type.GRASS -> R.color.type_grass
                 PokemonType.Type.PSYCHIC -> R.color.type_psychic
                 PokemonType.Type.ICE -> R.color.type_ice
                 PokemonType.Type.DARK -> R.color.type_dark
