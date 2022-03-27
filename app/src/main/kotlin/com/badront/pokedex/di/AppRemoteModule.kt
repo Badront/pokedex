@@ -14,6 +14,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -36,6 +37,9 @@ class AppRemoteModule {
     @Singleton
     fun provideOkhttpClient(interceptors: Set<@JvmSuppressWildcards Interceptor>): OkHttpClient {
         return OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
             .apply {
                 interceptors.forEach {
                     addInterceptor(it)
