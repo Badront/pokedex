@@ -216,6 +216,20 @@ class EvolutionView @JvmOverloads constructor(
         super.onViewRemoved(child)
     }
 
+    override fun onAttachedToWindow() {
+        getPokemonChildren().forEach { pokemonView ->
+            pokemonView.pokemon?.let { pokemon ->
+                pokemonViewMap[pokemon] = pokemonView
+            }
+        }
+        super.onAttachedToWindow()
+    }
+
+    override fun onDetachedFromWindow() {
+        pokemonViewMap.clear()
+        super.onDetachedFromWindow()
+    }
+
     private fun attachViewToPokemon(view: PokemonView, pokemon: Pokemon) {
         detachViewFromPokemon(view)
         pokemonViewMap[pokemon] = view
