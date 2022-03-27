@@ -3,7 +3,6 @@ package com.badront.pokedex.pokemon.list.presentation.adapter
 import android.view.ViewGroup
 import android.widget.ImageView
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
 import com.badront.pokedex.core.util.recycler.BaseViewHolder
 import com.badront.pokedex.pokemon.impl.R
 import com.badront.pokedex.pokemon.impl.databinding.LiPokemonItemBinding
@@ -11,8 +10,7 @@ import com.badront.pokedex.pokemon.list.presentation.model.PokemonListUiModel
 
 internal class PokemonItemViewHolder(
     parent: ViewGroup,
-    onClick: (position: Int, pokemon: PokemonListUiModel.Pokemon) -> Unit,
-    onPokemonPaletteLoaded: (pokemon: PokemonListUiModel.Pokemon, palette: ColorPalette) -> Unit
+    onClick: (position: Int, pokemon: PokemonListUiModel.Pokemon) -> Unit
 ) : BaseViewHolder<PokemonListUiModel.Pokemon>(parent, R.layout.li_pokemon_item) {
     private val viewBinding: LiPokemonItemBinding by viewBinding()
     val pokemonImage: ImageView
@@ -22,11 +20,6 @@ internal class PokemonItemViewHolder(
         viewBinding.root.setOnClickListener {
             item?.let {
                 onClick(bindingAdapterPosition, it)
-            }
-        }
-        viewBinding.root.onPokemonPaletteLoadedListener = { pokemon, colorPalette ->
-            if (colorPalette != null) {
-                onPokemonPaletteLoaded(pokemon, colorPalette)
             }
         }
     }

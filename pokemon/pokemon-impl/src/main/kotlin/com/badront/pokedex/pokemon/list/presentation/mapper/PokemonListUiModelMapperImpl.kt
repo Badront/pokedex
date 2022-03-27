@@ -1,6 +1,5 @@
 package com.badront.pokedex.pokemon.list.presentation.mapper
 
-import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
 import com.badront.pokedex.core.model.LoadingState
 import com.badront.pokedex.pokemon.list.presentation.PokemonListViewModel
 import com.badront.pokedex.pokemon.list.presentation.model.PokemonListUiModel
@@ -11,8 +10,7 @@ internal class PokemonListUiModelMapperImpl @Inject constructor(
     private val pokemonMapper: PokemonListPokemonUiModelMapper
 ) : PokemonListUiModelMapper {
     override fun map(
-        state: PokemonListViewModel.State,
-        pokemonColorPalettes: Map<Int, ColorPalette>
+        state: PokemonListViewModel.State
     ): PokemonListUiState {
         return PokemonListUiState(
             isRefreshing = state.isRefreshing,
@@ -21,7 +19,7 @@ internal class PokemonListUiModelMapperImpl @Inject constructor(
                     (state.loadingState == LoadingState.ERROR && state.pokemons.isNotEmpty()) -> {
                     val items = mutableListOf<PokemonListUiModel>()
                     items.addAll(state.pokemons.map { listPokemon ->
-                        pokemonMapper.map(listPokemon, pokemonColorPalettes[listPokemon.id])
+                        pokemonMapper.map(listPokemon)
                     })
                     when (state.nextPageLoadingState) {
                         LoadingState.LOADING -> items.add(PokemonListUiModel.NextPageLoading)

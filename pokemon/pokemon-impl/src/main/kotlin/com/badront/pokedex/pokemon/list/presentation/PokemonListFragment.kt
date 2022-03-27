@@ -33,9 +33,6 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
             onPokemonClick = { position, pokemon ->
                 viewModel.onEvent(PokemonListViewModel.Event.OnPokemonClick(position, pokemon))
             },
-            onPokemonPaletteLoaded = { pokemon, palette ->
-                viewModel.onEvent(PokemonListViewModel.Event.PokemonColorPaletteReceived(pokemon, palette))
-            },
             onNextPageLoadingRetryClick = {
                 viewModel.onEvent(PokemonListViewModel.Event.OnRetryNextPageLoadingClick)
             }

@@ -39,7 +39,6 @@ internal class ListPokemonView @JvmOverloads constructor(
     private var imageLoadingDisposable: Disposable? = null
     private var currentPokemon: PokemonListUiModel.Pokemon? = null
     val imageView: ImageView = viewBinding.pokemonImage
-    var onPokemonPaletteLoadedListener: ((PokemonListUiModel.Pokemon, ColorPalette?) -> Unit)? = null
 
     init {
         val array = context.obtainStyledAttributes(attributeSet, R.styleable.ListPokemonView, defStyleAttr, 0)
@@ -68,14 +67,9 @@ internal class ListPokemonView @JvmOverloads constructor(
             pokemonName.text = pokemon.name
             pokemonNumber.text = pokemon.number
             imageLoadingDisposable = pokemonImage.loadPokemon(pokemon.image) {
-                if (pokemon.palette == null) {
-                    setColorPalette(pokemon, defaultColorPalette)
-                    getPalette { colorPalette ->
-                        colorPalette?.let { setColorPalette(pokemon, it) }
-                        onPokemonPaletteLoadedListener?.invoke(pokemon, colorPalette)
-                    }
-                } else {
-                    setColorPalette(pokemon, pokemon.palette)
+                setColorPalette(pokemon, defaultColorPalette)
+                getPalette { colorPalette ->
+                    colorPalette?.let { setColorPalette(pokemon, it) }
                 }
             }
         }

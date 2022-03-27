@@ -3,14 +3,12 @@ package com.badront.pokedex.pokemon.list.presentation.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
 import com.badront.pokedex.core.util.recycler.BaseAsyncAdapter
 import com.badront.pokedex.pokemon.impl.R
 import com.badront.pokedex.pokemon.list.presentation.model.PokemonListUiModel
 
 internal class PokemonListAdapter(
     private val onPokemonClick: (position: Int, pokemon: PokemonListUiModel.Pokemon) -> Unit,
-    private val onPokemonPaletteLoaded: (pokemon: PokemonListUiModel.Pokemon, palette: ColorPalette) -> Unit,
     private val onNextPageLoadingRetryClick: () -> Unit
 ) : BaseAsyncAdapter<PokemonListUiModel, RecyclerView.ViewHolder>(Companion) {
     override fun getItemViewType(position: Int): Int {
@@ -23,7 +21,7 @@ internal class PokemonListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            R.layout.li_pokemon_item -> PokemonItemViewHolder(parent, onPokemonClick, onPokemonPaletteLoaded)
+            R.layout.li_pokemon_item -> PokemonItemViewHolder(parent, onPokemonClick)
             R.layout.li_pokemon_page_loading_error -> PokemonNextPageLoadingErrorViewHolder(
                 parent,
                 onNextPageLoadingRetryClick

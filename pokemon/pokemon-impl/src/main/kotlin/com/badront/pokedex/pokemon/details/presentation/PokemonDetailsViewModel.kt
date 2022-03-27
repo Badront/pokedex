@@ -32,7 +32,7 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
     private val detailedPokemonMapper: DetailedPokemonUiModelMapper,
     private val appDispatchers: AppDispatchers
 ) : BaseViewModel<DetailedPokemonUiModel, PokemonDetailsViewModel.Action, PokemonDetailsViewModel.Event>() {
-    private var stateFlow = MutableStateFlow(State(loadingState = LoadingState.LOADING, palette = parameters.palette))
+    private var stateFlow = MutableStateFlow(State(loadingState = LoadingState.LOADING))
     private var state: State
         get() = stateFlow.value
         set(value) {

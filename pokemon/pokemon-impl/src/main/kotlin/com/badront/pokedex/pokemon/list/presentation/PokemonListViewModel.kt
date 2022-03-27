@@ -2,7 +2,6 @@ package com.badront.pokedex.pokemon.list.presentation
 
 import androidx.lifecycle.viewModelScope
 import com.badront.pokedex.core.coroutines.AppDispatchers
-import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
 import com.badront.pokedex.core.ext.kotlinx.coroutines.isCompletedOrCanceled
 import com.badront.pokedex.core.model.LoadingState
 import com.badront.pokedex.core.model.doOnFailure
@@ -22,7 +21,6 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import java.util.Collections
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,7 +33,6 @@ internal class PokemonListViewModel @Inject constructor(
     private var loadingJob: Job? = null
     private var totalCount: Int? = null
     private var stateFlow = MutableStateFlow(State(loadingState = LoadingState.LOADING))
-    private val pokemonColorPalettes: MutableMap<Int, ColorPalette> = Collections.synchronizedMap(mutableMapOf())
     private var state: State
         get() = stateFlow.value
         set(value) {
@@ -60,7 +57,7 @@ internal class PokemonListViewModel @Inject constructor(
     private fun subscribeForState() {
         stateFlow
             .map { state ->
-                uiModelMapper.map(state, pokemonColorPalettes)
+                uiModelMapper.map(state)
             }
             .flowOn(appDispatchers.computing)
             .onEach { uiState ->
@@ -71,14 +68,11 @@ internal class PokemonListViewModel @Inject constructor(
 
     override fun onEvent(event: Event) {
         when (event) {
-            is Event.PokemonColorPaletteReceived -> {
-                pokemonColorPalettes[event.pokemon.id] = event.palette
-            }
             is Event.OnPokemonClick -> {
                 sendAction(
                     Action.OpenPokemonDetails(
                         event.position,
-                        PokemonDetailsParameters(event.pokemon.id, event.pokemon.palette)
+                        PokemonDetailsParameters(event.pokemon.id)
                     )
                 )
             }
@@ -174,7 +168,6 @@ internal class PokemonListViewModel @Inject constructor(
     )
 
     internal sealed class Event {
-        class PokemonColorPaletteReceived(val pokemon: PokemonListUiModel.Pokemon, val palette: ColorPalette) : Event()
         class OnPokemonClick(val position: Int, val pokemon: PokemonListUiModel.Pokemon) : Event()
         object Refresh : Event()
         object OnRetryLoadingClick : Event()
