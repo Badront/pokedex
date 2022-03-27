@@ -86,6 +86,9 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
         viewBinding.loadingError.onRetryClickListener = {
             viewModel.onEvent(PokemonDetailsViewModel.Event.ReloadPokemon)
         }
+        viewBinding.back.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     override fun onDestroyView() {
