@@ -6,7 +6,7 @@ class EvolutionChain(
     val id: EvolutionChainId,
     val pokemon: Pokemon,
     val details: List<EvolutionDetails>,
-    val evolvedTo: List<EvolutionChain>
+    val evolvesTo: List<EvolutionChain>
 )
 
 typealias EvolutionChainId = Int

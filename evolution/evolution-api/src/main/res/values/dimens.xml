@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="li_evolution_detail_lvl_image_size">24dp</dimen>
+    <dimen name="evolution_arrow_head_x">4dp</dimen>
+    <dimen name="evolution_arrow_head_y">2dp</dimen>
+</resources>

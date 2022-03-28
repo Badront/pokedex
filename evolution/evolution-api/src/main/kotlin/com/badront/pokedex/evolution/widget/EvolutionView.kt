@@ -1,7 +1,9 @@
 package com.badront.pokedex.evolution.widget
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,7 @@ import com.badront.pokedex.core.ext.android.content.getDimensionPixelSizeKtx
 import com.badront.pokedex.core.ext.android.view.measureDimension
 import com.badront.pokedex.evolution.core.domain.model.EvolutionChain
 import com.badront.pokedex.evolution.impl.R
+import com.badront.pokedex.item.core.domain.model.Item
 import com.badront.pokedex.pokemon.core.domain.model.Pokemon
 import com.badront.pokedex.pokemon.core.widget.PokemonView
 
@@ -21,9 +24,17 @@ class EvolutionView @JvmOverloads constructor(
     defStyle: Int = 0
 ) : ViewGroup(context, attrs, defStyle) {
     private val pokemonViewMap = mutableMapOf<Pokemon, PokemonView>()
+    private val chainViewMap = mutableMapOf<EvolutionChain, EvolutionDetailsView>()
     private val depthCount = mutableMapOf<Int, Int>()
+    private val arrows = mutableListOf<Path>()
 
-    private val arrowPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val arrowPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.STROKE
+        strokeJoin = Paint.Join.ROUND
+        strokeCap = Paint.Cap.ROUND
+    }
+    private val arrowHeadX = context.getDimensionPixelSizeKtx(R.dimen.evolution_arrow_head_x)
+    private val arrowHeadY = context.getDimensionPixelSizeKtx(R.dimen.evolution_arrow_head_y)
     private var arrowPadding: Int
     private var pokemonVerticalPadding: Int = 0
         set(value) {
@@ -43,8 +54,15 @@ class EvolutionView @JvmOverloads constructor(
     var onPokemonClick: ((Pokemon) -> Unit)? = null
         set(value) {
             field = value
-            children.filterIsInstance(PokemonView::class.java).forEach {
+            getPokemonChildren().forEach {
                 it.onPokemonClickListener = onPokemonClick
+            }
+        }
+    var onItemClick: ((Item) -> Unit)? = null
+        set(value) {
+            field = value
+            getDetailsChildren().forEach {
+                it.onItemClickListener = onItemClick
             }
         }
 
@@ -75,7 +93,14 @@ class EvolutionView @JvmOverloads constructor(
         setWillNotDraw(false)
     }
 
+    override fun onDraw(canvas: Canvas) {
+        arrows.forEach { arrow ->
+            canvas.drawPath(arrow, arrowPaint)
+        }
+    }
+
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+        arrows.clear()
         val parentLeft = paddingLeft
         val parentTop = paddingTop
         val parentRight = measuredWidth - paddingRight
@@ -92,21 +117,21 @@ class EvolutionView @JvmOverloads constructor(
         }
     }
 
-    private fun layoutChain(chain: EvolutionChain, left: Int, top: Int, right: Int, bottom: Int) {
-        pokemonViewMap[chain.pokemon]?.let { view ->
-            val viewTop = top + (bottom - top) / 2 - view.measuredHeight / 2
-            val viewRight = left + view.measuredWidth
-            val viewBottom = viewTop + view.measuredHeight
-            view.layout(
+    private fun layoutChain(chain: EvolutionChain, left: Int, top: Int, right: Int, bottom: Int): PokemonView? {
+        return pokemonViewMap[chain.pokemon]?.let { pokemonView ->
+            val viewTop = top + (bottom - top) / 2 - pokemonView.measuredHeight / 2
+            val viewRight = left + pokemonView.measuredWidth
+            val viewBottom = viewTop + pokemonView.measuredHeight
+            pokemonView.layout(
                 left,
                 viewTop,
                 viewRight,
                 viewBottom
             )
-            if (chain.evolvedTo.isNotEmpty()) {
-                val chainHeight = (bottom - top) / chain.evolvedTo.size
-                chain.evolvedTo.forEachIndexed { index, childChain ->
-                    val viewWithArrowRight = viewRight + getArrowLengthTo(view)
+            if (chain.evolvesTo.isNotEmpty()) {
+                val chainHeight = (bottom - top) / chain.evolvesTo.size
+                chain.evolvesTo.forEachIndexed { index, childChain ->
+                    val viewWithArrowRight = viewRight + getArrowLengthTo(pokemonView)
                     val viewPartTop = top + chainHeight * index
                     layoutChain(
                         childChain,
@@ -114,10 +139,74 @@ class EvolutionView @JvmOverloads constructor(
                         viewPartTop,
                         right,
                         viewPartTop + chainHeight
+                    )?.let { evolvedPokemonView ->
+                        addEvolveArrow(pokemonView, evolvedPokemonView)
+                    }
+                    layoutDetails(
+                        childChain,
+                        viewRight,
+                        viewPartTop,
+                        viewWithArrowRight,
+                        viewPartTop + chainHeight
                     )
                 }
             }
+            pokemonView
         }
+    }
+
+    private fun addEvolveArrow(pokemonView: PokemonView, evolvedPokemonView: PokemonView) {
+        val pokemonViewCenterY = (pokemonView.top + (pokemonView.bottom - pokemonView.top) / 2).toFloat()
+        val evolvedPokemonViewCenterY =
+            (evolvedPokemonView.top + (evolvedPokemonView.bottom - evolvedPokemonView.top) / 2).toFloat()
+        val arrowPath = Path().apply {
+            fillType = Path.FillType.EVEN_ODD
+        }
+        if (evolvedPokemonView.top == pokemonVerticalPadding) {
+            arrowPath.moveTo(
+                pokemonView.right.toFloat(),
+                pokemonViewCenterY
+            )
+        } else {
+            arrowPath.moveTo(
+                pokemonView.right.toFloat() + arrowPaint.strokeWidth,
+                pokemonViewCenterY
+            )
+            arrowPath.lineTo(
+                pokemonView.right.toFloat() + arrowPaint.strokeWidth,
+                evolvedPokemonViewCenterY
+            )
+        }
+        arrowPath.lineTo(
+            evolvedPokemonView.left.toFloat(),
+            evolvedPokemonViewCenterY
+        )
+        arrowPath.moveTo(
+            (evolvedPokemonView.left - arrowHeadX).toFloat(),
+            evolvedPokemonViewCenterY - arrowHeadY
+        )
+        arrowPath.lineTo(
+            evolvedPokemonView.left.toFloat(),
+            evolvedPokemonViewCenterY
+        )
+        arrowPath.moveTo(
+            (evolvedPokemonView.left - arrowHeadX).toFloat(),
+            evolvedPokemonViewCenterY + arrowHeadY
+        )
+        arrowPath.lineTo(
+            evolvedPokemonView.left.toFloat(),
+            evolvedPokemonViewCenterY
+        )
+        arrows.add(arrowPath)
+    }
+
+    private fun layoutDetails(chain: EvolutionChain, left: Int, top: Int, right: Int, bottom: Int) {
+        chainViewMap[chain]?.layout(
+            left,
+            top,
+            right,
+            bottom
+        )
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -157,19 +246,19 @@ class EvolutionView @JvmOverloads constructor(
     }
 
     private fun getArrowLengthTo(view: PokemonView): Int {
-        // todo высчитывать длину стрелки
         return view.measuredWidth
     }
 
     private fun addDepthCount(depth: Int, chain: EvolutionChain) {
         depthCount[depth] = (depthCount[depth] ?: 0) + 1
-        chain.evolvedTo.forEach { childChain ->
+        chain.evolvesTo.forEach { childChain ->
             addDepthCount(depth + 1, childChain)
         }
     }
 
     private fun updateWidgets() {
         detachAllPokemonViews()
+        detachAllDetailViews()
         evolutionChain?.let {
             attachChain(it)
         }
@@ -189,7 +278,21 @@ class EvolutionView @JvmOverloads constructor(
         }
         pokemonView.bringToFront()
         attachViewToPokemon(pokemonView, chain.pokemon)
-        chain.evolvedTo.forEach { childChain ->
+        if (chain.details.isNotEmpty()) {
+            val detailViews = getDetailsChildren()
+            val detailsView = if (chainViewMap.size < detailViews.count()) {
+                detailViews.first { detailView ->
+                    chainViewMap.values.none { it.id == detailView.id }
+                }
+            } else {
+                createDetailsView().also {
+                    addView(it)
+                }
+            }
+            detailsView.bringToFront()
+            attachViewToChain(detailsView, chain)
+        }
+        chain.evolvesTo.forEach { childChain ->
             attachChain(childChain)
         }
     }
@@ -198,8 +301,16 @@ class EvolutionView @JvmOverloads constructor(
         pokemonViewMap.clear()
     }
 
+    private fun detachAllDetailViews() {
+        chainViewMap.clear()
+    }
+
     private fun getPokemonChildren(): Sequence<PokemonView> {
         return children.filterIsInstance<PokemonView>()
+    }
+
+    private fun getDetailsChildren(): Sequence<EvolutionDetailsView> {
+        return children.filterIsInstance<EvolutionDetailsView>()
     }
 
     private fun createPokemonView(): PokemonView {
@@ -209,9 +320,17 @@ class EvolutionView @JvmOverloads constructor(
         }
     }
 
+    private fun createDetailsView(): EvolutionDetailsView {
+        return EvolutionDetailsView(context).apply {
+            id = View.generateViewId()
+            onItemClickListener = onItemClick
+        }
+    }
+
     override fun onViewRemoved(child: View?) {
-        if (child is PokemonView) {
-            detachViewFromPokemon(child)
+        when (child) {
+            is PokemonView -> detachViewFromPokemon(child)
+            is EvolutionDetailsView -> detachViewFromChain(child)
         }
         super.onViewRemoved(child)
     }
@@ -222,12 +341,43 @@ class EvolutionView @JvmOverloads constructor(
                 pokemonViewMap[pokemon] = pokemonView
             }
         }
+        evolutionChain?.let { chain ->
+            chain.evolvesTo.forEach {
+                rebindChainToDetailsView(it)
+            }
+        }
         super.onAttachedToWindow()
     }
 
     override fun onDetachedFromWindow() {
         pokemonViewMap.clear()
+        chainViewMap.clear()
         super.onDetachedFromWindow()
+    }
+
+    private fun rebindChainToDetailsView(chain: EvolutionChain) {
+        getDetailsChildren().find {
+            it.details == chain.details
+        }?.let { view ->
+            chainViewMap[chain] = view
+        }
+        chain.evolvesTo.forEach {
+            rebindChainToDetailsView(it)
+        }
+    }
+
+    private fun attachViewToChain(view: EvolutionDetailsView, chain: EvolutionChain) {
+        detachViewFromChain(view)
+        chainViewMap[chain] = view
+        view.details = chain.details
+    }
+
+    private fun detachViewFromChain(view: EvolutionDetailsView) {
+        chainViewMap
+            .filterValues { it.id == view.id }
+            .forEach {
+                chainViewMap.remove(it.key)
+            }
     }
 
     private fun attachViewToPokemon(view: PokemonView, pokemon: Pokemon) {

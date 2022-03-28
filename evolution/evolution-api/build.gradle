@@ -12,6 +12,8 @@ dependencies {
     implementation project(AppModules.Item.api)
     implementation project(AppModules.Pokemon.api)
     kotlinLib()
+    timber()
+    viewBinding()
     navigationJetpack()
     hiltDI()
     coil()

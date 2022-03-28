@@ -4,7 +4,7 @@
     <style name="EvolutionViewStyle">
         <item name="ev_arrowColor">@color/dark_gray</item>
         <item name="ev_arrowPadding">@dimen/offset_8</item>
-        <item name="ev_arrowWidth">2dp</item>
+        <item name="ev_arrowWidth">1dp</item>
         <item name="ev_pokemonSize">48dp</item>
         <item name="ev_pokemonVerticalPadding">@dimen/offset_8</item>
     </style>

@@ -35,6 +35,10 @@ ext {
         implementation Libraries.Other.viewBindingDelegate
     }
 
+    viewBinding = Group {
+        implementation Libraries.Other.viewBindingDelegate
+    }
+
     supportCustomTabs = Group {
         implementation Libraries.Support.customTabs
     }

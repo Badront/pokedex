@@ -24,7 +24,7 @@ class PokemonView @JvmOverloads constructor(
 
     init {
         orientation = VERTICAL
-        setBackgroundResource(com.badront.pokedex.design.R.drawable.ripple)
+        setBackgroundResource(com.badront.pokedex.design.R.drawable.ripple_rounded_8)
         setOnClickListener {
             pokemon?.let { onPokemonClickListener?.invoke(it) }
         }

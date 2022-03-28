@@ -19,7 +19,7 @@ internal class EvolutionChainDtoMapper @Inject constructor(
             id = chainId,
             details = dto.details?.map { evolutionDetailsDtoMapper.map(it) } ?: emptyList(),
             pokemon = pokemonDtoMapper.map(dto.species),
-            evolvedTo = dto.evolvesTo?.map { map(chainId, it) } ?: emptyList()
+            evolvesTo = dto.evolvesTo?.map { map(chainId, it) } ?: emptyList()
         )
     }
 }

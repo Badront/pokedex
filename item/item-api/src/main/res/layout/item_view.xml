@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:parentTag="com.badront.pokedex.item.core.widget.ItemView">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/default_item_size"
+        android:layout_height="@dimen/default_item_size"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/item_unknown" />
+
+    <TextView
+        android:id="@+id/name"
+        style="@style/Text.Regular.8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        tools:text="Water Stone" />
+
+</merge>

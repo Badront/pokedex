@@ -38,7 +38,7 @@ internal class PokemonDetailsUiModelMapperImpl @Inject constructor(
                     }
                 ))
             }
-            if (evolutionChain != null && evolutionChain.evolvedTo.isNotEmpty()) {
+            if (evolutionChain != null && evolutionChain.evolvesTo.isNotEmpty()) {
                 add(PokemonDetailsUiModel.Header(StringDesc.StringR(R.string.pokemon_evolution)))
                 add(PokemonDetailsUiModel.Evolution(evolutionChain))
             }
