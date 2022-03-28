@@ -141,14 +141,12 @@ class EvolutionView @JvmOverloads constructor(
                         viewPartTop + chainHeight
                     )?.let { evolvedPokemonView ->
                         addEvolveArrow(pokemonView, evolvedPokemonView)
+                        layoutDetails(
+                            childChain,
+                            pokemonView,
+                            evolvedPokemonView
+                        )
                     }
-                    layoutDetails(
-                        childChain,
-                        viewRight,
-                        viewPartTop,
-                        viewWithArrowRight,
-                        viewPartTop + chainHeight
-                    )
                 }
             }
             pokemonView
@@ -200,13 +198,17 @@ class EvolutionView @JvmOverloads constructor(
         arrows.add(arrowPath)
     }
 
-    private fun layoutDetails(chain: EvolutionChain, left: Int, top: Int, right: Int, bottom: Int) {
-        chainViewMap[chain]?.layout(
-            left,
-            top,
-            right,
-            bottom
-        )
+    private fun layoutDetails(chain: EvolutionChain, pokemonView: PokemonView, evolvedPokemonView: PokemonView) {
+        chainViewMap[chain]?.let { detailsView ->
+            val evolvedCenterY = evolvedPokemonView.top + (evolvedPokemonView.bottom - evolvedPokemonView.top) / 2
+            val detailsViewTop = evolvedCenterY - detailsView.measuredHeight
+            detailsView.layout(
+                pokemonView.right,
+                detailsViewTop,
+                evolvedPokemonView.left,
+                evolvedCenterY
+            )
+        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
