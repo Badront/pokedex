@@ -35,6 +35,7 @@ class EvolutionView @JvmOverloads constructor(
     }
     private val arrowHeadX = context.getDimensionPixelSizeKtx(R.dimen.evolution_arrow_head_x)
     private val arrowHeadY = context.getDimensionPixelSizeKtx(R.dimen.evolution_arrow_head_y)
+    private val arrowMultipleEvolutionTail = context.getDimensionPixelOffsetKtx(R.dimen.evolution_multiple_arrow_tail)
     private var arrowPadding: Int
     private var pokemonVerticalPadding: Int = 0
         set(value) {
@@ -160,18 +161,17 @@ class EvolutionView @JvmOverloads constructor(
         val arrowPath = Path().apply {
             fillType = Path.FillType.EVEN_ODD
         }
-        if (evolvedPokemonView.top == pokemonVerticalPadding) {
-            arrowPath.moveTo(
-                pokemonView.right.toFloat(),
-                pokemonViewCenterY
-            )
-        } else {
-            arrowPath.moveTo(
-                pokemonView.right.toFloat() + arrowPaint.strokeWidth,
+        arrowPath.moveTo(
+            pokemonView.right.toFloat(),
+            pokemonViewCenterY
+        )
+        if (evolvedPokemonView.top != pokemonVerticalPadding) {
+            arrowPath.lineTo(
+                pokemonView.right.toFloat() + arrowMultipleEvolutionTail,
                 pokemonViewCenterY
             )
             arrowPath.lineTo(
-                pokemonView.right.toFloat() + arrowPaint.strokeWidth,
+                pokemonView.right.toFloat() + arrowMultipleEvolutionTail,
                 evolvedPokemonViewCenterY
             )
         }
