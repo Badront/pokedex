@@ -4,4 +4,5 @@
     <string name="evolution_gender_male">(male)</string>
     <string name="evolution_gender_female">(female)</string>
     <string name="evolution_hold_item">Holding</string>
+    <string name="evolution_happiness_template">Friendship %1$d</string>
 </resources>

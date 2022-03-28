@@ -7,16 +7,16 @@ import com.badront.pokedex.evolution.core.domain.model.EvolutionParam
 import com.badront.pokedex.evolution.impl.R
 import com.badront.pokedex.evolution.impl.databinding.LiEvolutionDetailNameImageBinding
 
-class EvolutionLevelViewHolder(parent: ViewGroup) :
-    BaseViewHolder<EvolutionParam.MinLevel>(parent, R.layout.li_evolution_detail_name_image) {
+class EvolutionHappinessViewHolder(parent: ViewGroup) :
+    BaseViewHolder<EvolutionParam.MinHappiness>(parent, R.layout.li_evolution_detail_name_image) {
     private val binding: LiEvolutionDetailNameImageBinding by viewBinding()
 
     init {
-        binding.image.setImageResource(R.drawable.ic_evolution_by_level)
+        binding.image.setImageResource(R.drawable.ic_evolution_by_friendship)
     }
 
-    override fun bind(item: EvolutionParam.MinLevel) {
+    override fun bind(item: EvolutionParam.MinHappiness) {
         super.bind(item)
-        binding.name.text = itemView.context.getString(R.string.evolution_level_template, item.value)
+        binding.name.text = itemView.context.getString(R.string.evolution_happiness_template, item.value)
     }
 }
