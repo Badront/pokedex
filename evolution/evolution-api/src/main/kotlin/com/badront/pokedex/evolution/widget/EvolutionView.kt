@@ -24,7 +24,8 @@ class EvolutionView @JvmOverloads constructor(
     defStyle: Int = 0
 ) : ViewGroup(context, attrs, defStyle) {
     private val pokemonViewMap = mutableMapOf<Pokemon, PokemonView>()
-    private val chainViewMap = mutableMapOf<EvolutionChain, EvolutionDetailsView>()
+    private val paramsViewMap = mutableMapOf<EvolutionChain, EvolutionParamsView>()
+    private val triggersViewMap = mutableMapOf<EvolutionChain, EvolutionTriggerView>()
     private val depthCount = mutableMapOf<Int, Int>()
     private val arrows = mutableListOf<Path>()
 
@@ -62,7 +63,7 @@ class EvolutionView @JvmOverloads constructor(
     var onItemClick: ((Item) -> Unit)? = null
         set(value) {
             field = value
-            getDetailsChildren().forEach {
+            getParamsChildren().forEach {
                 it.onItemClickListener = onItemClick
             }
         }
@@ -199,14 +200,26 @@ class EvolutionView @JvmOverloads constructor(
     }
 
     private fun layoutDetails(chain: EvolutionChain, pokemonView: PokemonView, evolvedPokemonView: PokemonView) {
-        chainViewMap[chain]?.let { detailsView ->
+        val paramsView = paramsViewMap[chain]
+        val triggerView = triggersViewMap[chain]
+        if (paramsView != null || triggerView != null) {
             val evolvedCenterY = evolvedPokemonView.top + (evolvedPokemonView.bottom - evolvedPokemonView.top) / 2
-            val detailsViewTop = evolvedCenterY - detailsView.measuredHeight
-            detailsView.layout(
+            val paramsViewTop = evolvedCenterY - (paramsView?.measuredHeight ?: 0)
+            paramsView?.layout(
                 pokemonView.right,
-                detailsViewTop,
+                paramsViewTop,
                 evolvedPokemonView.left,
                 evolvedCenterY
+            )
+            val triggerTop = (evolvedCenterY + arrowPaint.strokeWidth).toInt()
+            val triggerLeft = pokemonView.right +
+                (evolvedPokemonView.left - pokemonView.right) / 2 -
+                (triggerView?.measuredWidth ?: 0) / 2
+            triggerView?.layout(
+                triggerLeft,
+                triggerTop,
+                triggerLeft + triggerView.measuredWidth,
+                triggerTop + triggerView.measuredHeight
             )
         }
     }
@@ -260,7 +273,8 @@ class EvolutionView @JvmOverloads constructor(
 
     private fun updateWidgets() {
         detachAllPokemonViews()
-        detachAllDetailViews()
+        detachAllParamsViews()
+        detachAllTriggerViews()
         evolutionChain?.let {
             attachChain(it)
         }
@@ -268,6 +282,9 @@ class EvolutionView @JvmOverloads constructor(
     }
 
     private fun attachChain(chain: EvolutionChain) {
+        /**
+         * pokemon views
+         */
         val pokeViews = getPokemonChildren()
         val pokemonView = if (pokemonViewMap.size < pokeViews.count()) {
             pokeViews.first { pokeView ->
@@ -281,18 +298,36 @@ class EvolutionView @JvmOverloads constructor(
         pokemonView.bringToFront()
         attachViewToPokemon(pokemonView, chain.pokemon)
         if (chain.details.isNotEmpty()) {
-            val detailViews = getDetailsChildren()
-            val detailsView = if (chainViewMap.size < detailViews.count()) {
-                detailViews.first { detailView ->
-                    chainViewMap.values.none { it.id == detailView.id }
+            /**
+             * params views
+             */
+            val paramsViews = getParamsChildren()
+            val paramsView = if (paramsViewMap.size < paramsViews.count()) {
+                paramsViews.first { paramsView ->
+                    paramsViewMap.values.none { it.id == paramsView.id }
                 }
             } else {
-                createDetailsView().also {
+                createParamsView().also {
                     addView(it)
                 }
             }
-            detailsView.bringToFront()
-            attachViewToChain(detailsView, chain)
+            paramsView.bringToFront()
+            attachViewToParams(paramsView, chain)
+            /**
+             * trigger views
+             */
+            val triggerViews = getTriggerChildren()
+            val triggerView = if (triggersViewMap.size < triggerViews.count()) {
+                triggerViews.first { triggerView ->
+                    triggersViewMap.values.none { it.id == triggerView.id }
+                }
+            } else {
+                createTriggerView().also {
+                    addView(it)
+                }
+            }
+            triggerView.bringToFront()
+            attachViewToTrigger(triggerView, chain)
         }
         chain.evolvesTo.forEach { childChain ->
             attachChain(childChain)
@@ -303,16 +338,24 @@ class EvolutionView @JvmOverloads constructor(
         pokemonViewMap.clear()
     }
 
-    private fun detachAllDetailViews() {
-        chainViewMap.clear()
+    private fun detachAllParamsViews() {
+        paramsViewMap.clear()
+    }
+
+    private fun detachAllTriggerViews() {
+        triggersViewMap.clear()
     }
 
     private fun getPokemonChildren(): Sequence<PokemonView> {
         return children.filterIsInstance<PokemonView>()
     }
 
-    private fun getDetailsChildren(): Sequence<EvolutionDetailsView> {
-        return children.filterIsInstance<EvolutionDetailsView>()
+    private fun getParamsChildren(): Sequence<EvolutionParamsView> {
+        return children.filterIsInstance<EvolutionParamsView>()
+    }
+
+    private fun getTriggerChildren(): Sequence<EvolutionTriggerView> {
+        return children.filterIsInstance<EvolutionTriggerView>()
     }
 
     private fun createPokemonView(): PokemonView {
@@ -322,17 +365,24 @@ class EvolutionView @JvmOverloads constructor(
         }
     }
 
-    private fun createDetailsView(): EvolutionDetailsView {
-        return EvolutionDetailsView(context).apply {
+    private fun createParamsView(): EvolutionParamsView {
+        return EvolutionParamsView(context).apply {
             id = View.generateViewId()
             onItemClickListener = onItemClick
+        }
+    }
+
+    private fun createTriggerView(): EvolutionTriggerView {
+        return EvolutionTriggerView(context).apply {
+            id = View.generateViewId()
         }
     }
 
     override fun onViewRemoved(child: View?) {
         when (child) {
             is PokemonView -> detachViewFromPokemon(child)
-            is EvolutionDetailsView -> detachViewFromChain(child)
+            is EvolutionParamsView -> detachViewFromParams(child)
+            is EvolutionTriggerView -> detachViewFromTrigger(child)
         }
         super.onViewRemoved(child)
     }
@@ -345,40 +395,66 @@ class EvolutionView @JvmOverloads constructor(
         }
         evolutionChain?.let { chain ->
             chain.evolvesTo.forEach {
-                rebindChainToDetailsView(it)
+                rebindChainToViews(it)
             }
         }
         super.onAttachedToWindow()
     }
 
     override fun onDetachedFromWindow() {
-        pokemonViewMap.clear()
-        chainViewMap.clear()
+        detachAllPokemonViews()
+        detachAllParamsViews()
+        detachAllTriggerViews()
         super.onDetachedFromWindow()
     }
 
-    private fun rebindChainToDetailsView(chain: EvolutionChain) {
-        getDetailsChildren().find {
+    private fun rebindChainToViews(chain: EvolutionChain) {
+        /**
+         * param views
+         */
+        getParamsChildren().find {
             it.details == chain.details
         }?.let { view ->
-            chainViewMap[chain] = view
+            paramsViewMap[chain] = view
+        }
+        /**
+         * trigger views
+         */
+        getTriggerChildren().find {
+            it.details == chain.details
+        }?.let { view ->
+            triggersViewMap[chain] = view
         }
         chain.evolvesTo.forEach {
-            rebindChainToDetailsView(it)
+            rebindChainToViews(it)
         }
     }
 
-    private fun attachViewToChain(view: EvolutionDetailsView, chain: EvolutionChain) {
-        detachViewFromChain(view)
-        chainViewMap[chain] = view
+    private fun attachViewToTrigger(view: EvolutionTriggerView, chain: EvolutionChain) {
+        detachViewFromTrigger(view)
+        triggersViewMap[chain] = view
         view.details = chain.details
     }
 
-    private fun detachViewFromChain(view: EvolutionDetailsView) {
-        chainViewMap
+    private fun detachViewFromTrigger(view: EvolutionTriggerView) {
+        triggersViewMap
             .filterValues { it.id == view.id }
             .forEach {
-                chainViewMap.remove(it.key)
+                triggersViewMap.remove(it.key)
+            }
+    }
+
+    private fun attachViewToParams(view: EvolutionParamsView, chain: EvolutionChain) {
+        detachViewFromParams(view)
+        paramsViewMap[chain] = view
+        view.details = chain.details
+    }
+
+    private fun detachViewFromParams(view: EvolutionParamsView) {
+        paramsViewMap
+            .filterValues { it.id == view.id }
+            .forEach {
+                paramsViewMap.remove(it.key)
             }
     }
 

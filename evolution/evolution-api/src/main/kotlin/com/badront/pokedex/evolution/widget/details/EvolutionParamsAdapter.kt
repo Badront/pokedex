@@ -10,7 +10,7 @@ import com.badront.pokedex.item.core.domain.model.Item
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.reflect.KClass
 
-internal class EvolutionDetailsAdapter(
+internal class EvolutionParamsAdapter(
     private val onItemClick: (Item) -> Unit
 ) : BaseAsyncAdapter<EvolutionParam, BaseViewHolder<out EvolutionParam>>(itemCallback) {
     private val currentMaxViewType = AtomicInteger()
@@ -30,9 +30,7 @@ internal class EvolutionDetailsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<out EvolutionParam> {
-        val kClass = viewTypes[viewType]
-
-        return when (kClass) {
+        return when (viewTypes[viewType]) {
             EvolutionParam.Gender.Male::class, EvolutionParam.Gender.Female::class -> {
                 EvolutionGenderViewHolder(
                     parent
