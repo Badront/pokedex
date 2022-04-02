@@ -38,24 +38,24 @@ internal class EvolutionParamsAdapter(
             }
             EvolutionParam.HeldItemParam::class -> EvolutionHeldItemViewHolder(parent, onItemClick)
             EvolutionParam.ItemParam::class -> EvolutionItemViewHolder(parent, onItemClick)
-            EvolutionParam.Location::class -> TODO()
-            EvolutionParam.MinAffection::class -> TODO()
-            EvolutionParam.MinBeauty::class -> TODO()
-            EvolutionParam.MinHappiness::class -> EvolutionHappinessViewHolder(parent)
+            EvolutionParam.Location::class -> EvolutionLocationViewHolder(parent)
             EvolutionParam.MinLevel::class -> EvolutionLevelViewHolder(parent)
-            EvolutionParam.MoveParam::class -> TODO()
-            EvolutionParam.MoveTypeParam::class -> TODO()
+            EvolutionParam.MinAffection::class -> EvolutionMinAffectionViewHolder(parent)
+            EvolutionParam.MinBeauty::class -> EvolutionMinBeautyViewHolder(parent)
+            EvolutionParam.MinHappiness::class -> EvolutionMinHappinessViewHolder(parent)
+            EvolutionParam.MoveParam::class -> EvolutionKnownMoveViewHolder(parent)
+            EvolutionParam.MoveTypeParam::class -> EvolutionKnownMoveTypeViewHolder(parent)
             EvolutionParam.OverworldRain::class -> TODO()
             EvolutionParam.PartySpecies::class -> TODO()
             EvolutionParam.PartyType::class -> TODO()
             EvolutionParam.PhysicalStatsRelation.Attack::class,
             EvolutionParam.PhysicalStatsRelation.Defense::class,
-            EvolutionParam.PhysicalStatsRelation.Equal::class -> TODO()
+            EvolutionParam.PhysicalStatsRelation.Equal::class -> EvolutionPhysicalStatsRelationHolder(parent)
             EvolutionParam.TimeOfDay.Day::class,
-            EvolutionParam.TimeOfDay.Night::class -> TODO()
+            EvolutionParam.TimeOfDay.Night::class -> EvolutionTimeOfDayViewHolder(parent)
             EvolutionParam.TradeSpecies::class -> TODO()
             EvolutionParam.TurnUpsideDown::class -> TODO()
-            else -> TODO()
+            else -> throw IllegalArgumentException("Item viewType unknown")
         }
     }
 
@@ -64,21 +64,31 @@ internal class EvolutionParamsAdapter(
             is EvolutionParam.Gender -> (holder as EvolutionGenderViewHolder).bind(item)
             is EvolutionParam.HeldItemParam -> (holder as EvolutionHeldItemViewHolder).bind(item)
             is EvolutionParam.ItemParam -> (holder as EvolutionItemViewHolder).bind(item)
-            is EvolutionParam.Location -> TODO()
-            is EvolutionParam.MinAffection -> TODO()
-            is EvolutionParam.MinBeauty -> TODO()
-            is EvolutionParam.MinHappiness -> (holder as EvolutionHappinessViewHolder).bind(item)
+            is EvolutionParam.Location -> (holder as EvolutionLocationViewHolder).bind(item)
+            is EvolutionParam.MinAffection -> (holder as EvolutionMinAffectionViewHolder).bind(item)
+            is EvolutionParam.MinBeauty -> (holder as EvolutionMinBeautyViewHolder).bind(item)
+            is EvolutionParam.MinHappiness -> (holder as EvolutionMinHappinessViewHolder).bind(item)
             is EvolutionParam.MinLevel -> (holder as EvolutionLevelViewHolder).bind(item)
-            is EvolutionParam.MoveParam -> TODO()
-            is EvolutionParam.MoveTypeParam -> TODO()
+            is EvolutionParam.MoveParam -> (holder as EvolutionKnownMoveViewHolder).bind(item)
+            is EvolutionParam.MoveTypeParam -> (holder as EvolutionKnownMoveTypeViewHolder).bind(item)
             EvolutionParam.OverworldRain -> TODO()
             is EvolutionParam.PartySpecies -> TODO()
             is EvolutionParam.PartyType -> TODO()
-            EvolutionParam.PhysicalStatsRelation.Attack -> TODO()
-            EvolutionParam.PhysicalStatsRelation.Defense -> TODO()
-            EvolutionParam.PhysicalStatsRelation.Equal -> TODO()
-            EvolutionParam.TimeOfDay.Day -> TODO()
-            EvolutionParam.TimeOfDay.Night -> TODO()
+            EvolutionParam.PhysicalStatsRelation.Attack -> {
+                (holder as EvolutionPhysicalStatsRelationHolder).bind(item as EvolutionParam.PhysicalStatsRelation)
+            }
+            EvolutionParam.PhysicalStatsRelation.Defense -> {
+                (holder as EvolutionPhysicalStatsRelationHolder).bind(item as EvolutionParam.PhysicalStatsRelation)
+            }
+            EvolutionParam.PhysicalStatsRelation.Equal -> {
+                (holder as EvolutionPhysicalStatsRelationHolder).bind(item as EvolutionParam.PhysicalStatsRelation)
+            }
+            EvolutionParam.TimeOfDay.Day -> {
+                (holder as EvolutionTimeOfDayViewHolder).bind(item as EvolutionParam.TimeOfDay)
+            }
+            EvolutionParam.TimeOfDay.Night -> {
+                (holder as EvolutionTimeOfDayViewHolder).bind(item as EvolutionParam.TimeOfDay)
+            }
             is EvolutionParam.TradeSpecies -> TODO()
             EvolutionParam.TurnUpsideDown -> TODO()
         }

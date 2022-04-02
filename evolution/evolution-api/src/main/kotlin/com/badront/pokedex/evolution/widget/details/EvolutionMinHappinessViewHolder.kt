@@ -7,7 +7,7 @@ import com.badront.pokedex.evolution.core.domain.model.EvolutionParam
 import com.badront.pokedex.evolution.impl.R
 import com.badront.pokedex.evolution.impl.databinding.LiEvolutionDetailNameImageBinding
 
-class EvolutionHappinessViewHolder(parent: ViewGroup) :
+class EvolutionMinHappinessViewHolder(parent: ViewGroup) :
     BaseViewHolder<EvolutionParam.MinHappiness>(parent, R.layout.li_evolution_detail_name_image) {
     private val binding: LiEvolutionDetailNameImageBinding by viewBinding()
 

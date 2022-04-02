@@ -93,6 +93,7 @@ class EvolutionView @JvmOverloads constructor(
         )
         array.recycle()
         setWillNotDraw(false)
+        clipChildren = false
     }
 
     override fun onDraw(canvas: Canvas) {

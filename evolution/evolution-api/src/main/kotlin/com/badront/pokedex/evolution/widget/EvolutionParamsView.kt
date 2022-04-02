@@ -30,7 +30,9 @@ class EvolutionParamsView @JvmOverloads constructor(
     var onItemClickListener: ((Item) -> Unit)? = null
 
     init {
-        layoutManager = LinearLayoutManager(context, VERTICAL, false)
+        layoutManager = LinearLayoutManager(context, VERTICAL, true).apply {
+            stackFromEnd = false
+        }
         adapter = paramsAdapter
     }
 }
