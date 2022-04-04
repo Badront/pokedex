@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PokemonView">
+        <attr name="pv_size" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="small" value="1" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="PokemonTypeView">
+        <attr name="ptv_size" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="small" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>

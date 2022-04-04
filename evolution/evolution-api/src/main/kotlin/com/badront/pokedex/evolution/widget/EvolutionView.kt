@@ -17,6 +17,7 @@ import com.badront.pokedex.evolution.impl.R
 import com.badront.pokedex.item.core.domain.model.Item
 import com.badront.pokedex.pokemon.core.domain.model.Pokemon
 import com.badront.pokedex.pokemon.core.widget.PokemonView
+import kotlin.math.max
 
 class EvolutionView @JvmOverloads constructor(
     context: Context,
@@ -27,6 +28,7 @@ class EvolutionView @JvmOverloads constructor(
     private val paramsViewMap = mutableMapOf<EvolutionChain, EvolutionParamsView>()
     private val triggersViewMap = mutableMapOf<EvolutionChain, EvolutionTriggerView>()
     private val depthCount = mutableMapOf<Int, Int>()
+    private val depthHeight = mutableMapOf<Int, Int>()
     private val arrows = mutableListOf<Path>()
 
     private val arrowPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -59,6 +61,9 @@ class EvolutionView @JvmOverloads constructor(
             getPokemonChildren().forEach {
                 it.onPokemonClickListener = onPokemonClick
             }
+            getParamsChildren().forEach {
+                it.onPokemonClickListener = onPokemonClick
+            }
         }
     var onItemClick: ((Item) -> Unit)? = null
         set(value) {
@@ -85,7 +90,7 @@ class EvolutionView @JvmOverloads constructor(
         )
         pokemonSize = array.getDimensionPixelSize(
             R.styleable.EvolutionView_ev_pokemonSize,
-            context.getDimensionPixelSizeKtx(com.badront.pokedex.pokemon.api.R.dimen.default_pokemon_size)
+            context.getDimensionPixelSizeKtx(com.badront.pokedex.pokemon.api.R.dimen.pokemon_size_default)
         )
         pokemonVerticalPadding = array.getDimensionPixelOffset(
             R.styleable.EvolutionView_ev_pokemonVerticalPadding,
@@ -227,15 +232,17 @@ class EvolutionView @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         depthCount.clear()
-        evolutionChain?.let { chain ->
-            addDepthCount(0, chain)
-        }
+        depthHeight.clear()
         children.forEach { child ->
             measureChild(child, widthMeasureSpec, heightMeasureSpec)
         }
 
         var maxColumnSize = 0
         val maxColumnDepths = mutableListOf<Int>()
+        evolutionChain?.let { chain ->
+            addDepthCount(0, chain)
+            addChainHeight(0, chain)
+        }
         depthCount.forEach { (depth, count) ->
             when {
                 maxColumnSize < count -> {
@@ -249,10 +256,9 @@ class EvolutionView @JvmOverloads constructor(
             }
         }
         val maxRowSize = depthCount.size
-        var maxHeight = 0
+        val maxHeight = depthHeight.values.maxOf { it }
         var maxWidth = 0
         getPokemonChildren().firstOrNull()?.let { pokemonView ->
-            maxHeight = maxColumnSize * pokemonView.measuredHeight + (maxColumnSize - 1) * pokemonVerticalPadding
             maxWidth = maxRowSize * pokemonView.measuredWidth + (maxColumnSize - 1) * getArrowLengthTo(pokemonView)
         }
         setMeasuredDimension(
@@ -269,6 +275,23 @@ class EvolutionView @JvmOverloads constructor(
         depthCount[depth] = (depthCount[depth] ?: 0) + 1
         chain.evolvesTo.forEach { childChain ->
             addDepthCount(depth + 1, childChain)
+        }
+    }
+
+    private fun addChainHeight(depth: Int, chain: EvolutionChain) {
+        val wasHeight = depthHeight[depth] ?: 0
+        val pokemonView = pokemonViewMap[chain.pokemon]
+        val detailsView = paramsViewMap[chain]
+        if (pokemonView != null && detailsView != null) {
+            depthHeight[depth] = wasHeight + max(
+                pokemonView.measuredHeight,
+                pokemonView.measuredHeight / 2 + detailsView.measuredHeight
+            )
+        } else {
+            depthHeight[depth] = wasHeight + (pokemonView?.measuredHeight ?: 0)
+        }
+        chain.evolvesTo.forEach { childChain ->
+            addChainHeight(depth + 1, childChain)
         }
     }
 
@@ -370,6 +393,7 @@ class EvolutionView @JvmOverloads constructor(
         return EvolutionParamsView(context).apply {
             id = View.generateViewId()
             onItemClickListener = onItemClick
+            onPokemonClickListener = onPokemonClick
         }
     }
 

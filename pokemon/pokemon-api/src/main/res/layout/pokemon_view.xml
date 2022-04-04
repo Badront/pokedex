@@ -10,15 +10,15 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="@dimen/default_pokemon_size"
-        android:layout_height="@dimen/default_pokemon_size"
+        android:layout_width="@dimen/pokemon_size_default"
+        android:layout_height="@dimen/pokemon_size_default"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/pokemon_egg" />
 
     <TextView
         android:id="@+id/name"
         style="@style/Text.Regular.10"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:gravity="center"

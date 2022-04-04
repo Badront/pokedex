@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<com.badront.pokedex.pokemon.core.widget.PokemonTypeView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/typeName"
-    style="@style/Text.Bold.10.White"
+    android:id="@+id/type"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/li_pokemon_details_types_item_bg"
-    android:paddingHorizontal="@dimen/offset_8"
-    android:paddingVertical="@dimen/offset_2"
-    tools:text="Fire" />
+    android:layout_height="wrap_content" />

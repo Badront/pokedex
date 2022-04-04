@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.badront.pokedex.evolution.core.domain.model.EvolutionDetails
 import com.badront.pokedex.evolution.widget.details.EvolutionParamsAdapter
 import com.badront.pokedex.item.core.domain.model.Item
+import com.badront.pokedex.pokemon.core.domain.model.Pokemon
 
 class EvolutionParamsView @JvmOverloads constructor(
     context: Context,
@@ -17,6 +18,9 @@ class EvolutionParamsView @JvmOverloads constructor(
         EvolutionParamsAdapter(
             onItemClick = {
                 onItemClickListener?.invoke(it)
+            },
+            onPokemonClick = {
+                onPokemonClickListener?.invoke(it)
             }
         )
     }
@@ -28,6 +32,7 @@ class EvolutionParamsView @JvmOverloads constructor(
             }
         }
     var onItemClickListener: ((Item) -> Unit)? = null
+    var onPokemonClickListener: ((Pokemon) -> Unit)? = null
 
     init {
         layoutManager = LinearLayoutManager(context, VERTICAL, true).apply {

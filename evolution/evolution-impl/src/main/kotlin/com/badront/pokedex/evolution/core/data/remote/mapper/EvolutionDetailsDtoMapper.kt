@@ -34,7 +34,7 @@ internal class EvolutionDetailsDtoMapper @Inject constructor(
                     add(mapMove(dto.knownMove))
                 }
                 if (dto.knownMoveType != null) {
-                    add(mapMoveType(dto.knownMoveType))
+                    pokemonTypeDtoMapper.map(dto.knownMoveType)?.let { add(EvolutionParam.MoveTypeParam(it)) }
                 }
                 if (dto.location != null) {
                     add(EvolutionParam.Location(dto.location.name))
@@ -92,13 +92,6 @@ internal class EvolutionDetailsDtoMapper @Inject constructor(
             -1 -> EvolutionParam.PhysicalStatsRelation.Defense
             else -> null
         }
-    }
-
-    private fun mapMoveType(dto: NamedApiResourceDto): EvolutionParam.MoveTypeParam {
-        return EvolutionParam.MoveTypeParam(
-            id = Uri.parse(dto.url).lastPathSegment!!.toInt(),
-            name = dto.name
-        )
     }
 
     private fun mapMove(dto: NamedApiResourceDto): EvolutionParam.MoveParam {

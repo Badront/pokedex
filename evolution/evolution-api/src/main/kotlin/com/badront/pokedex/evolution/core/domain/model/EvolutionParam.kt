@@ -13,7 +13,7 @@ sealed class EvolutionParam {
     class ItemParam(val item: Item) : EvolutionParam()
     class HeldItemParam(val item: Item) : EvolutionParam()
     class MoveParam(val id: Int, val name: String) : EvolutionParam()
-    class MoveTypeParam(val id: Int, val name: String) : EvolutionParam()
+    class MoveTypeParam(val type: PokemonType.Type) : EvolutionParam()
     class Location(val name: String) : EvolutionParam()
     class MinLevel(val value: Int) : EvolutionParam()
     class MinHappiness(val value: Int) : EvolutionParam()

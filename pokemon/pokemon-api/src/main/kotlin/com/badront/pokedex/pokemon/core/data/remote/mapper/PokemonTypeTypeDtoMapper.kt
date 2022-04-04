@@ -24,6 +24,7 @@ class PokemonTypeTypeDtoMapper @Inject constructor() {
             "fire" -> PokemonType.Type.FIRE
             "electric" -> PokemonType.Type.ELECTRIC
             "dragon" -> PokemonType.Type.DRAGON
+            "fairy" -> PokemonType.Type.FAIRY
             else -> null
         }
     }

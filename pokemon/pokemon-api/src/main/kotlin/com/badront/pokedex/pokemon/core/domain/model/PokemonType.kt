@@ -21,6 +21,7 @@ class PokemonType(
         BUG,
         FIRE,
         ELECTRIC,
-        DRAGON
+        DRAGON,
+        FAIRY
     }
 }

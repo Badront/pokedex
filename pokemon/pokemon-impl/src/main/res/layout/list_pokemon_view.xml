@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/pokemonImage"
-        android:layout_width="@dimen/default_pokemon_size"
-        android:layout_height="@dimen/default_pokemon_size"
+        android:layout_width="@dimen/pokemon_size_default"
+        android:layout_height="@dimen/pokemon_size_default"
         android:layout_marginHorizontal="@dimen/offset_16"
         android:layout_marginTop="@dimen/offset_8"
         android:scaleType="fitCenter"

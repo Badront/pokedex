@@ -7,11 +7,13 @@ import com.badront.pokedex.core.util.recycler.BaseAsyncAdapter
 import com.badront.pokedex.core.util.recycler.BaseViewHolder
 import com.badront.pokedex.evolution.core.domain.model.EvolutionParam
 import com.badront.pokedex.item.core.domain.model.Item
+import com.badront.pokedex.pokemon.core.domain.model.Pokemon
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.reflect.KClass
 
 internal class EvolutionParamsAdapter(
-    private val onItemClick: (Item) -> Unit
+    private val onItemClick: (Item) -> Unit,
+    private val onPokemonClick: (Pokemon) -> Unit
 ) : BaseAsyncAdapter<EvolutionParam, BaseViewHolder<out EvolutionParam>>(itemCallback) {
     private val currentMaxViewType = AtomicInteger()
     private val viewTypes = SparseArrayCompat<KClass<out EvolutionParam>>()
@@ -45,16 +47,16 @@ internal class EvolutionParamsAdapter(
             EvolutionParam.MinHappiness::class -> EvolutionMinHappinessViewHolder(parent)
             EvolutionParam.MoveParam::class -> EvolutionKnownMoveViewHolder(parent)
             EvolutionParam.MoveTypeParam::class -> EvolutionKnownMoveTypeViewHolder(parent)
-            EvolutionParam.OverworldRain::class -> TODO()
-            EvolutionParam.PartySpecies::class -> TODO()
-            EvolutionParam.PartyType::class -> TODO()
+            EvolutionParam.OverworldRain::class -> EvolutionOverworldRainViewHolder(parent)
+            EvolutionParam.PartySpecies::class -> EvolutionPartySpeciesViewHolder(parent, onPokemonClick)
+            EvolutionParam.PartyType::class -> EvolutionPartyTypeViewHolder(parent)
             EvolutionParam.PhysicalStatsRelation.Attack::class,
             EvolutionParam.PhysicalStatsRelation.Defense::class,
             EvolutionParam.PhysicalStatsRelation.Equal::class -> EvolutionPhysicalStatsRelationHolder(parent)
             EvolutionParam.TimeOfDay.Day::class,
             EvolutionParam.TimeOfDay.Night::class -> EvolutionTimeOfDayViewHolder(parent)
-            EvolutionParam.TradeSpecies::class -> TODO()
-            EvolutionParam.TurnUpsideDown::class -> TODO()
+            EvolutionParam.TradeSpecies::class -> EvolutionTradeSpeciesViewHolder(parent, onPokemonClick)
+            EvolutionParam.TurnUpsideDown::class -> EvolutionTurnUpsideDownViewHolder(parent)
             else -> throw IllegalArgumentException("Item viewType unknown")
         }
     }
@@ -71,26 +73,26 @@ internal class EvolutionParamsAdapter(
             is EvolutionParam.MinLevel -> (holder as EvolutionLevelViewHolder).bind(item)
             is EvolutionParam.MoveParam -> (holder as EvolutionKnownMoveViewHolder).bind(item)
             is EvolutionParam.MoveTypeParam -> (holder as EvolutionKnownMoveTypeViewHolder).bind(item)
-            EvolutionParam.OverworldRain -> TODO()
-            is EvolutionParam.PartySpecies -> TODO()
-            is EvolutionParam.PartyType -> TODO()
-            EvolutionParam.PhysicalStatsRelation.Attack -> {
-                (holder as EvolutionPhysicalStatsRelationHolder).bind(item as EvolutionParam.PhysicalStatsRelation)
+            is EvolutionParam.OverworldRain -> (holder as EvolutionOverworldRainViewHolder).bind(item)
+            is EvolutionParam.PartySpecies -> (holder as EvolutionPartySpeciesViewHolder).bind(item)
+            is EvolutionParam.PartyType -> (holder as EvolutionPartyTypeViewHolder).bind(item)
+            is EvolutionParam.PhysicalStatsRelation.Attack -> {
+                (holder as EvolutionPhysicalStatsRelationHolder).bind(item)
             }
-            EvolutionParam.PhysicalStatsRelation.Defense -> {
-                (holder as EvolutionPhysicalStatsRelationHolder).bind(item as EvolutionParam.PhysicalStatsRelation)
+            is EvolutionParam.PhysicalStatsRelation.Defense -> {
+                (holder as EvolutionPhysicalStatsRelationHolder).bind(item)
             }
-            EvolutionParam.PhysicalStatsRelation.Equal -> {
-                (holder as EvolutionPhysicalStatsRelationHolder).bind(item as EvolutionParam.PhysicalStatsRelation)
+            is EvolutionParam.PhysicalStatsRelation.Equal -> {
+                (holder as EvolutionPhysicalStatsRelationHolder).bind(item)
             }
-            EvolutionParam.TimeOfDay.Day -> {
-                (holder as EvolutionTimeOfDayViewHolder).bind(item as EvolutionParam.TimeOfDay)
+            is EvolutionParam.TimeOfDay.Day -> {
+                (holder as EvolutionTimeOfDayViewHolder).bind(item)
             }
-            EvolutionParam.TimeOfDay.Night -> {
-                (holder as EvolutionTimeOfDayViewHolder).bind(item as EvolutionParam.TimeOfDay)
+            is EvolutionParam.TimeOfDay.Night -> {
+                (holder as EvolutionTimeOfDayViewHolder).bind(item)
             }
-            is EvolutionParam.TradeSpecies -> TODO()
-            EvolutionParam.TurnUpsideDown -> TODO()
+            is EvolutionParam.TradeSpecies -> (holder as EvolutionTradeSpeciesViewHolder).bind(item)
+            is EvolutionParam.TurnUpsideDown -> (holder as EvolutionTurnUpsideDownViewHolder).bind(item)
         }
     }
 

@@ -3,16 +3,21 @@
     <string name="evolution_gender_male">(male)</string>
     <string name="evolution_gender_female">(female)</string>
     <string name="evolution_hold_item">Holding</string>
+    <string name="evolution_trade_species">Trade for</string>
+    <string name="evolution_party_species">Party with:</string>
     <string name="evolution_location_template">Location %1$s</string>
     <string name="evolution_level_template">Level %1$d</string>
     <string name="evolution_happiness_template">Friendship %1$d</string>
     <string name="evolution_beauty_template">Beauty %1$d</string>
     <string name="evolution_affection_template">Affection %1$d</string>
     <string name="evolution_known_move_template">Known move:\n%1$s</string>
-    <string name="evolution_known_move_type_template">Known move type:\n%1$s</string>
+    <string name="evolution_known_move_type">Known move type:</string>
     <string name="evolution_day">Day</string>
     <string name="evolution_night">Night</string>
     <string name="evolution_physical_stats_relation_attack">Atk>Def</string>
     <string name="evolution_physical_stats_relation_defence">Def>Atk</string>
     <string name="evolution_physical_stats_relation_equal">Atk=Def</string>
+    <string name="evolution_overworld_rain">Rain</string>
+    <string name="evolution_upside_down">Turn console upside down</string>
+    <string name="evolution_party_type">Party with:</string>
 </resources>

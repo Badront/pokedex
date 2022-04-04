@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="default_pokemon_size">64dp</dimen>
+    <dimen name="pokemon_size_default">64dp</dimen>
+    <dimen name="pokemon_size_small">24dp</dimen>
 </resources>

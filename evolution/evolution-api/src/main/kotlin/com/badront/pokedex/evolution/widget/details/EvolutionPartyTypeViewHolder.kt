@@ -7,16 +7,16 @@ import com.badront.pokedex.evolution.core.domain.model.EvolutionParam
 import com.badront.pokedex.evolution.impl.R
 import com.badront.pokedex.evolution.impl.databinding.LiEvolutionDetailTypeBinding
 
-class EvolutionKnownMoveTypeViewHolder(parent: ViewGroup) :
-    BaseViewHolder<EvolutionParam.MoveTypeParam>(parent, R.layout.li_evolution_detail_type) {
+class EvolutionPartyTypeViewHolder(parent: ViewGroup) :
+    BaseViewHolder<EvolutionParam.PartyType>(parent, R.layout.li_evolution_detail_type) {
     private val binding: LiEvolutionDetailTypeBinding by viewBinding()
 
     init {
-        binding.extraMessage.setText(R.string.evolution_known_move_type)
+        binding.extraMessage.setText(R.string.evolution_party_type)
     }
 
-    override fun bind(item: EvolutionParam.MoveTypeParam) {
+    override fun bind(item: EvolutionParam.PartyType) {
         super.bind(item)
-        binding.type.type = item.type
+        binding.type.type = item.pokemonType
     }
 }

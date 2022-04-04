@@ -1,22 +1,15 @@
 package com.badront.pokedex.pokemon.details.presentation.model
 
-import androidx.annotation.ColorInt
 import com.badront.pokedex.core.model.StringDesc
 import com.badront.pokedex.evolution.core.domain.model.EvolutionChain
-import com.badront.pokedex.pokemon.core.domain.model.PokemonType
+import com.badront.pokedex.pokemon.core.widget.PokemonTypeUiModel
 
 sealed class PokemonDetailsUiModel {
     object Loading : PokemonDetailsUiModel()
     object LoadingError : PokemonDetailsUiModel()
     class Types(
-        val items: List<Type>
-    ) : PokemonDetailsUiModel() {
-        data class Type(
-            val type: PokemonType.Type,
-            val name: StringDesc,
-            @ColorInt val color: Int
-        )
-    }
+        val items: List<PokemonTypeUiModel>
+    ) : PokemonDetailsUiModel()
 
     data class Header(
         val text: StringDesc

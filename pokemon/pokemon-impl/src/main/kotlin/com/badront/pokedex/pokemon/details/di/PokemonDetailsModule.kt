@@ -8,8 +8,6 @@ import com.badront.pokedex.pokemon.details.presentation.mapper.PokemonDetailsTyp
 import com.badront.pokedex.pokemon.details.presentation.mapper.PokemonDetailsTypeUiMapperImpl
 import com.badront.pokedex.pokemon.details.presentation.mapper.PokemonDetailsUiModelMapper
 import com.badront.pokedex.pokemon.details.presentation.mapper.PokemonDetailsUiModelMapperImpl
-import com.badront.pokedex.pokemon.details.presentation.mapper.PokemonTypeColorMapper
-import com.badront.pokedex.pokemon.details.presentation.mapper.PokemonTypeColorMapperImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.migration.DisableInstallInCheck
@@ -37,9 +35,4 @@ internal abstract class PokemonDetailsModule {
     abstract fun bindPokemonDetailsTypeUiMapper(
         mapper: PokemonDetailsTypeUiMapperImpl
     ): PokemonDetailsTypeUiMapper
-
-    @Binds
-    abstract fun bindPokemonTypeColorMapper(
-        mapper: PokemonTypeColorMapperImpl
-    ): PokemonTypeColorMapper
 }
