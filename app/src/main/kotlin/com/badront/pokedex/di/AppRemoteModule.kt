@@ -1,19 +1,23 @@
 package com.badront.pokedex.di
 
+import android.content.Context
 import com.badront.pokedex.core.util.okhttp.CurlLoggingInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoSet
+import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -35,8 +39,20 @@ class AppRemoteModule {
 
     @Provides
     @Singleton
-    fun provideOkhttpClient(interceptors: Set<@JvmSuppressWildcards Interceptor>): OkHttpClient {
+    fun bindOkhttpCache(@ApplicationContext context: Context): Cache {
+        val cacheDir = File(context.cacheDir, "okhttp_cache")
+        val maxCacheSize = 10L * 1024L * 1024L
+        return Cache(cacheDir, maxCacheSize)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkhttpClient(
+        interceptors: Set<@JvmSuppressWildcards Interceptor>,
+        cache: Cache
+    ): OkHttpClient {
         return OkHttpClient.Builder()
+            .cache(cache)
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
