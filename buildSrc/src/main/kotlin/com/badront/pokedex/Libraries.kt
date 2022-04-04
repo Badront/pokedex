@@ -102,7 +102,7 @@ object Libraries {
         }
 
         object Hilt {
-            private const val version = "2.38.1"
+            private const val version = "2.41"
             const val core = "com.google.dagger:hilt-android:$version"
             const val compiler = "com.google.dagger:hilt-compiler:$version"
 

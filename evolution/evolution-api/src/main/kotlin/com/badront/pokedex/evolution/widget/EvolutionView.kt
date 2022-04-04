@@ -405,8 +405,15 @@ class EvolutionView @JvmOverloads constructor(
 
     override fun onViewRemoved(child: View?) {
         when (child) {
-            is PokemonView -> detachViewFromPokemon(child)
-            is EvolutionParamsView -> detachViewFromParams(child)
+            is PokemonView -> {
+                detachViewFromPokemon(child)
+                child.onPokemonClickListener = null
+            }
+            is EvolutionParamsView -> {
+                detachViewFromParams(child)
+                child.onItemClickListener = null
+                child.onPokemonClickListener = null
+            }
             is EvolutionTriggerView -> detachViewFromTrigger(child)
         }
         super.onViewRemoved(child)

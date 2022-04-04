@@ -10,10 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
+import coil.request.Disposable
 import com.badront.pokedex.core.ext.android.content.getDimensionPixelOffsetKtx
 import com.badront.pokedex.core.ext.android.view.setTint
 import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
 import com.badront.pokedex.core.ext.androidx.palette.graphics.getPalette
+import com.badront.pokedex.core.ext.kotlin.lazyUnsynchronized
 import com.badront.pokedex.core.ext.kotlinx.coroutines.flow.observe
 import com.badront.pokedex.core.model.LoadingState
 import com.badront.pokedex.core.presentation.BaseFragment
@@ -30,7 +32,7 @@ import javax.inject.Inject
 class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
     @Inject
     internal lateinit var pokemonDetailsViewModelFactory: PokemonDetailsViewModelFactory
-    private val parameters: PokemonDetailsParameters by lazy {
+    private val parameters: PokemonDetailsParameters by lazyUnsynchronized {
         PokemonDetailsFragmentArgs.fromBundle(requireArguments()).parameters
     }
     private val viewModel: PokemonDetailsViewModel by viewModels {
@@ -39,7 +41,7 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
 
     private val viewBinding by viewBinding(FrPokemonDetailsBinding::bind)
 
-    private val detailsAdapter by lazy {
+    private val detailsAdapter by lazyUnsynchronized {
         PokemonDetailsAdapter(
             onPokemonClick = {
                 viewModel.onEvent(PokemonDetailsViewModel.Event.EvolutionPokemonClick(it))
@@ -49,19 +51,21 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
             }
         )
     }
-    private val spacingItemDecoration by lazy {
+    private val spacingItemDecoration by lazyUnsynchronized {
         LinearSpacingItemDecoration(
             orientation = RecyclerView.VERTICAL,
             betweenItems = requireContext().getDimensionPixelOffsetKtx(com.badront.pokedex.design.R.dimen.offset_16)
         )
     }
 
-    private val defaultPalette by lazy {
+    private val defaultPalette by lazyUnsynchronized {
         ColorPalette(
             primaryColor = requireContext().getColor(com.badront.pokedex.design.R.color.wireframe),
             onPrimaryColor = requireContext().getColor(com.badront.pokedex.design.R.color.white)
         )
     }
+
+    private var paletteDisposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,9 +96,11 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
     }
 
     override fun onDestroyView() {
+        paletteDisposable?.dispose()
         with(viewBinding.pokemonDetails) {
             removeItemDecoration(spacingItemDecoration)
         }
+        viewBinding.loadingError.onRetryClickListener = null
         super.onDestroyView()
     }
 
@@ -144,7 +150,8 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
         viewBinding.pokemonName.text = header.name
         viewBinding.pokemonNumber.text = header.number
         viewBinding.pokemonImage.transitionName = header.image
-        viewBinding.pokemonImage.loadPokemon(header.image) {
+        paletteDisposable?.dispose()
+        paletteDisposable = viewBinding.pokemonImage.loadPokemon(header.image) {
             listener(onError = { _, _ ->
                 startPostponedEnterTransition()
             }) { _, _ ->

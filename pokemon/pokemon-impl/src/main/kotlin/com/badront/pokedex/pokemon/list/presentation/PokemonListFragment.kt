@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.badront.pokedex.core.ext.android.content.orientation
+import com.badront.pokedex.core.ext.kotlin.lazyUnsynchronized
 import com.badront.pokedex.core.ext.kotlinx.coroutines.flow.observe
 import com.badront.pokedex.core.presentation.BaseFragment
 import com.badront.pokedex.core.util.recycler.PageScrollListener
@@ -28,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
     private val viewBinding by viewBinding(FrPokemonListBinding::bind)
     private val viewModel: PokemonListViewModel by viewModels()
-    private val pokemonsAdapter by lazy {
+    private val pokemonsAdapter by lazyUnsynchronized {
         PokemonListAdapter(
             onPokemonClick = { position, pokemon ->
                 viewModel.onEvent(PokemonListViewModel.Event.OnPokemonClick(position, pokemon))
@@ -38,7 +39,7 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
             }
         )
     }
-    private val pokemonsLayoutManager by lazy {
+    private val pokemonsLayoutManager by lazyUnsynchronized {
         val orientation = requireContext().orientation
         val totalSpanCount = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             TOTAL_SPAN_COUNT_LANDSCAPE
@@ -62,7 +63,7 @@ class PokemonListFragment : BaseFragment(R.layout.fr_pokemon_list) {
             }
         }
     }
-    private val spaceItemDecoration by lazy {
+    private val spaceItemDecoration by lazyUnsynchronized {
         PokemonGridSpacingItemDecoration(requireContext())
     }
     private val nextPageScrollListener: PageScrollListener = object : PageScrollListener() {

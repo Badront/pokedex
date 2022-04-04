@@ -12,8 +12,7 @@ import com.badront.pokedex.pokemon.impl.R
 class PokemonDetailsAdapter(
     private val onPokemonClick: (Pokemon) -> Unit,
     private val onRetryClick: () -> Unit
-) :
-    BaseAsyncAdapter<PokemonDetailsUiModel, BaseViewHolder<out PokemonDetailsUiModel>>(Companion) {
+) : BaseAsyncAdapter<PokemonDetailsUiModel, BaseViewHolder<out PokemonDetailsUiModel>>(Companion) {
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
