@@ -47,7 +47,6 @@ class EvolutionView @JvmOverloads constructor(
                 invalidate()
             }
         }
-    private var pokemonSize: Int
     var evolutionChain: EvolutionChain? = null
         set(value) {
             if (value != field) {
@@ -87,10 +86,6 @@ class EvolutionView @JvmOverloads constructor(
         arrowPadding = array.getDimensionPixelOffset(
             R.styleable.EvolutionView_ev_arrowPadding,
             context.getDimensionPixelOffsetKtx(com.badront.pokedex.design.R.dimen.offset_4)
-        )
-        pokemonSize = array.getDimensionPixelSize(
-            R.styleable.EvolutionView_ev_pokemonSize,
-            context.getDimensionPixelSizeKtx(com.badront.pokedex.pokemon.api.R.dimen.pokemon_size_default)
         )
         pokemonVerticalPadding = array.getDimensionPixelOffset(
             R.styleable.EvolutionView_ev_pokemonVerticalPadding,
