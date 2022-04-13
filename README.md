@@ -16,3 +16,4 @@
 - [ ] Compose
 
 Icon by [Nikita Golubev from Flaticon](https://www.flaticon.com/authors/nikita-golubev)
+Design inspired by [Ricardo Schiniegoski](https://www.figma.com/community/file/979132880663340794)
