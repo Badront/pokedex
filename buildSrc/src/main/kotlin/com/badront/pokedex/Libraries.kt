@@ -170,7 +170,7 @@ object Libraries {
 
     object ImageLoading {
         object Coil {
-            private const val version = "2.0.0-rc01"
+            private const val version = "2.0.0-rc03"
             const val core = "io.coil-kt:coil:$version"
             const val compose = "io.coil-kt:coil-compose:$version"
         }

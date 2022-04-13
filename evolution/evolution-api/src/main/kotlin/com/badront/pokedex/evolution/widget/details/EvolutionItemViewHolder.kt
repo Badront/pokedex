@@ -10,7 +10,7 @@ import com.badront.pokedex.item.core.domain.model.Item
 
 internal class EvolutionItemViewHolder(
     parent: ViewGroup,
-    private val onItemCLick: (Item) -> Unit
+    onItemCLick: (Item) -> Unit
 ) :
     BaseViewHolder<EvolutionParam.ItemParam>(parent, R.layout.li_evolution_detail_item) {
     private val binding: LiEvolutionDetailItemBinding by viewBinding()

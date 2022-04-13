@@ -13,7 +13,7 @@ internal class DetailedPokemonUiModelMapperImpl @Inject constructor(
     override fun map(state: PokemonDetailsViewModel.State): DetailedPokemonUiModel {
         return DetailedPokemonUiModel(
             loadingState = state.loadingState,
-            header = state.pokemon?.let { headerUiMapper.map(it.pokemon, state.palette) },
+            header = state.pokemon?.let { headerUiMapper.map(it.pokemon) },
             detailedList = when (state.loadingState) {
                 LoadingState.LOADING -> {
                     listOf(PokemonDetailsUiModel.Loading)
@@ -23,7 +23,7 @@ internal class DetailedPokemonUiModelMapperImpl @Inject constructor(
                 }
                 else -> {
                     state.pokemon?.details?.let { detailedPokemon ->
-                        pokemonDetailsUiMapper.map(detailedPokemon, state.palette, state.evolutionChain)
+                        pokemonDetailsUiMapper.map(detailedPokemon, state.evolutionChain)
                     } ?: emptyList()
                 }
             }

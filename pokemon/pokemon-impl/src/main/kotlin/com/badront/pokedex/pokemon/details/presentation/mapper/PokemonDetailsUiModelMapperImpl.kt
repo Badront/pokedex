@@ -1,6 +1,5 @@
 package com.badront.pokedex.pokemon.details.presentation.mapper
 
-import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
 import com.badront.pokedex.core.model.StringDesc
 import com.badront.pokedex.core.model.measurements.HeightUOM
 import com.badront.pokedex.core.model.measurements.WeightUOM
@@ -15,7 +14,6 @@ internal class PokemonDetailsUiModelMapperImpl @Inject constructor(
 ) : PokemonDetailsUiModelMapper {
     override fun map(
         model: PokemonDetails,
-        palette: ColorPalette?,
         evolutionChain: EvolutionChain?
     ): List<PokemonDetailsUiModel> {
         return buildList {

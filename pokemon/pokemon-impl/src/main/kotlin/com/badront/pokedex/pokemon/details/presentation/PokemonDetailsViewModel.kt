@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.badront.pokedex.core.coroutines.AppDispatchers
-import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
 import com.badront.pokedex.core.model.LoadingState
 import com.badront.pokedex.core.presentation.BaseViewModel
 import com.badront.pokedex.evolution.core.domain.model.EvolutionChain
@@ -19,6 +18,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -32,24 +32,21 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
     private val detailedPokemonMapper: DetailedPokemonUiModelMapper,
     private val appDispatchers: AppDispatchers
 ) : BaseViewModel<DetailedPokemonUiModel, PokemonDetailsViewModel.Action, PokemonDetailsViewModel.Event>() {
-    private var stateFlow = MutableStateFlow(State(loadingState = LoadingState.LOADING))
-    private var state: State
-        get() = stateFlow.value
-        set(value) {
-            stateFlow.value = value
-        }
+    private var loadingStateFlow = MutableStateFlow(LoadingState.LOADING)
+    private var evolutionFlow = MutableStateFlow<EvolutionChain?>(null)
+
+    @Volatile
+    private var state: State = State(LoadingState.LOADING)
 
     init {
-        subscribeForPokemon()
         subscribeForState()
         loadPokemonDetails()
     }
 
     override fun onEvent(event: Event) {
         when (event) {
-            is Event.PokemonColorPaletteReceived -> state = state.copy(palette = event.palette)
             Event.ReloadPokemon -> {
-                state = state.copy(loadingState = LoadingState.LOADING)
+                loadingStateFlow.value = LoadingState.LOADING
                 loadPokemonDetails()
             }
             is Event.EvolutionPokemonClick -> {
@@ -64,7 +61,7 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
         launch(
             onError = {
                 onLoadingError(it)
-                state = state.copy(loadingState = LoadingState.ERROR)
+                loadingStateFlow.value = LoadingState.ERROR
             }
         ) {
             /**
@@ -73,16 +70,14 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
             val pokemonDeferred = throwAsync { loadAndSaveDetailedPokemon(parameters.id) }
             val evolutionChainDeferred = async { loadPokemonEvolutionChain(parameters.id) }
             val pokemon = pokemonDeferred.await()
-            state = if (pokemon.isSuccess) {
-                state.copy(loadingState = LoadingState.DATA)
+            loadingStateFlow.value = if (pokemon.isSuccess) {
+                LoadingState.DATA
             } else {
                 pokemon.exceptionOrNull()?.let { onLoadingError(it) }
-                state.copy(loadingState = LoadingState.ERROR)
+                LoadingState.ERROR
             }
             val evolutionChain = evolutionChainDeferred.await()
-            evolutionChain?.getOrNull()?.let { chain ->
-                state = state.copy(evolutionChain = chain)
-            }
+            evolutionFlow.value = evolutionChain?.getOrNull()
         }
     }
 
@@ -90,16 +85,16 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
         sendAction(Action.ShowError(throwable.localizedMessage))
     }
 
-    private fun subscribeForPokemon() {
-        getPokemonDetailsByIdAsFlow(parameters.id)
-            .onEach { detailedPokemon ->
-                state = state.copy(pokemon = detailedPokemon)
-            }
-            .launchIn(viewModelScope)
-    }
-
     private fun subscribeForState() {
-        stateFlow
+        combine(
+            loadingStateFlow,
+            getPokemonDetailsByIdAsFlow(parameters.id),
+            evolutionFlow
+        ) { loading, details, evolutionChain ->
+            State(loading, details, evolutionChain).also {
+                state = it
+            }
+        }
             .map { state ->
                 detailedPokemonMapper.map(state)
             }
@@ -113,7 +108,6 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
     internal data class State(
         val loadingState: LoadingState = LoadingState.LOADING,
         val pokemon: DetailedPokemon? = null,
-        val palette: ColorPalette? = null,
         val evolutionChain: EvolutionChain? = null
     )
 
@@ -123,7 +117,6 @@ internal class PokemonDetailsViewModel @AssistedInject constructor(
     }
 
     internal sealed class Event {
-        class PokemonColorPaletteReceived(val palette: ColorPalette) : Event()
         class EvolutionPokemonClick(val pokemon: Pokemon) : Event()
         object ReloadPokemon : Event()
     }

@@ -1,6 +1,5 @@
 package com.badront.pokedex.pokemon.details.presentation.model
 
-import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
 import com.badront.pokedex.core.model.LoadingState
 
 internal class DetailedPokemonUiModel(
@@ -11,7 +10,6 @@ internal class DetailedPokemonUiModel(
     class Header(
         val name: String,
         val number: String,
-        val image: String,
-        val colorPalette: ColorPalette?
+        val image: String
     )
 }

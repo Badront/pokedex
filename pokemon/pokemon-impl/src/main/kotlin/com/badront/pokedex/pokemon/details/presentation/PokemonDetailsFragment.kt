@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
-import coil.request.Disposable
 import com.badront.pokedex.core.ext.android.content.getDimensionPixelOffsetKtx
 import com.badront.pokedex.core.ext.android.view.setTint
 import com.badront.pokedex.core.ext.androidx.palette.graphics.ColorPalette
@@ -65,8 +64,6 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
         )
     }
 
-    private var paletteDisposable: Disposable? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val transition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
@@ -93,14 +90,16 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
         viewBinding.back.setOnClickListener {
             findNavController().popBackStack()
         }
+        applyPalette(defaultPalette)
     }
 
     override fun onDestroyView() {
-        paletteDisposable?.dispose()
         with(viewBinding.pokemonDetails) {
             removeItemDecoration(spacingItemDecoration)
+            adapter = null
         }
         viewBinding.loadingError.onRetryClickListener = null
+        viewBinding.back.setOnClickListener(null)
         super.onDestroyView()
     }
 
@@ -146,31 +145,28 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
     }
 
     private fun bindHeader(header: DetailedPokemonUiModel.Header) {
-        applyPalette(header)
         viewBinding.pokemonName.text = header.name
         viewBinding.pokemonNumber.text = header.number
         viewBinding.pokemonImage.transitionName = header.image
-        paletteDisposable?.dispose()
-        paletteDisposable = viewBinding.pokemonImage.loadPokemon(header.image) {
-            listener(onError = { _, _ ->
-                startPostponedEnterTransition()
-            }) { _, _ ->
-                startPostponedEnterTransition()
-            }
-            if (header.colorPalette == null) {
-                getPalette { colorPalette ->
-                    colorPalette?.let {
-                        viewModel.onEvent(
-                            PokemonDetailsViewModel.Event.PokemonColorPaletteReceived(it)
-                        )
+        viewBinding.pokemonImage.loadPokemon(header.image) {
+            allowHardware(false)
+            listener(
+                onError = { _, _ ->
+                    startPostponedEnterTransition()
+                },
+                onSuccess = { _, result ->
+                    startPostponedEnterTransition()
+                    result.getPalette { colorPalette ->
+                        colorPalette?.let {
+                            applyPalette(it)
+                        }
                     }
                 }
-            }
+            )
         }
     }
 
-    private fun applyPalette(header: DetailedPokemonUiModel.Header) {
-        val palette = header.colorPalette ?: defaultPalette
+    private fun applyPalette(palette: ColorPalette) {
         with(palette) {
             viewBinding.pokemonImageHolder.setBackgroundColor(primaryColor)
             viewBinding.pokemonName.setTextColor(onPrimaryColor)

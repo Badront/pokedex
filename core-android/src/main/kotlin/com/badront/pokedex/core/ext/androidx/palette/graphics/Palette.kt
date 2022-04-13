@@ -5,6 +5,7 @@ import android.os.AsyncTask
 import androidx.core.graphics.drawable.toBitmap
 import androidx.palette.graphics.Palette
 import coil.request.ImageRequest
+import coil.request.SuccessResult
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
@@ -14,8 +15,12 @@ import kotlin.coroutines.resume
 inline fun ImageRequest.Builder.getPalette(crossinline block: (ColorPalette?) -> Unit) {
     allowHardware(false)
     listener { _, result ->
-        result.drawable.toBitmap().getPalette(block)
+        result.getPalette(block)
     }
+}
+
+inline fun SuccessResult.getPalette(crossinline block: (ColorPalette?) -> Unit) {
+    drawable.toBitmap().getPalette(block)
 }
 
 /**
