@@ -71,6 +71,7 @@
         android:layout_marginBottom="@dimen/offset_4"
         android:background="@drawable/fr_pokemon_details_list_bg"
         android:clipChildren="false"
+        android:clipToPadding="false"
         android:paddingTop="@dimen/offset_40"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
