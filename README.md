@@ -8,9 +8,9 @@
 
 Screenshots               |  Screenshots  |  Screenshots
 :-------------------------:|:-------------------------:|:-------------------------:
-![](https://github.com/Badront/pokedex/blob/master/art/list.jpeg)|![](https://github.com/Badront/pokedex/blob/master/art/pikachu.jpeg)|![](https://github.com/Badront/pokedex/blob/master/art/poliwag.jpeg)
-![](https://github.com/Badront/pokedex/blob/master/art/eevee_1.jpeg)|![](https://github.com/Badront/pokedex/blob/master/art/eevee_2.jpeg)|![](https://github.com/Badront/pokedex/blob/master/art/gloom.jpeg)
-![](https://github.com/Badront/pokedex/blob/master/art/bulbasaur.jpeg)|![](https://github.com/Badront/pokedex/blob/master/art/ivysaur.jpeg)|![](https://github.com/Badront/pokedex/blob/master/art/venusaur.jpeg)
+![](art/list.jpeg)|![](art/pikachu.jpeg)|![](art/poliwag.jpeg)
+![](art/eevee_1.jpeg)|![](art/eevee_2.jpeg)|![](art/gloom.jpeg)
+![](art/bulbasaur.jpeg)|![](art/ivysaur.jpeg)|![](art/venusaur.jpeg)
 
 ## Roadmap
 
