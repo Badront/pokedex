@@ -51,9 +51,13 @@ class PokemonDetailsFragment : BaseFragment(R.layout.fr_pokemon_details) {
         )
     }
     private val spacingItemDecoration by lazyUnsynchronized {
+        val verticalSidesPadding =
+            requireContext().getDimensionPixelOffsetKtx(com.badront.pokedex.design.R.dimen.offset_8)
         LinearSpacingItemDecoration(
             orientation = RecyclerView.VERTICAL,
-            betweenItems = requireContext().getDimensionPixelOffsetKtx(com.badront.pokedex.design.R.dimen.offset_16)
+            betweenItems = requireContext().getDimensionPixelOffsetKtx(com.badront.pokedex.design.R.dimen.offset_16),
+            paddingTop = verticalSidesPadding,
+            paddingBottom = verticalSidesPadding
         )
     }
 
