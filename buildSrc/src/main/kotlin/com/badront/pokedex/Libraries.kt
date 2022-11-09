@@ -44,7 +44,7 @@ object Libraries {
         private const val material = "1.4.0-beta01"
         private const val androidxCardview = "1.0.0"
         private const val constraintLayoutVersion = "2.1.2"
-        private const val workManagerVersion = "2.5.0"
+        private const val workManagerVersion = "2.7.1"
         private const val preferenceVersion = "1.1.1"
         const val core = "androidx.core:core-ktx:$androidxCore"
         const val fragmentsKtx = "androidx.fragment:fragment-ktx:$androidxFragments"
@@ -83,7 +83,7 @@ object Libraries {
 
     object Database {
         object Room {
-            internal const val version = "2.3.0"
+            internal const val version = "2.4.3"
             const val runtime = "androidx.room:room-runtime:$version"
             const val ktx = "androidx.room:room-ktx:$version"
             const val compiler = "androidx.room:room-compiler:$version"
@@ -161,7 +161,7 @@ object Libraries {
 
     object Other {
         const val timber = "com.jakewharton.timber:timber:5.0.1"
-        const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.7"
+        const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.9.1"
         const val viewBindingDelegate = "com.github.kirich1409:viewbindingpropertydelegate:1.5.3"
         const val palette = "androidx.palette:palette-ktx:1.0.0"
         const val flexbox = "com.google.android.flexbox:flexbox:3.0.0"
