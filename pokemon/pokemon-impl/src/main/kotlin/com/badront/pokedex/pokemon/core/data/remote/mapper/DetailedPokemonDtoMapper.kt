@@ -22,22 +22,34 @@ internal class DetailedPokemonDtoMapper @Inject constructor(
                 number = dto.id,
                 image = pokemonDtoMapper.pokemonImageById(dto.id)
             ),
-            details = PokemonDetails(
-                id = dto.id,
-                height = dto.height?.let {
-                    Height(
-                        value = it.toDouble(),
-                        uom = HeightUOM.DM
-                    )
-                },
-                weight = dto.weight?.let {
-                    Weight(
-                        value = it.toDouble(),
-                        uom = WeightUOM.HG
-                    )
-                },
-                types = dto.types.mapNotNull { typeDtoMapper.map(it) }
-            )
+            details = mapDetails(dto)
+        )
+    }
+
+    private fun mapDetails(dto: PokemonDetailsDto): PokemonDetails {
+        return PokemonDetails(
+            id = dto.id,
+            height = dto.height?.let {
+                mapHeight(it)
+            },
+            weight = dto.weight?.let {
+                mapWeight(it)
+            },
+            types = dto.types.mapNotNull { typeDtoMapper.map(it) }
+        )
+    }
+
+    private fun mapHeight(height: Int): Height {
+        return Height(
+            value = height.toDouble(),
+            uom = HeightUOM.DM
+        )
+    }
+
+    private fun mapWeight(weight: Int): Weight {
+        return Weight(
+            value = weight.toDouble(),
+            uom = WeightUOM.HG
         )
     }
 }

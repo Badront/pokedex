@@ -92,7 +92,6 @@ ext {
         testImplementation Libraries.Test.assertJ
         testImplementation Libraries.Test.Mockito.core
         testImplementation Libraries.Test.Mockito.kotlin
-        testImplementation Libraries.Koin.test
 
         androidTestImplementation Libraries.Test.JUnit.kotlin
         androidTestImplementation Libraries.Test.JUnit.android

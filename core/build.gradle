@@ -9,4 +9,6 @@ apply from: "$rootDir/config/dependencies-groups.gradle"
 dependencies {
     kotlinLib()
     implementation Libraries.DI.inject
+
+    tests()
 }
