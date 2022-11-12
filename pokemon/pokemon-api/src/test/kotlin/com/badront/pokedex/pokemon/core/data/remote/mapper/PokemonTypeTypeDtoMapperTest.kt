@@ -20,7 +20,14 @@ class PokemonTypeTypeDtoMapperTest {
 
     @Test
     fun `some types maps correctly`() {
-        val names = mapOf(
+        val nameToTypes = someTypes()
+        nameToTypes.forEach { (name, type) ->
+            assert(mapper.map(NamedApiResourceDto(name, "")) == type)
+        }
+    }
+
+    fun someTypes(): Map<String, PokemonType.Type> {
+        return mapOf(
             "normal" to PokemonType.Type.NORMAL,
             "rock" to PokemonType.Type.ROCK,
             "ghost" to PokemonType.Type.GHOST,
@@ -30,8 +37,5 @@ class PokemonTypeTypeDtoMapperTest {
             "ice" to PokemonType.Type.ICE,
             "bug" to PokemonType.Type.BUG
         )
-        names.forEach { (name, type) ->
-            assert(mapper.map(NamedApiResourceDto(name, "")) == type)
-        }
     }
 }

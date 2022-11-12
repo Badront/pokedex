@@ -10,6 +10,10 @@ import com.badront.pokedex.pokemon.core.data.local.dao.PokemonDetailsDao
 import com.badront.pokedex.pokemon.core.data.local.dao.PokemonStatsDao
 import com.badront.pokedex.pokemon.core.data.local.dao.PokemonTypeDao
 import com.badront.pokedex.pokemon.core.data.remote.PokemonApi
+import com.badront.pokedex.pokemon.core.data.remote.mapper.DetailedPokemonDtoMapper
+import com.badront.pokedex.pokemon.core.data.remote.mapper.DetailedPokemonDtoMapperImpl
+import com.badront.pokedex.pokemon.core.data.remote.mapper.PokemonTypeDtoMapper
+import com.badront.pokedex.pokemon.core.data.remote.mapper.PokemonTypeDtoMapperImpl
 import com.badront.pokedex.pokemon.core.domain.repository.PokemonListRepository
 import com.badront.pokedex.pokemon.core.domain.repository.PokemonRepository
 import com.badront.pokedex.pokemon.details.di.PokemonDetailsModule
@@ -24,6 +28,12 @@ import retrofit2.Retrofit
 @Module(includes = [PokemonListModule::class, PokemonDetailsModule::class])
 @InstallIn(SingletonComponent::class)
 internal abstract class PokemonModule {
+
+    @Binds
+    abstract fun bindPokemonTypeDtoMapper(mapper: PokemonTypeDtoMapperImpl): PokemonTypeDtoMapper
+
+    @Binds
+    abstract fun bindDetailedPokemonDtoMapper(mapper: DetailedPokemonDtoMapperImpl): DetailedPokemonDtoMapper
 
     @Binds
     abstract fun bindPokemonListRepository(repository: PokemonListRepositoryImpl): PokemonListRepository
