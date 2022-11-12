@@ -36,7 +36,7 @@ class PokemonTypeDtoMapperTest {
                 url = DataFactory.randomString()
             )
         )
-        val result = mapper.map(dto)
+        mapper.map(dto)
         verify(typeMapper).map(dto.type)
     }
 

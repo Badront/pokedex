@@ -9,6 +9,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import kotlin.math.abs
 
 class DetailedPokemonDtoMapperTest {
     private lateinit var mapper: DetailedPokemonDtoMapperImpl
@@ -110,7 +111,7 @@ class DetailedPokemonDtoMapperTest {
             id = DataFactory.randomInt(),
             name = DataFactory.randomString(),
             order = DataFactory.randomInt(),
-            types = (0..(DataFactory.randomInt() % 10)).map {
+            types = (0..abs(DataFactory.randomInt() % 10) + 1).map {
                 PokemonTypeDtoFactory.randomValid("normal")
             },
             stats = emptyList(),
