@@ -1,10 +1,10 @@
 package com.badront.pokedex.pokemon.core.data
 
-import PokemonEntity
-import com.badreont.pokedex.database.pokemon.dao.ListPokemonDao
 import com.badront.pokedex.core.model.Either
 import com.badront.pokedex.core.model.Page
 import com.badront.pokedex.core.model.PageInfo
+import com.badront.pokedex.database.pokemon.dao.ListPokemonDao
+import com.badront.pokedex.database.pokemon.model.PokemonEntity
 import com.badront.pokedex.pokemon.DataFactory
 import com.badront.pokedex.pokemon.core.data.local.mapper.ListPokemonEntityMapper
 import com.badront.pokedex.pokemon.core.data.remote.PokemonApi
@@ -26,7 +26,6 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import retrofit2.HttpException
 import retrofit2.Response
-import kotlin.math.abs
 
 class PokemonListRepositoryTest {
     private lateinit var repository: PokemonListRepositoryImpl
@@ -35,7 +34,7 @@ class PokemonListRepositoryTest {
     private lateinit var pokemonApi: PokemonApi
 
     @Mock
-    private lateinit var listPokemonDao: com.badreont.pokedex.database.pokemon.dao.ListPokemonDao
+    private lateinit var listPokemonDao: ListPokemonDao
 
     @Mock
     private lateinit var pokemonDtoMapper: PokemonDtoMapper
@@ -162,7 +161,7 @@ class PokemonListRepositoryTest {
     }
 
     private fun pokemonSuccessApiResult(): ListPokemonResultDto<PokemonDto> {
-        val dtoItems = (0..abs(DataFactory.randomInt() % 1000) + 1).map {
+        val dtoItems = (0..DataFactory.randomAbsInt() % 1000 + 1).map {
             PokemonDto(
                 name = DataFactory.randomString(),
                 url = DataFactory.randomString()
@@ -194,7 +193,7 @@ class PokemonListRepositoryTest {
     }
 
     private fun getPokemonEntities(): List<PokemonEntity> {
-        return (0..abs(DataFactory.randomInt() % 1000) + 1).map {
+        return (0..DataFactory.randomAbsInt() % 1000 + 1).map {
             getPokemonEntity()
         }
     }

@@ -1,4 +1,4 @@
-package com.badront.pokedex.pokemon
+package com.badront.pokedex.database
 
 import java.util.UUID
 import kotlin.math.abs
