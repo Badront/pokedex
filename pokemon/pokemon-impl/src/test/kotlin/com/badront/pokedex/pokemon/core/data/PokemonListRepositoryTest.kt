@@ -1,20 +1,17 @@
 package com.badront.pokedex.pokemon.core.data
 
+import PokemonEntity
+import com.badreont.pokedex.database.pokemon.dao.ListPokemonDao
 import com.badront.pokedex.core.model.Either
 import com.badront.pokedex.core.model.Page
 import com.badront.pokedex.core.model.PageInfo
-import com.badront.pokedex.pokemon.core.data.local.dao.ListPokemonDao
+import com.badront.pokedex.pokemon.DataFactory
 import com.badront.pokedex.pokemon.core.data.local.mapper.ListPokemonEntityMapper
-import com.badront.pokedex.pokemon.core.data.local.model.PokemonEntity
 import com.badront.pokedex.pokemon.core.data.remote.PokemonApi
-import com.badront.pokedex.pokemon.core.data.remote.mapper.DataFactory
 import com.badront.pokedex.pokemon.core.data.remote.mapper.PokemonDtoMapper
 import com.badront.pokedex.pokemon.core.data.remote.model.ListPokemonResultDto
 import com.badront.pokedex.pokemon.core.data.remote.model.PokemonDto
 import com.badront.pokedex.pokemon.core.domain.model.Pokemon
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOf
@@ -24,6 +21,9 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.any
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 import retrofit2.HttpException
 import retrofit2.Response
 import kotlin.math.abs
@@ -35,7 +35,7 @@ class PokemonListRepositoryTest {
     private lateinit var pokemonApi: PokemonApi
 
     @Mock
-    private lateinit var listPokemonDao: ListPokemonDao
+    private lateinit var listPokemonDao: com.badreont.pokedex.database.pokemon.dao.ListPokemonDao
 
     @Mock
     private lateinit var pokemonDtoMapper: PokemonDtoMapper

@@ -11,6 +11,7 @@ dependencies {
     implementation project(AppModules.core)
     implementation project(AppModules.coreDesign)
     implementation project(AppModules.coreAndroid)
+    implementation project(AppModules.coreDB)
     implementation project(AppModules.Pokemon.api)
     implementation project(AppModules.Evolution.api)
     kotlinLib()

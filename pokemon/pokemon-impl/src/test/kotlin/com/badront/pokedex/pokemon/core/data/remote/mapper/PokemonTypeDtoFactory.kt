@@ -1,6 +1,7 @@
 package com.badront.pokedex.pokemon.core.data.remote.mapper
 
 import com.badront.pokedex.core.data.remote.model.NamedApiResourceDto
+import com.badront.pokedex.pokemon.DataFactory
 import com.badront.pokedex.pokemon.core.data.remote.model.PokemonTypeDto
 
 object PokemonTypeDtoFactory {

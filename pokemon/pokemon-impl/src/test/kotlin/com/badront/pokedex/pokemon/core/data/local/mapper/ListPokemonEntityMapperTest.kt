@@ -1,7 +1,7 @@
 package com.badront.pokedex.pokemon.core.data.local.mapper
 
-import com.badront.pokedex.pokemon.core.data.local.model.PokemonEntity
-import com.badront.pokedex.pokemon.core.data.remote.mapper.DataFactory
+import com.badront.pokedex.database.pokemon.model.PokemonEntity
+import com.badront.pokedex.pokemon.DataFactory
 import com.badront.pokedex.pokemon.core.domain.model.Pokemon
 import org.junit.Test
 

@@ -92,6 +92,7 @@ object Libraries {
 
     object DI {
         const val inject = "javax.inject:javax.inject:1"
+
         object Dagger {
             private const val version = "2.41"
             const val core = "com.google.dagger:dagger:$version"
@@ -138,25 +139,33 @@ object Libraries {
 
     object Test {
         object JUnit {
-            const val core = "junit:junit:4.13"
+            const val core = "junit:junit:4.13.2"
             const val kotlin = "org.jetbrains.kotlin:kotlin-test-junit:${Kotlin.version}"
-            const val android = "androidx.test.ext:junit:1.1.1"
+            const val android = "androidx.test.ext:junit:1.1.4"
+            const val androidKtx = "androidx.test.ext:junit-ktx:1.1.4"
         }
 
         object AndroidX {
-            private const val androidXTestVersion = "1.2.0"
+            private const val androidXTestVersion = "1.5.0"
             const val core = "androidx.test:core:$androidXTestVersion"
+            const val coreKtx = "androidx.test:core-ktx:$androidXTestVersion"
+
+            const val espresso = "androidx.test:espresso:espresso-core:3.5.0"
+
+            const val truth = "androidx.test.ext:truth:$androidXTestVersion"
+
             const val runner = "androidx.test:runner:$androidXTestVersion"
             const val rules = "androidx.test:rules:$androidXTestVersion"
+
             const val room = "androidx.room:room-testing:${Database.Room.version}"
         }
 
         object Mockito {
-            const val core = "org.mockito:mockito-core:3.3.3"
-            const val kotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+            const val core = "org.mockito:mockito-core:4.8.1"
+            const val kotlin = "org.mockito.kotlin:mockito-kotlin:4.0.0"
         }
 
-        const val assertJ = "org.assertj:assertj-core:3.16.1"
+        const val assertJ = "org.assertj:assertj-core:3.23.1"
     }
 
     object Other {

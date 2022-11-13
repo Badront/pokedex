@@ -1,14 +1,15 @@
 package com.badront.pokedex.pokemon.core.data.remote.mapper
 
+import com.badront.pokedex.pokemon.DataFactory
 import com.badront.pokedex.pokemon.core.data.remote.model.PokemonDetailsDto
 import com.badront.pokedex.pokemon.core.domain.model.PokemonType
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.any
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 import kotlin.math.abs
 
 class DetailedPokemonDtoMapperTest {

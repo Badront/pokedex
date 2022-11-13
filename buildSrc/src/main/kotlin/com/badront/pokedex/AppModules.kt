@@ -5,6 +5,7 @@ object AppModules {
     const val core = ":core"
     const val coreDesign = ":core-design"
     const val coreAndroid = ":core-android"
+    const val coreDB = ":core-database"
 
     object Pokemon {
         private const val DIR = ":pokemon"

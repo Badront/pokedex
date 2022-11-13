@@ -95,6 +95,12 @@ ext {
 
         androidTestImplementation Libraries.Test.JUnit.kotlin
         androidTestImplementation Libraries.Test.JUnit.android
+        androidTestImplementation Libraries.Test.JUnit.androidKtx
+
+        androidTestImplementation Libraries.Test.AndroidX.core
+        androidTestImplementation Libraries.Test.AndroidX.coreKtx
+
+        androidTestImplementation Libraries.Test.AndroidX.truth
 
         androidTestImplementation(Libraries.Test.AndroidX.runner) {
             exclude group: 'com.android.support', module: 'support-annotations'
