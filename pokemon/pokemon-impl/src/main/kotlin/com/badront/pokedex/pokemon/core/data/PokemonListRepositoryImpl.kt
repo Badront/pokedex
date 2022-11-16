@@ -3,7 +3,7 @@ package com.badront.pokedex.pokemon.core.data
 import com.badront.pokedex.core.model.Either
 import com.badront.pokedex.core.model.Page
 import com.badront.pokedex.core.model.PageInfo
-import com.badront.pokedex.pokemon.core.data.local.dao.ListPokemonDao
+import com.badront.pokedex.database.pokemon.dao.ListPokemonDao
 import com.badront.pokedex.pokemon.core.data.local.mapper.ListPokemonEntityMapper
 import com.badront.pokedex.pokemon.core.data.remote.PokemonApi
 import com.badront.pokedex.pokemon.core.data.remote.mapper.PokemonDtoMapper

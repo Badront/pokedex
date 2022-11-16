@@ -92,10 +92,17 @@ ext {
         testImplementation Libraries.Test.assertJ
         testImplementation Libraries.Test.Mockito.core
         testImplementation Libraries.Test.Mockito.kotlin
-        testImplementation Libraries.Koin.test
 
         androidTestImplementation Libraries.Test.JUnit.kotlin
         androidTestImplementation Libraries.Test.JUnit.android
+        androidTestImplementation Libraries.Test.JUnit.androidKtx
+
+        androidTestImplementation Libraries.Test.AndroidX.core
+        androidTestImplementation Libraries.Test.AndroidX.coreKtx
+
+        androidTestImplementation Libraries.Test.AndroidX.truth
+
+        androidTestImplementation Libraries.Test.Kaspresso.core
 
         androidTestImplementation(Libraries.Test.AndroidX.runner) {
             exclude group: 'com.android.support', module: 'support-annotations'

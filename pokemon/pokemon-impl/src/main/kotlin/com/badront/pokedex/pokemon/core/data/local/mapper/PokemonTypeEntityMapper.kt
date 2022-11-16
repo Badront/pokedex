@@ -1,6 +1,6 @@
 package com.badront.pokedex.pokemon.core.data.local.mapper
 
-import com.badront.pokedex.pokemon.core.data.local.model.PokemonTypeEntity
+import com.badront.pokedex.database.pokemon.model.PokemonTypeEntity
 import com.badront.pokedex.pokemon.core.domain.model.PokeId
 import com.badront.pokedex.pokemon.core.domain.model.PokemonType
 import javax.inject.Inject

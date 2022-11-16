@@ -12,15 +12,6 @@ android {
         applicationId "com.badront.pokedex"
         versionCode 1
         versionName "1.0"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += [
-                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
-                        "room.incremental"     : "true",
-                        "room.expandProjection": "true"
-                ]
-            }
-        }
     }
 }
 
@@ -28,6 +19,7 @@ dependencies {
     implementation project(AppModules.core)
     implementation project(AppModules.coreDesign)
     implementation project(AppModules.coreAndroid)
+    implementation project(AppModules.coreDB)
     implementation project(AppModules.Pokemon.api)
     implementation project(AppModules.Pokemon.impl)
     implementation project(AppModules.Item.api)

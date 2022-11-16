@@ -1,10 +1,10 @@
 package com.badront.pokedex.pokemon.core.data
 
 import com.badront.pokedex.core.model.Either
-import com.badront.pokedex.core.utils.db.DbTransactionRunner
-import com.badront.pokedex.pokemon.core.data.local.dao.PokemonDetailsDao
-import com.badront.pokedex.pokemon.core.data.local.dao.PokemonStatsDao
-import com.badront.pokedex.pokemon.core.data.local.dao.PokemonTypeDao
+import com.badront.pokedex.database.pokemon.dao.PokemonDetailsDao
+import com.badront.pokedex.database.pokemon.dao.PokemonStatsDao
+import com.badront.pokedex.database.pokemon.dao.PokemonTypeDao
+import com.badront.pokedex.database.utils.DbTransactionRunner
 import com.badront.pokedex.pokemon.core.data.local.mapper.DetailedPokemonEntityMapper
 import com.badront.pokedex.pokemon.core.data.remote.PokemonApi
 import com.badront.pokedex.pokemon.core.data.remote.mapper.DetailedPokemonDtoMapper
