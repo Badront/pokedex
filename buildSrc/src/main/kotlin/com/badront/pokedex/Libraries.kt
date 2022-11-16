@@ -165,6 +165,13 @@ object Libraries {
             const val kotlin = "org.mockito.kotlin:mockito-kotlin:4.0.0"
         }
 
+        object Kaspresso {
+            private const val version = "1.2.1"
+            const val core = "com.kaspersky.android-components:kaspresso:$version"
+            const val allure = "com.kaspersky.android-components:kaspresso-allure-support:$version"
+            const val compose = "com.kaspersky.android-components:kaspresso-compose-support:$version"
+        }
+
         const val assertJ = "org.assertj:assertj-core:3.23.1"
     }
 
