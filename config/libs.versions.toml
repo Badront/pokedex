@@ -33,6 +33,7 @@ android-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-c
 android-viewmodel-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "android-lifecycle" }
 android-viewmodel-common = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "android-lifecycle" }
 
+android-support-annotation = "androidx.annotation:annotation:1.5.0"
 android-support-fragments = { module = "androidx.fragment:fragment-ktx", version.ref = "android-fragments" }
 android-support-core = { module = "androidx.core:core-ktx", version.ref = "android-core" }
 android-support-browser = { module = "androidx.browser:browser", version.ref = "android-browser" }
