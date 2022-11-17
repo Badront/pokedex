@@ -123,7 +123,7 @@ object Libraries {
 
     object Navigation {
         object Jetpack {
-            private const val version = "2.4.1"
+            private const val version = "2.5.3"
 
             const val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
             const val core = "androidx.navigation:navigation-ui-ktx:$version"
