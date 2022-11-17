@@ -14,8 +14,8 @@ object Libraries {
     }
 
     object Kotlin {
-        internal const val version = "1.5.31"
-        private const val coroutinesVersion = "1.5.2"
+        internal const val version = "1.7.10"
+        private const val coroutinesVersion = "1.6.3"
         const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version"
         const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
         const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
@@ -76,7 +76,7 @@ object Libraries {
 
     object Converter {
         object Gson {
-            private const val version = "2.8.9"
+            private const val version = "2.10"
             const val core = "com.google.code.gson:gson:$version"
         }
     }
@@ -94,7 +94,7 @@ object Libraries {
         const val inject = "javax.inject:javax.inject:1"
 
         object Dagger {
-            private const val version = "2.41"
+            private const val version = "2.44.2"
             const val core = "com.google.dagger:dagger:$version"
             const val processor = "com.google.dagger:dagger-android-processor:$version"
             const val compiler = "com.google.dagger:dagger-compiler:$version"
@@ -103,7 +103,7 @@ object Libraries {
         }
 
         object Hilt {
-            private const val version = "2.41"
+            private const val version = "2.44.2"
             const val core = "com.google.dagger:hilt-android:$version"
             const val compiler = "com.google.dagger:hilt-compiler:$version"
 
@@ -150,7 +150,7 @@ object Libraries {
             const val core = "androidx.test:core:$androidXTestVersion"
             const val coreKtx = "androidx.test:core-ktx:$androidXTestVersion"
 
-            const val espresso = "androidx.test:espresso:espresso-core:3.5.0"
+            const val espresso = "androidx.test.espresso:espresso-core:3.5.0"
 
             const val truth = "androidx.test.ext:truth:$androidXTestVersion"
 
