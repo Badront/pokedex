@@ -22,7 +22,7 @@ class DetailedPokemonDtoMapperTest {
 
     @Before
     fun setup() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
         mapper = DetailedPokemonDtoMapperImpl(pokemonDtoMapper, typeDtoMapper)
     }
 

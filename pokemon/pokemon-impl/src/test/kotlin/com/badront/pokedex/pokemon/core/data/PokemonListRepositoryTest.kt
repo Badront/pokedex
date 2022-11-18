@@ -43,7 +43,7 @@ class PokemonListRepositoryTest {
 
     @Before
     fun setup() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
         listPokemonEntityMapper = ListPokemonEntityMapper()
         repository = PokemonListRepositoryImpl(pokemonApi, listPokemonDao, pokemonDtoMapper, listPokemonEntityMapper)
     }
