@@ -1,5 +1,3 @@
-import com.badront.pokedex.AppModules
-
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -41,22 +39,22 @@ android {
         }
         getByName("release") {
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "../config/proguard-rules.pro")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "../build-logic/proguard-rules.pro")
         }
     }
 }
 
 dependencies {
-    implementation(project(AppModules.core))
-    implementation(project(AppModules.coreDesign))
-    implementation(project(AppModules.coreAndroid))
-    implementation(project(AppModules.coreDB))
-    implementation(project(AppModules.Pokemon.api))
-    implementation(project(AppModules.Pokemon.impl))
-    implementation(project(AppModules.Item.api))
-    implementation(project(AppModules.Item.impl))
-    implementation(project(AppModules.Evolution.api))
-    implementation(project(AppModules.Evolution.impl))
+    implementation(project(":core"))
+    implementation(project(":core-design"))
+    implementation(project(":core-android"))
+    implementation(project(":core-database"))
+    implementation(project(":pokemon:pokemon-api"))
+    implementation(project(":pokemon:pokemon-impl"))
+    implementation(project(":item:item-api"))
+    implementation(project(":item:item-impl"))
+    implementation(project(":evolution:evolution-api"))
+    implementation(project(":evolution:evolution-impl"))
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlin.coroutines.core)

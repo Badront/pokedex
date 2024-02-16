@@ -1,5 +1,3 @@
-import com.badront.pokedex.AppModules
-
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -29,10 +27,10 @@ android {
 }
 
 dependencies {
-    implementation(project(AppModules.core))
-    implementation(project(AppModules.coreDesign))
-    implementation(project(AppModules.coreAndroid))
-    implementation(project(AppModules.Item.api))
+    implementation(project(":core"))
+    implementation(project(":core-design"))
+    implementation(project(":core-android"))
+    implementation(project(":item:item-api"))
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlin.coroutines.core)
