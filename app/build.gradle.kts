@@ -1,46 +1,14 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
+    id("convention.android-application")
+    id("convention.module-core")
     id("dagger.hilt.android.plugin")
 }
 
 android {
-    compileSdk = libs.versions.compileSdk.get().toInt()
-
     defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
         applicationId = "com.badront.pokedex"
         versionCode = 1
         versionName = "1.0"
-
-        multiDexEnabled = true
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
-    }
-
-    buildFeatures {
-        viewBinding = true
-    }
-
-    buildTypes {
-        getByName("debug") {
-            isMinifyEnabled = false
-            versionNameSuffix = "-debug"
-            applicationIdSuffix = ".debug"
-        }
-        getByName("release") {
-            isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "../build-logic/proguard-rules.pro")
-        }
     }
 }
 
