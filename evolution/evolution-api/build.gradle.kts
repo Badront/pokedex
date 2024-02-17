@@ -11,8 +11,6 @@ dependencies {
     implementation(project(":item:item-api"))
     implementation(project(":pokemon:pokemon-api"))
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlin.coroutines.core)
     implementation(libs.kotlin.coroutines.android)
 
     implementation(libs.logging.timber)

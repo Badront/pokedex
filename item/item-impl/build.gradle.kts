@@ -11,9 +11,6 @@ dependencies {
     implementation(project(":core-android"))
     implementation(project(":item:item-api"))
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlin.coroutines.core)
-
     implementation(libs.logging.timber)
 
     implementation(libs.di.inject)

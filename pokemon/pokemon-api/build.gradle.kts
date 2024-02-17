@@ -9,9 +9,6 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":core-design"))
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlin.coroutines.core)
-
     implementation(libs.image.coil.core)
     implementation(libs.view.viewBindingDelegate)
 

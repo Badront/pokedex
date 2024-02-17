@@ -12,9 +12,6 @@ dependencies {
     implementation(project(":pokemon:pokemon-api"))
     implementation(project(":evolution:evolution-api"))
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlin.coroutines.core)
-
     implementation(libs.android.viewmodel.core)
 
     implementation(libs.logging.timber)

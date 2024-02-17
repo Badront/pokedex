@@ -47,6 +47,18 @@ android-material-core = "com.google.android.material:material:1.7.0"
 android-workmanager = "androidx.work:work-runtime-ktx:2.7.1"
 android-preferences = "androidx.preference:preference-ktx:1.1.1"
 
+compose-android-bom = "androidx.compose:compose-bom:2023.06.01"
+compose-android-runtime = { module = "androidx.compose.runtime:runtime" }
+compose-android-ui = { module = "androidx.compose.ui:ui" }
+compose-android-uiUtils = { module = " androidx.compose.ui:ui-util" }
+compose-android-uiGraphics = { module = "androidx.compose.ui:ui-graphics" }
+compose-android-UiTooling = { module = "androidx.compose.ui:ui-tooling" }
+compose-android-UiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose-android-UiTestManifest = { module = "androidx.compose.ui:ui-test-manifest" }
+compose-material = { module = "androidx.compose.material3:material3" }
+compose-android-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-compose", version = "2.6.1" }
+compose-accompanistSystemUi = { module = "com.google.accompanist:accompanist-systemuicontroller", version = "0.30.1" }
+
 retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 
@@ -111,6 +123,10 @@ plugins = [
 ]
 kotlin = [
     "kotlin-stdlib",
+    "kotlin-coroutines-core"
+]
+kotlin-android = [
+    "kotlin-stdlib",
     "kotlin-coroutines-core",
     "kotlin-coroutines-android"
 ]
@@ -122,8 +138,6 @@ viewModel = [
 support = [
     "android-support-compat",
     "android-support-core",
-    "android-workmanager",
-    "android-preferences"
 ]
 supportView = [
     "android-support-fragments",
@@ -140,16 +154,16 @@ viewBinding = [
 supportBrowser = [
     "android-support-browser"
 ]
-navigationJetpack = [
+navigation-jetpack = [
     "navigation-jetpack-fragment",
     "navigation-jetpack-core"
 ]
-networkCore = [
+network-core = [
     "converter-gson",
     "retrofit-core",
     "okhttp-core"
 ]
-networkFull = [
+network-full = [
     "converter-gson",
     "retrofit-core",
     "retrofit-converter-gson",
@@ -166,4 +180,12 @@ coil = [
 room = [
     "room-runtime",
     "room-ktx"
+]
+compose-android = [
+    "compose-android-ui",
+    "compose-android-uiUtils",
+    "compose-android-uiGraphics",
+    "compose-android-lifecycle",
+    "compose-material",
+    "image-coil-compose"
 ]

@@ -16,8 +16,6 @@ android {
 }
 dependencies {
     implementation(project(":core"))
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlin.coroutines.core)
 
     implementation(libs.logging.timber)
 

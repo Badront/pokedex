@@ -4,8 +4,6 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.kotlin.stdlib)
-
     implementation(libs.logging.timber)
 
     implementation(libs.android.support.compat)

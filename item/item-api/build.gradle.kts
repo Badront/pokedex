@@ -9,9 +9,6 @@ dependencies {
     implementation(project(":core-android"))
     implementation(project(":core-design"))
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlin.coroutines.core)
-
     implementation(libs.di.inject)
     implementation(libs.hilt.core)
     kapt(libs.hilt.compiler)

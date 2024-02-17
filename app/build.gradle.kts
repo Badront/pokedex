@@ -24,9 +24,6 @@ dependencies {
     implementation(project(":evolution:evolution-api"))
     implementation(project(":evolution:evolution-impl"))
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlin.coroutines.core)
-
     implementation(libs.di.inject)
     implementation(libs.hilt.core)
     kapt(libs.hilt.compiler)

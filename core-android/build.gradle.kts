@@ -7,8 +7,6 @@ plugins {
 dependencies {
     implementation(project(":core"))
     implementation(project(":core-design"))
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlin.coroutines.core)
     implementation(libs.android.viewmodel.core)
     implementation(libs.android.viewmodel.lifecycle)
     implementation(libs.android.viewmodel.common)
