@@ -5,8 +5,8 @@ plugins {
     id("kotlin-parcelize")
 }
 dependencies {
-    implementation(project(":core"))
-    implementation(project(":core-design"))
+    implementation(project(":core:common"))
+    implementation(project(":core:design"))
     implementation(libs.android.viewmodel.core)
     implementation(libs.android.viewmodel.lifecycle)
     implementation(libs.android.viewmodel.common)

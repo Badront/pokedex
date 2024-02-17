@@ -6,9 +6,9 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core"))
-    implementation(project(":core-design"))
-    implementation(project(":core-android"))
+    implementation(project(":core:common"))
+    implementation(project(":core:design"))
+    implementation(project(":core:android"))
     implementation(project(":item:item-api"))
 
     implementation(libs.logging.timber)
