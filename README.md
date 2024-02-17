@@ -24,5 +24,6 @@ Screenshots               |  Screenshots  |  Screenshots
 - [x] Coil
 - [x] Custom views
 - [x] Palette
-- [ ] JUnit
+- [x] JUnit
+- [x] Night Theme
 - [ ] Compose
