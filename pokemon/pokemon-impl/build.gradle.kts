@@ -5,10 +5,10 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 dependencies {
-    implementation(project(":core"))
-    implementation(project(":core-design"))
-    implementation(project(":core-android"))
-    implementation(project(":core-database"))
+    implementation(project(":core:common"))
+    implementation(project(":core:design"))
+    implementation(project(":core:android"))
+    implementation(project(":core:database"))
     implementation(project(":pokemon:pokemon-api"))
     implementation(project(":evolution:evolution-api"))
 

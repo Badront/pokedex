@@ -5,9 +5,9 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core"))
-    implementation(project(":core-android"))
-    implementation(project(":core-design"))
+    implementation(project(":core:common"))
+    implementation(project(":core:android"))
+    implementation(project(":core:design"))
 
     implementation(libs.di.inject)
     implementation(libs.hilt.core)
